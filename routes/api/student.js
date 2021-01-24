@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const stuServ = require("../../services/studentService");
-const { asyncHandler } = require("../getSendResult");
+const { asyncHandler } = require("../routeTool/getSendResult");
 
 
 // localhost:5008/api/student?page=2&sex=1

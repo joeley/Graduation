@@ -1,22 +1,22 @@
 {
-  "name": "test",
+  "name": "MiStore",
   "version": "1.0.0",
-  "description": "每一节课都是一个分支，分支名为课程名称编号",
+  "description": "joeley",
   "main": "index.js",
   "scripts": {
     "start": "nodemon -x npm run server",
-    "server": "node index"
+    "server": "node index --inspect index"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DuYi-Edu/DuYi-Node.git"
+    "url": "git+https://github.com/joeley/Graduation.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/DuYi-Edu/DuYi-Node/issues"
+    "url": "https://github.com/joeley/Graduation/issues"
   },
-  "homepage": "https://github.com/DuYi-Edu/DuYi-Node#readme",
+  "homepage": "https://github.com/joeley/Graduation#readme",
   "devDependencies": {
     "@types/node": "^13.9.3",
     "nodemon": "^2.0.3"

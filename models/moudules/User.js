@@ -4,7 +4,7 @@ const { DataTypes } = require("sequelize");
 const User = sequelize.define(
   "User",
   {
-    userName: {
+    username: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -26,9 +26,6 @@ const User = sequelize.define(
     },
   },
   {
-    // freezeTableName:true,
-    // createdAt: false,
-    // updatedAt: false,
     paranoid: true //从此以后，该表的数据不会真正的删除，而是增加一列deletedAt，记录删除的时间
   }
 );

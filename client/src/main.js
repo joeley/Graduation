@@ -30,9 +30,9 @@ axios.defaults.timeout = 8000;
 axios.interceptors.response.use(function(response){
   const path = location.pathname; 
   let res = response.data;
-  if(res.status == 0){              // 成功
+  if(res.code == 0){              // 成功
     return res.data;
-  }else if(res.status == 10){       // 没权限
+  }else if(res.code == 10){       // 没权限
     if(path =='/login') return;
     if(path !='/index'){
       window.location.href = "/login";              

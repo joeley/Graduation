@@ -20,8 +20,8 @@ export default {
     
   },
   mounted(){
-    this.getUserInfo();
-    this.getCartCount();
+    // this.getUserInfo();
+    // this.getCartCount();
   },
   methods:{
     getUserInfo(){

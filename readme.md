@@ -1,10 +1,37 @@
-每一节课都是一个分支，分支名为课程名称编号
+我的毕业设计
 
-要切换到相应的课程，仅需切换分支即可
+##表之间的关系
+```javascript
+Class.hasMany(Student);
+Student.belongsTo(Class);
 
-例如要切换到第一章第一节课，运行下面的命令即可：
+Category.hasMany(Product);
+Product.belongsTo(Category);
 
-```shell
-git checkout 1-1
+
+User.belongsToMany(Product, { through: 'RCart' });
+Product.belongsToMany(User, { through: 'RCart' });
+
+User.hasMany(Address);
+Address.belongsTo(User);
+
+User.hasMany(Order);
+Order.belongsTo(User);
+
+Address.hasOne(Order);
+Order.belongsTo(Address);
+
+Order.belongsToMany(Product, { through: 'RList' });
+Product.belongsToMany(Order, { through: 'RList' });
+
+User.hasMany(Navigation);
+Navigation.belongsTo(User);
+
+Navigation.belongsToMany(Product, { through: 'RMenu' });
+Product.belongsToMany(Navigation, { through: 'RMenu' });
 ```
-      
+
+业务
+code 0 成功
+code 1 失败 
+code 3 重新登录

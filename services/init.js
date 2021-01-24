@@ -1,6 +1,8 @@
 const validate = require("validate.js");
 const moment = require("moment");
 
+
+// 全局拓展datetime验证器
 validate.extend(validate.validators.datetime, {
   /**
    * 该函数会自动用于日期格式转换
@@ -18,6 +20,7 @@ validate.extend(validate.validators.datetime, {
   },
   /**
    * 用户显示错误消息时，使用的显示字符串
+   * 报错时显示
    */
   format(value, options) {
     let format = "YYYY-MM-DD";

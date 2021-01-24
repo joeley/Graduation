@@ -1,3 +1,5 @@
+const path =  require('path');
+
 module.exports = {
     devServer:{
       host:'localhost',
@@ -5,13 +7,14 @@ module.exports = {
       open:true,
       proxy:{
         '/api':{
-          target:'http://mall-pre.springboot.cn',
+          // target:'http://mall-pre.springboot.cn',
+          target:'http://localhost:5008',
           changeOrigin:true,
-          pathRewrite:{
-            '/api':''
-          }
+          // pathRewrite:{
+          //   '/api':''
+          // }
         }
-      },
-      outputDir: path.resolve(__dirname, "../public")
-    }
+      }
+    },
+    outputDir: path.resolve(__dirname, "../public/")
   }

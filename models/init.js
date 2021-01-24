@@ -1,2 +1,10 @@
+
+
 require("./relation");
-require("./sync");
+
+const syncFn = require("./sync");
+
+
+syncFn(()=>{
+  require("../mock/init")
+});

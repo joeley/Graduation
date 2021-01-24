@@ -9,5 +9,5 @@ const result = Mock.mock({
   ],
 }).datas;
 
-const Class = require("../models/Class");
+const Class = require("../models/moudules/Class");
 Class.bulkCreate(result);
