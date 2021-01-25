@@ -25,6 +25,10 @@ const RCart = sequelize.define(
     quantity:{
       type: DataTypes.INTEGER,
       allowNull: false,
+    },
+    selected:{   // 是否已选择     
+      type: DataTypes.BOOLEAN,
+      allowNull: false
     }
   },
   {

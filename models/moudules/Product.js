@@ -24,15 +24,15 @@ const Product = sequelize.define(
     //   },
     // },
 
-    productSelected: {   // 是否已选择     
-      type: DataTypes.BOOLEAN,
-      allowNull: false
-    },
+    // productSelected: {   // 是否已选择     
+    //   type: DataTypes.BOOLEAN,
+    //   allowNull: false
+    // },
     productStock: {     // 货物总存量     
       type: DataTypes.INTEGER,
       allowNull: true   
     },
-    productStatus: {    
+    productStatus: {    // 0 在售，1 下架
       type: DataTypes.INTEGER,
       allowNull: false
     },
@@ -80,43 +80,47 @@ const Product = sequelize.define(
       type: DataTypes.STRING,
       allowNull: true
     },
-    carouselFlag:{
+    galleryFlag:{
       type: DataTypes.BOOLEAN,
       allowNull: false
     },
-    carouselImg1: {         
+    galleryText: {
       type: DataTypes.STRING,
       allowNull: true
     },
-    carouselImg2: {         
+    gallerylImg1: {         
       type: DataTypes.STRING,
       allowNull: true
     },
-    carouselImg3: {         
+    gallerylImg2: {         
       type: DataTypes.STRING,
       allowNull: true
     },
-    carouselImg4: {         
+    gallerylImg3: {         
       type: DataTypes.STRING,
       allowNull: true
     },
-    carouselImg5: {         
+    gallerylImg4: {         
       type: DataTypes.STRING,
       allowNull: true
     },
-    carouselImg6: {         
+    gallerylImg5: {         
       type: DataTypes.STRING,
       allowNull: true
     },
-    carouselImg7: {         
+    gallerylImg6: {         
       type: DataTypes.STRING,
       allowNull: true
     },
-    carouselImg8: {         
+    gallerylImg7: {         
       type: DataTypes.STRING,
       allowNull: true
     },
-    carouselImg9: {         
+    gallerylImg8: {         
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    gallerylImg9: {         
       type: DataTypes.STRING,
       allowNull: true
     },
@@ -125,6 +129,10 @@ const Product = sequelize.define(
       allowNull: false
     },
     videoSrc: {         
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    videoCover:{
       type: DataTypes.STRING,
       allowNull: true
     },
@@ -144,11 +152,15 @@ const Product = sequelize.define(
       type: DataTypes.STRING,
       allowNull: true
     },
-    order: {
+    order: {                 // 在分类的排序
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    tag:{
+    tag:{                    // 秒杀 新品
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    tagColor:{ 
       type: DataTypes.STRING,
       allowNull: false
     }

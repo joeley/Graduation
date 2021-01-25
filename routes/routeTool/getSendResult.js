@@ -32,6 +32,7 @@ exports.asyncHandler = (handler,succeedMsg,failMsg) => {
       }else{
         res.send({
           code: 0,
+          msg:succeedMsg,
           data:result
         })
       }

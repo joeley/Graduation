@@ -23,7 +23,9 @@ app.use(function(req, res,next){
 
 // 把上面的路由抽离出来
 app.use("/api/student", require("./api/student"));
-app.use("/api/user",require("./api/user"));
+app.use("/api/user", require("./api/user"));
+app.use("/api/product", require("./api/product"))
+app.use("/api/category", require("./api/category"))
 
 // app.use("/api/book", require("./api/book"));
 // app.use("/api/class", require("./api/class"));

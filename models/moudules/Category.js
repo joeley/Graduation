@@ -9,7 +9,7 @@ const Category = sequelize.define(
       allowNull: false,
     },
     order: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: false,
     }
   },

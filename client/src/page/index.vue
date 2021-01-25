@@ -4,7 +4,18 @@
       <div class="swiper-box">
         <div class="nav-menu">
           <ul class="menu-wrap">
-            <li class="menu-item">
+            <li class="menu-item" v-for="(item,i) in categoryList" :key=i>
+              <a href="javascript:;">{{item.describe}}</a>
+              <div class="children">
+                <div v-for="(ele,j) in item.productList" :key="j">
+                  <a :href="'/product/'+ele.id">
+                    <img v-lazy="ele.productMainImage" alt />
+                    {{ele.productName}}
+                  </a>
+                </div>
+              </div>
+            </li>
+            <!-- <li class="menu-item">
               <a href="javascript:;">手机 电话卡</a>
               <div class="children">
                 <ul v-for="(item,i) in menuList" :key="i">
@@ -44,7 +55,7 @@
             <li class="menu-item">
               <a href="javascript:;">生活 箱包</a>
               <div class="children"></div>
-            </li>
+            </li> -->
           </ul>
         </div>
         <swiper v-bind:options="swiperOption">
@@ -82,7 +93,7 @@
               <img v-lazy="'/imgs/mix-alpha.jpg'" alt />
             </a>
           </div>
-          <div class="list-box">
+          <!-- <div class="list-box">
             <div class="list" v-for="(arr,i) in phoneList" v-bind:key="i">
               <div class="item" v-for="(item,j) in arr" v-bind:key="j">
                 <span v-bind:class="[j%3==0?'new-pro':'kill-pro']">{{j%3==0?'新品':'秒杀'}}</span>
@@ -93,6 +104,23 @@
                   <h3>{{item.name}}</h3>
                   <p>{{item.subtitle}}</p>
                   <p class="price" @click="addCart(item.id)">{{item.price}}元</p>
+                </div>
+              </div>
+            </div>
+          </div> -->
+          <div class="list-box">
+            <div class="list" v-for="(arr,i) in recommendList" :key="i">
+              <div class="item" v-for="(item,j) in arr" v-bind:key="j">
+                <span  :style="{
+                  backgroundColor:item.tagColor
+                }">{{ item.tag }}</span>
+                <div class="item-img">
+                  <img v-lazy="item.productMainImage" alt />
+                </div> 
+                <div class="item-info">
+                  <h3>{{item.productName}}</h3>
+                  <p>{{item.productSubtitle}}</p>
+                  <p class="price" @click="addCart(item.id)">{{item.productPrice}}元</p>
                 </div>
               </div>
             </div>
@@ -147,6 +175,7 @@ export default {
           prevEl: ".swiper-button-prev",
         },
       },
+      categoryList:[],
       slideList: [
         {
           id: "42",
@@ -164,35 +193,6 @@ export default {
           id: "46",
           img: "/imgs/slider/slide-4.jpg",
         },
-      ],
-      menuList: [
-        [
-          {
-            id: 30,
-            img: "/imgs/item-box-1.png",
-            name: "小米CC9",
-          },
-          {
-            id: 31,
-            img: "/imgs/item-box-2.png",
-            name: "小米8青春版",
-          },
-          {
-            id: 32,
-            img: "/imgs/item-box-3.jpg",
-            name: "Redmi K20 Pro",
-          },
-          {
-            id: 33,
-            img: "/imgs/item-box-4.jpg",
-            name: "移动4G专区",
-          },
-        ],
-        [0, 0, 0, 0],
-        [0, 0, 0, 0],
-        [0, 0, 0, 0],
-        [0, 0, 0, 0],
-        [0, 0, 0, 0],
       ],
       adsList: [
         {
@@ -212,7 +212,7 @@ export default {
           img: "/imgs/ads/ads-4.jpg",
         },
       ],
-      phoneList: [],
+      recommendList: [],
       showModal: false,
     };
   },
@@ -227,18 +227,19 @@ export default {
   },
   methods: {
     init() {
-      this.axios
-        .get("/products", {
-          params: {
-            categoryId: 100012,
-            pageSize: 14,
-          },
-        })
-        .then((res) => {
-          console.log(res);
-          res.list = res.list.slice(6, 14);
-          this.phoneList = [res.list.slice(0, 4), res.list.slice(4, 8)];
-        });
+      this.getCategory();
+      this.getRecommend();
+    },
+    getRecommend(){
+      this.axios.get("/product/recommend").then((res) => {
+          this.recommendList = [res.slice(0,4), res.slice(4, 8)];
+      })
+    },
+    getCategory(){
+      this.axios.get("/category/").then((res) => {
+        console.log(res)
+        this.categoryList = res
+      })
     },
     goToCart() {
       this.$router.push("/cart");
@@ -263,7 +264,6 @@ export default {
           // this.showModal = true;
           console.log(res);
           console.log(id)
-
         });
     },
   },
@@ -309,7 +309,7 @@ export default {
           }
           &:hover {
             .children {
-              display: block;
+              display: flex;
             }
           }
           .children {
@@ -321,26 +321,27 @@ export default {
             top: 0;
             left: 264px;
             border: 1px solid $colorH;
-            ul {
-              display: flex;
-              justify-content: space-between;
+            flex-wrap:wrap;
+            justify-content: flex-start;
+            align-items:flex-start;
+            align-content:flex-start;
+            div{
               height: 75px;
-              li {
-                height: 75px;
-                line-height: 75px;
-                flex: 1;
-                padding-left: 35px;
-              }
+              line-height: 75px;
+              width:205px;
+              flex: 1;
+              padding-left: 35px;
+              flex:0 1 auto;
               a {
                 color: $colorB;
                 font-size: 14px;
                 display: inline-block;
-              }
-              img {
-                width: 42px;
-                height: 35px;
-                vertical-align: middle;
-                margin-right: 15px;
+                img {
+                  width: 42px;
+                  height: 35px;
+                  vertical-align: middle;
+                  margin-right: 15px;
+                }
               }
             }
           }
