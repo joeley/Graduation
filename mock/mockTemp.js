@@ -1,4 +1,13 @@
+
 const User = require("../models/moudules/User");
+const Category = require("../models/moudules/Category");
+const Product = require("../models/moudules/Product")
+const Display = require("../models/moudules/Display")
+const Navigation = require("../models/moudules/Navigation")
+const RMenu = require("../models/moudules/RMenu")
+
+
+
 const user =[];
 user.push(
   {
@@ -16,10 +25,9 @@ user.push(
     vip:6
   }
 )
-User.bulkCreate(user);
 
 
-const Category = require("../models/moudules/Category");
+
 const categories = [];
 categories.push(
   {
@@ -55,10 +63,9 @@ categories.push(
     order:8,    
   }
 );
-Category.bulkCreate(categories);
 
 
-const Product = require("../models/moudules/Product")
+
 const product = [];
 product.push(
   {
@@ -390,4 +397,185 @@ product.push(
     CategoryId:1
   }
 )
-Product.bulkCreate(product);
+
+
+const display = [];
+display.push(
+  {
+    type:"ads",
+    displaySrc:"/imgs/display/ads/ads-1.png",
+    ProductId:1,
+    order:1
+  },
+  {
+    type:"ads",
+    displaySrc:"/imgs/display/ads/ads-2.jpg",
+    ProductId:2,
+    order:2
+
+  },
+  {
+    type:"ads",
+    displaySrc:"/imgs/display/ads/ads-3.png",
+    ProductId:3,
+    order:3
+  },
+  {
+    type:"ads",
+    displaySrc:"/imgs/display/ads/ads-4.jpg",
+    ProductId:4,
+    order:4
+  },
+  {
+    type:"new",
+    displaySrc:"/imgs/display/new/banner-1.png",
+    ProductId:5,
+    order:1
+  },
+  {
+    type:"swiper",
+    displaySrc:"/imgs/display/swiper/slide-1.jpg",
+    ProductId:6,
+    order:1
+  },
+  {
+    type:"swiper",
+    displaySrc:"/imgs/display/swiper/slide-2.jpg",
+    ProductId:7,
+    order:2
+  },
+  {
+    type:"swiper",
+    displaySrc:"/imgs/display/swiper/slide-3.jpg",
+    ProductId:4,
+    order:3
+  },
+  {
+    type:"swiper",
+    displaySrc:"/imgs/display/swiper/slide-4.jpg",
+    ProductId:4,
+    order:4
+  },
+  {
+    type:"swiper",
+    displaySrc:"/imgs/display/swiper/slide-5.jpg",
+    ProductId:4,
+    order:99
+  },
+  {
+    type:"main",
+    displaySrc:"/imgs/display/main/mi11.webp",
+    ProductId:4,
+    order:1
+  }
+)
+
+
+const navigation = [];
+navigation.push(
+  {
+    navName:"小米手机",
+    order:1
+  },
+  {
+    navName:"RedMi红米",
+    order:2
+  },
+  {
+    navName:"友商HUAWEI",
+    order:4
+  },
+  {
+    navName:"电脑",
+    order:3
+  }
+)
+
+
+const rMenu = [];
+rMenu.push(
+  {
+    NavigationId:1,
+    ProductId:1,
+    order:1,
+  },
+  {
+    NavigationId:1,
+    ProductId:2,
+    order:3,
+  },
+  {
+    NavigationId:1,
+    ProductId:3,
+    order:2,
+  },
+  {
+    NavigationId:1,
+    ProductId:4,
+    order:6,
+  },
+  {
+    NavigationId:1,
+    ProductId:5,
+    order:7,
+  },
+  {
+    NavigationId:1,
+    ProductId:6,
+    order:4,
+  },
+  {
+    NavigationId:3,
+    ProductId:1,
+    order:2,
+  },
+  {
+    NavigationId:3,
+    ProductId:2,
+    order:1
+  },
+  {
+    NavigationId:3,
+    ProductId:3,
+    order:3,
+  },
+  {
+    NavigationId:3,
+    ProductId:4,
+    order:4,
+  },
+  {
+    NavigationId:4,
+    ProductId:2,
+    order:8
+  }
+)
+
+
+const Arr = [];
+Arr.push(                          // 没有外键的先执行
+  User.bulkCreate(user),
+  Category.bulkCreate(categories)
+);
+
+Promise.all(Arr).then(() => {    // 有外键的 等外键所在表完事之后再执行
+  return Navigation.bulkCreate(navigation)
+}).then(()=>{
+  return Product.bulkCreate(product)
+}).then(()=>{
+  return Display.bulkCreate(display)
+}).then(()=>{
+  return RMenu.bulkCreate(rMenu)
+}).finally(()=>{
+  console.log("假数据模拟就绪")
+})
+.catch(()=>{
+  console.log("【数据同步时出错】")
+})
+
+
+
+
+
+
+

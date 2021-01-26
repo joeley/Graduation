@@ -10,6 +10,7 @@ const Order = require("./moudules/Order");
 const RList = require("./moudules/RList");
 const Navigation = require("./moudules/Navigation");
 const RMenu = require("./moudules/RMenu");
+const Display = require("./moudules/Display");
 
 
 
@@ -40,3 +41,9 @@ Navigation.belongsTo(User);
 
 Navigation.belongsToMany(Product, { through: 'RMenu' });
 Product.belongsToMany(Navigation, { through: 'RMenu' });
+
+Product.hasMany(Display);
+Display.belongsTo(Product);
+
+
+console.log("关系关联成功")

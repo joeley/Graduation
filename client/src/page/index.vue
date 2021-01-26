@@ -15,54 +15,14 @@
                 </div>
               </div>
             </li>
-            <!-- <li class="menu-item">
-              <a href="javascript:;">手机 电话卡</a>
-              <div class="children">
-                <ul v-for="(item,i) in menuList" :key="i">
-                  <li v-for="(sub,j) in item" v-bind:key="j">
-                    <a v-bind:href="sub?'/product/'+sub.id:''">
-                      <img v-lazy="sub?sub.img:'/imgs/item-box-1.png'" alt />
-                      {{sub?sub.name:'小米9'}}
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <li class="menu-item">
-              <a href="javascript:;">电视 盒子</a>
-              <div class="children"></div>
-            </li>
-            <li class="menu-item">
-              <a href="javascript:;">笔记本 平板</a>
-              <div class="children"></div>
-            </li>
-            <li class="menu-item">
-              <a href="javascript:;">家电 插电板</a>
-              <div class="children"></div>
-            </li>
-            <li class="menu-item">
-              <a href="javascript:;">出行 穿戴</a>
-              <div class="children"></div>
-            </li>
-            <li class="menu-item">
-              <a href="javascript:;">智能 路由器</a>
-              <div class="children"></div>
-            </li>
-            <li class="menu-item">
-              <a href="javascript:;">电源 配件</a>
-              <div class="children"></div>
-            </li>
-            <li class="menu-item">
-              <a href="javascript:;">生活 箱包</a>
-              <div class="children"></div>
-            </li> -->
           </ul>
         </div>
-        <swiper v-bind:options="swiperOption">
-          <swiper-slide v-for="(item, index) in slideList" :key="index">
-            <a :href="'/product/'+item.id">
-              <img :src="item.img"  v-show="index == 0 || index == slideList.length-1"/>
-              <img v-lazy="item.img" alt="" v-show="index !== 0 && index !== slideList.length-1">
+        <swiper v-bind:options="swiperOption" v-if="swiperList[0]!=undefined">
+          <swiper-slide v-for="(item, index) in swiperList" :key="index">
+            <a :href="'/product/'+item.ProductId">
+              <!-- 边界图处理 -->
+              <img :src="item.displaySrc"  v-show="index == 0 || index == swiperList.length-1"/>  
+              <img v-lazy="item.displaySrc" alt="" v-show="index !== 0 && index !== swiperList.length-1">
             </a>
           </swiper-slide>
           <!-- Optional controls -->
@@ -73,14 +33,14 @@
       </div>
 
       <div class="ads-box">
-        <a :href="'/product/'+item.id" v-for="(item,index) in adsList" :key="index">
-          <img v-lazy="item.img" alt />
+        <a :href="'/product/'+item.ProductId" v-for="(item,index) in adsList" :key="index">
+          <img v-lazy="item.displaySrc" alt />
         </a>
       </div>
 
       <div class="banner">
-        <a href="/product/30">
-          <img v-lazy="'/imgs/banner-1.png'" alt />
+        <a :href="'/product/' + newRecommend[0].ProductId"  v-if="!!newRecommend[0] && !! newRecommend[0].ProductId">
+          <img v-lazy="newRecommend[0].displaySrc" alt />
         </a>
       </div>
     </div>
@@ -89,25 +49,10 @@
         <h2>手机</h2>
         <div class="wrapper">
           <div class="banner-left">
-            <a href="/product/35">
-              <img v-lazy="'/imgs/mix-alpha.jpg'" alt />
+            <a :href="'/product/' + mainRecommend[0].ProductId" v-if="!!mainRecommend[0] && mainRecommend[0].ProductId">
+              <img v-lazy="mainRecommend[0].displaySrc" alt />
             </a>
           </div>
-          <!-- <div class="list-box">
-            <div class="list" v-for="(arr,i) in phoneList" v-bind:key="i">
-              <div class="item" v-for="(item,j) in arr" v-bind:key="j">
-                <span v-bind:class="[j%3==0?'new-pro':'kill-pro']">{{j%3==0?'新品':'秒杀'}}</span>
-                <div class="item-img">
-                  <img v-lazy="item.mainImage" alt />
-                </div>
-                <div class="item-info">
-                  <h3>{{item.name}}</h3>
-                  <p>{{item.subtitle}}</p>
-                  <p class="price" @click="addCart(item.id)">{{item.price}}元</p>
-                </div>
-              </div>
-            </div>
-          </div> -->
           <div class="list-box">
             <div class="list" v-for="(arr,i) in recommendList" :key="i">
               <div class="item" v-for="(item,j) in arr" v-bind:key="j">
@@ -176,43 +121,11 @@ export default {
         },
       },
       categoryList:[],
-      slideList: [
-        {
-          id: "42",
-          img: "/imgs/slider/slide-1.jpg",
-        },
-        {
-          id: "45",
-          img: "/imgs/slider/slide-2.jpg",
-        },
-        {
-          id: "46",
-          img: "/imgs/slider/slide-3.jpg",
-        },
-        {
-          id: "46",
-          img: "/imgs/slider/slide-4.jpg",
-        },
-      ],
-      adsList: [
-        {
-          id: 33,
-          img: "/imgs/ads/ads-1.png",
-        },
-        {
-          id: 48,
-          img: "/imgs/ads/ads-2.jpg",
-        },
-        {
-          id: 45,
-          img: "/imgs/ads/ads-3.png",
-        },
-        {
-          id: 47,
-          img: "/imgs/ads/ads-4.jpg",
-        },
-      ],
+      swiperList:[],
+      adsList: [],
       recommendList: [],
+      mainRecommend:[],
+      newRecommend:[],
       showModal: false,
     };
   },
@@ -227,8 +140,32 @@ export default {
   },
   methods: {
     init() {
+      this.getSwiper();
       this.getCategory();
       this.getRecommend();
+      this.getAds();
+      this.getMainRecommend();
+      this.getNewRecommend();
+    },
+    getAds(){
+      this.axios.get("/display/ads").then((res)=>{
+        this.adsList = res
+      })
+    },
+    getSwiper(){
+      this.axios.get("/display/swiper").then((res)=>{
+        this.swiperList = res
+      })
+    },
+    getMainRecommend(){
+      this.axios.get("/display/main").then((res)=>{
+        this.mainRecommend = res;
+      })
+    },
+    getNewRecommend(){
+      this.axios.get("/display/new").then((res)=>{
+        this.newRecommend = res;
+      })
     },
     getRecommend(){
       this.axios.get("/product/recommend").then((res) => {
@@ -237,7 +174,6 @@ export default {
     },
     getCategory(){
       this.axios.get("/category/").then((res) => {
-        console.log(res)
         this.categoryList = res
       })
     },
@@ -275,6 +211,7 @@ export default {
 @import "../assets/scss/config.scss";
 .index {
   .swiper-box {
+    height:451px;
     .nav-menu {
       position: absolute;
       width: 264px;

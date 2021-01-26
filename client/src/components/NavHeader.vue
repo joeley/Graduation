@@ -28,41 +28,27 @@
           <a href="/index"></a>
         </div>
         <div class="header-menu">
-          <div class="item-menu">
-            <span>小米手机</span>
+          <div class="item-menu" v-for="(item) of navigationList" :key="item.id">
+            <span> {{ item.navName }}</span>
             <div class="children">
               <ul>
                 <li 
                   class="product" 
-                  v-for="(item) of phoneList"
-                  :key="item.id"
+                  v-for="(ele,i) of item.productList" :key="i"
                 >
-                  <a :href="'/product/'+item.id" target="_blank">
+                  <a :href="'/product/'+ele.id" target="_blank">
                     <div class="pro-img">
                       <img
-                        v-lazy="item.mainImage"
-                        :alt="item.subtitle"
+                        v-lazy="ele.productMainImage"
+                        :alt="ele.productSubtitle"
                         srcset
                       />
                     </div>
-                    <div class="pro-name">{{item.name}}</div>
-                    <div class="pro-price">{{item.price|currency}}</div>
-
+                    <div class="pro-name">{{ele.productName}}</div>
+                    <div class="pro-price">{{ele.productPrice|currency}}</div>
                   </a>
                 </li>
               </ul>
-            </div>
-          </div>
-          <div class="item-menu">
-            <span>RedMi红米</span>
-            <div class="children"></div>
-          </div>
-          <div class="item-menu">
-            <span>电视</span>
-            <div class="children">
-              <ul>
-              </ul>
-            
             </div>
           </div>
         </div>
@@ -82,7 +68,8 @@ export default {
   name: "nav-header",
   data(){
     return{
-      phoneList:[]
+      phoneList:[],
+      navigationList:[],
     }
   },
   computed:{
@@ -97,24 +84,30 @@ export default {
   filters:{
     currency(val){
       if(!val)return '￥0.00';
-      return '￥' + val.toFixed(2);
+      return '￥' + val;
     }
   },
   methods:{
-    ...mapActions(['saveUserName','saveCartCount']),
-    getProductList(){
-      this.axios.get('/products',{
-        params:{
-          categoryId:'100012', //手机类的编号
-          // pageSize:6
-        }
-      }).then((res)=>{
-          res.list.sort(()=>(Math.random()-0.5));
-          if(res.list.length>6){  
-            this.phoneList = res.list.slice(0,6);
-          }
+    getNavigation(){
+      this.axios.get("/navigation").then((res)=>{
+        this.navigationList = res
+        
       })
     },
+    ...mapActions(['saveUserName','saveCartCount']),
+    // getProductList(){
+    //   this.axios.get('/products',{
+    //     params:{
+    //       categoryId:'100012', //手机类的编号
+    //       // pageSize:6
+    //     }
+    //   }).then((res)=>{
+    //       res.list.sort(()=>(Math.random()-0.5));
+    //       if(res.list.length>6){  
+    //         this.phoneList = res.list.slice(0,6);
+    //       }
+    //   })
+    // },
     goToCart(){
       this.$router.push("/cart");
     },
@@ -135,7 +128,8 @@ export default {
     }
   },
   mounted(){
-    this.getProductList();
+    // this.getProductList();
+    this.getNavigation();
   }
 };
 </script>
