@@ -1,50 +1,77 @@
 <template>
-  <div class="product">
+  <div class="product" v-if="product.productFlag">
     <product-param :title="product.name">
       <template #buy>
         <button class="btn" @click="buy">立即购买</button>
       </template>
     </product-param>
     <div class="content">
-      <div class="item-bg">
-        <h2>{{product.name}}</h2>
-        <h3>{{product.subtitle}}</h3>
+      <div class="item-bg"
+        :style="{
+          backgroundImage:'url('+ product.productBg1 +')'
+        }"
+      >
+        <h2>{{product.productName}}</h2>
+        <h3>{{product.productSubtitle}}</h3>
         <p>
-          <a href="" id="">全球首款双频 GP</a>
+          <a href="" id="">{{ product.productDescribe1 }}</a>
           <span>|</span>
-          <a href="" id="">骁龙845</a>
+          <a href="" id="">{{ product.productDescribe2 }}</a>
           <span>|</span>
-          <a href="" id="">AI 变焦双摄</a>
+          <a href="" id="">{{ product.productDescribe3 }}</a>
           <span>|</span>
-          <a href="" id="">红外人脸识别</a>
+          <a href="" id="">{{ product.productDescribe4 }}</a>
         </p>
         <div class="price">
-          <span>￥<em>{{product.price}}</em></span>
+          <span>￥<em>{{product.productPrice}}</em></span>
         </div>
       </div>
-      <div class="item-bg-2"></div>
-      <div class="item-bg-3"></div>
-      <div class="item-swiper">
-        <swiper :options="swiperOption">
-            <swiper-slide><img src="/imgs/product/gallery-2.png" alt=""></swiper-slide>
-            <swiper-slide><img src="/imgs/product/gallery-3.png" alt=""></swiper-slide>
-            <swiper-slide><img src="/imgs/product/gallery-4.png" alt=""></swiper-slide>
-            <swiper-slide><img src="/imgs/product/gallery-5.jpg" alt=""></swiper-slide>
-            <swiper-slide><img src="/imgs/product/gallery-6.jpg" alt=""></swiper-slide>
+      <div class="item-bg-2" 
+        :style="{
+          backgroundImage:'url('+ product.productBg2 +')'
+        }"
+        v-if="!!product.productBg2"
+      >
+      </div>
+      <div class="item-bg-3"
+        :style="{
+          backgroundImage:'url('+ product.productBg3 +')'
+        }"
+        v-if="!!product.productBg3"
+      >
+      </div>
+      <div class="item-bg-4"
+        :style="{
+          backgroundImage:'url('+ product.productBg4 +')'
+        }"
+        v-if="!!product.productBg4"
+      >
+      </div>
+      <div class="item-swiper"  v-if="product.galleryFlag">
+        <swiper :options="swiperOption">           
+            <swiper-slide v-if="!!product.galleryImg1"><img v-lazy="product.galleryImg1" alt=""></swiper-slide>
+            <swiper-slide v-if="!!product.galleryImg2"><img v-lazy="product.galleryImg2" alt=""></swiper-slide>
+            <swiper-slide v-if="!!product.galleryImg3"><img v-lazy="product.galleryImg3" alt=""></swiper-slide>
+            <swiper-slide v-if="!!product.galleryImg4"><img v-lazy="product.galleryImg4" alt=""></swiper-slide>
+            <swiper-slide v-if="!!product.galleryImg5"><img v-lazy="product.galleryImg5" alt=""></swiper-slide>
             <!-- Optional controls -->
             <div class="swiper-pagination"  slot="pagination"></div>
         </swiper>
-        <p class="desc">小米8 AI变焦双摄拍摄</p>
+        <p class="desc">{{product.galleryText}}</p>
       </div>
-      <div class="item-video">
-        <h2>60帧超慢动作摄影<br/>慢慢回味每一瞬间的精彩</h2>
-        <p>后置960帧电影般超慢动作视频，将眨眼间的美妙展现得淋漓尽致！<br/>更能AI 精准分析视频内容，15个场景智能匹配背景音效。</p>
-        <div class="video-bg" @click="showSlide='slideDown'"></div>
+      <div class="item-video" v-if="product.videoFlag">
+        <h2>{{product.videoMainTitleText1}}<br/>{{product.videoMainTitleText2}}</h2>
+        <p>{{product.videoSubheadText1}}<br/>{{product.videoSubheadText2}}</p>
+        <div class="video-bg" @click="showSlide='slideDown'"
+          :style="{
+            backgroundImage:'url('+ product.videoCover +')'
+          }"
+        ></div>
         <div class="video-box" v-show="showSlide">
           <div class="overlay"></div>
           <div class="video" :class="showSlide">
             <span class="icon-close" @click="closeVideo"></span>
-            <video src="/imgs/product/video.mp4" muted autoplay controls="controls"></video>
+            <video :src="product.videoSrc" muted autoplay controls="controls"></video>
           </div>
         </div>
       </div>
@@ -74,17 +101,26 @@
             el: '.swiper-pagination',
             clickable :true,
           }
-        }
+        }      
       }
     },
     mounted(){
       this.getProductInfo();
+      console.log(1111)
     },
     methods:{
+      gotoDetail(flag,id){
+        console.log(flag)
+        if(!flag){
+          this.$router.replace("/detail/"+id)
+        }
+      },
       getProductInfo(){
         let id = this.$route.params.id;
-        this.axios.get(`/products/${id}`).then((res)=>{
+        this.axios.get(`/product/${id}`).then((res)=>{
           this.product = res;
+          
+          this.gotoDetail(res.productFlag,id)
         })
       },
       buy(){
@@ -105,7 +141,8 @@
   .product{
     .content{
       .item-bg{
-        background:url('/imgs/product/product-bg-1.png') no-repeat center;
+        background-repeat:no-repeat;
+        background-position:center;
         height:718px;
         text-align:center;
         h2{
@@ -137,12 +174,20 @@
         }
       }
       .item-bg-2{
-        background:url(/imgs/product/product-bg-2.png) no-repeat center;
+        background-repeat:no-repeat;
+        background-position:center;
         height:480px;
         background-size:1226px 397px;
       }
       .item-bg-3{
-        background:url(/imgs/product/product-bg-3.png) no-repeat center;
+        background-repeat:no-repeat;
+        background-position:center;
+        height:638px;
+        background-size:cover;
+      }
+      .item-bg-4{
+        background-repeat:no-repeat;
+        background-position:center;
         height:638px;
         background-size:cover;
       }
@@ -173,7 +218,8 @@
           margin-bottom:58px;
         }
         .video-bg{
-          background:url('/imgs/product/gallery-1.png') no-repeat center;
+          background-repeat:no-repeat;
+          background-position:center;
           background-size:cover;
           width:1226px;
           height:540px;

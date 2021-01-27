@@ -46,7 +46,7 @@
     </div>
     <div class="product-box">
       <div class="container">
-        <h2>手机</h2>
+        <h2>推荐</h2>
         <div class="wrapper">
           <div class="banner-left">
             <a :href="'/product/' + mainRecommend[0].ProductId" v-if="!!mainRecommend[0] && mainRecommend[0].ProductId">

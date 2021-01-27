@@ -16,18 +16,6 @@ const Product = sequelize.define(
       type: DataTypes.DECIMAL(10, 2),
       allowNull: false
     },
-
-    // productTotalPrice: {   // 总价       
-    //   type: DataTypes.VIRTUAL,
-    //   get() {
-    //     return this.getDataValue(productPrice) * this.getDataValue(quantity); //得到两个日期的年份的差异
-    //   },
-    // },
-
-    // productSelected: {   // 是否已选择     
-    //   type: DataTypes.BOOLEAN,
-    //   allowNull: false
-    // },
     productStock: {     // 货物总存量     
       type: DataTypes.INTEGER,
       allowNull: true   
@@ -40,8 +28,34 @@ const Product = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false
     },
+    tag:{                    // 秒杀 新品
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    tagColor:{ 
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    
+
     productFlag: {       
       type: DataTypes.BOOLEAN,
+      allowNull: false
+    },
+    productDescribe1:{
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    productDescribe2:{
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    productDescribe3:{
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    productDescribe4:{
+      type: DataTypes.STRING,
       allowNull: false
     },
     productBg1: {         
@@ -60,26 +74,6 @@ const Product = sequelize.define(
       type: DataTypes.STRING,
       allowNull: true
     },
-    productBg5: {         
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    productBg6: {         
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    productBg7: {         
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    productBg8: {         
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    productBg9: {         
-      type: DataTypes.STRING,
-      allowNull: true
-    },
     galleryFlag:{
       type: DataTypes.BOOLEAN,
       allowNull: false
@@ -88,39 +82,23 @@ const Product = sequelize.define(
       type: DataTypes.STRING,
       allowNull: true
     },
-    gallerylImg1: {         
+    galleryImg1: {         
       type: DataTypes.STRING,
       allowNull: true
     },
-    gallerylImg2: {         
+    galleryImg2: {         
       type: DataTypes.STRING,
       allowNull: true
     },
-    gallerylImg3: {         
+    galleryImg3: {         
       type: DataTypes.STRING,
       allowNull: true
     },
-    gallerylImg4: {         
+    galleryImg4: {         
       type: DataTypes.STRING,
       allowNull: true
     },
-    gallerylImg5: {         
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    gallerylImg6: {         
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    gallerylImg7: {         
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    gallerylImg8: {         
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    gallerylImg9: {         
+    galleryImg5: {         
       type: DataTypes.STRING,
       allowNull: true
     },
@@ -152,16 +130,24 @@ const Product = sequelize.define(
       type: DataTypes.STRING,
       allowNull: true
     },
+    detailImg1:{ 
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    detailImg2:{ 
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    detailImg3:{ 
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    detailImg4:{ 
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     order: {                 // 在分类的排序
       type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    tag:{                    // 秒杀 新品
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    tagColor:{ 
-      type: DataTypes.STRING,
       allowNull: false
     }
   },

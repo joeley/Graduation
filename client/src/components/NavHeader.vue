@@ -91,23 +91,9 @@ export default {
     getNavigation(){
       this.axios.get("/navigation").then((res)=>{
         this.navigationList = res
-        
       })
     },
     ...mapActions(['saveUserName','saveCartCount']),
-    // getProductList(){
-    //   this.axios.get('/products',{
-    //     params:{
-    //       categoryId:'100012', //手机类的编号
-    //       // pageSize:6
-    //     }
-    //   }).then((res)=>{
-    //       res.list.sort(()=>(Math.random()-0.5));
-    //       if(res.list.length>6){  
-    //         this.phoneList = res.list.slice(0,6);
-    //       }
-    //   })
-    // },
     goToCart(){
       this.$router.push("/cart");
     },
@@ -128,7 +114,6 @@ export default {
     }
   },
   mounted(){
-    // this.getProductList();
     this.getNavigation();
   }
 };

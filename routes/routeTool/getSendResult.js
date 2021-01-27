@@ -24,7 +24,7 @@ exports.asyncHandler = (handler,succeedMsg,failMsg) => {
   return async (req, res, next) => {
     try {
       const result = await handler(req, res, next);
-      if(!result){
+      if(result === null){
         res.send({
           code: 1,
           msg:failMsg
