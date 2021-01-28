@@ -106,21 +106,20 @@
     },
     mounted(){
       this.getProductInfo();
-      console.log(1111)
     },
     methods:{
-      gotoDetail(flag,id){
-        console.log(flag)
-        if(!flag){
-          this.$router.replace("/detail/"+id)
-        }
-      },
+      // gotoDetail(flag,id){   //  此函数已经通过路由守卫实现
+      //   console.log(flag)
+      //   if(!flag){
+      //     this.$router.replace("/detail/"+id)
+      //   }
+      // },
       getProductInfo(){
         let id = this.$route.params.id;
         this.axios.get(`/product/${id}`).then((res)=>{
           this.product = res;
           
-          this.gotoDetail(res.productFlag,id)
+          // this.gotoDetail(res.productFlag,id)
         })
       },
       buy(){

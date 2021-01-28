@@ -29,9 +29,13 @@ Navigation.belongsTo(User);
 
 Navigation.belongsToMany(Product, { through: 'RMenu' });
 Product.belongsToMany(Navigation, { through: 'RMenu' });
+
+Product.hasMany(Display);
+Display.belongsTo(Product);
+
 ```
 
 业务
 code 0 成功
 code 1 失败 
-code 3 重新登录
+code 2 没权限 重新登录

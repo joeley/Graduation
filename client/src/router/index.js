@@ -2,20 +2,25 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/page/home'
 import Index from "@/page/index"
-import Product from '@/page/product'
-import Detail from '@/page/detail'
-import Order from '@/page/order'
-import OrderConfirm from '@/page/orderConfirm'
-import OrderList from '@/page/orderList'
-import OrderPay from '@/page/orderPay'
-import Cart from '@/page/cart'
-import Alipay from '@/page/alipay'
-import Login from '@/page/login'
+import axios from '@/permission'
 
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
+
+// 异步组件
+const Product = () => import('@/page/product')
+const Detail = () => import('@/page/detail')
+const Order = () => import('@/page/order')
+const OrderConfirm = () => import('@/page/orderConfirm')
+const OrderList = () => import('@/page/orderList')
+const OrderPay = () => import('@/page/orderPay')
+const Cart = () => import('@/page/cart')
+const Alipay = () => import('@/page/alipay')
+const Login = () => import('@/page/login')
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
     mode:"history",
     routes:[
         {
@@ -33,7 +38,16 @@ export default new Router({
                 {
                     path:'product/:id',
                     name:'product',
-                    component:Product
+                    component:Product,
+                    beforeEnter:(to,from,next)=>{
+                        axios().get("/product/flag/" + to.params.id).then(res=>{
+                            if(res){
+                                next()
+                            }else{
+                                next("/detail/" + to.params.id)
+                            }
+                        })
+                    }
                 },
                 {
                     path:'detail/:id',
@@ -82,3 +96,18 @@ export default new Router({
         }
     ]
 })
+
+
+NProgress.configure({
+    showSpinner: false
+})
+
+router.beforeEach((to,from,next)=>{
+    NProgress.start()
+    next()
+})
+router.afterEach(() => {
+    NProgress.done()    
+})
+  
+export default  router

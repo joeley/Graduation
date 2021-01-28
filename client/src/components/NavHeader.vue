@@ -9,11 +9,11 @@
           <a href="javascript:;">协议规则</a>
         </div>
         <div class="topbar-user">
-          <a href="javascript:;" v-if="username">{{username}}</a>
-          <a href="javascript:;" v-if="username" @click="loginOut">退出</a>
-          <a href="javascript:;" v-if="username" @click="goToCart">我的订单</a>
-          <a href="javascript:;" v-if="!username" @click="login">登录</a>
-          <a href="javascript:;" v-if="!username">注册</a>
+          <a href="javascript:;" v-if="userInfo.username">{{userInfo.username}}</a>
+          <a href="javascript:;" v-if="userInfo.username" @click="loginOut">退出</a>
+          <a href="javascript:;" v-if="userInfo.username" @click="goToCart">我的订单</a>
+          <a href="javascript:;" v-if="!userInfo.username" @click="login">登录</a>
+          <a href="javascript:;" v-if="!userInfo.username">注册</a>
 
           <a href="javascript:;" class="my-cart">
             <span class="icon-cart"></span>
@@ -63,7 +63,7 @@
   </div>
 </template>
 <script>
-import {mapState,mapActions} from 'vuex'
+import {mapState,mapActions,mapGetters} from 'vuex'
 export default {
   name: "nav-header",
   data(){
@@ -73,7 +73,9 @@ export default {
     }
   },
   computed:{
-    ...mapState(['username','cartCount']),
+    ...mapState(['jwt','cartCount']),
+    ...mapGetters(['userInfo'])
+
     // username(){
     //   return this.$store.state.username;
     // },

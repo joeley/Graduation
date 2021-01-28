@@ -5,29 +5,29 @@
       <div class="container clearfix">
         <div class="swiper">
           <swiper :options="swiperOption">
-              <swiper-slide><img src="/imgs/detail/phone-1.jpg" alt=""></swiper-slide>
-              <swiper-slide><img src="/imgs/detail/phone-2.jpg" alt=""></swiper-slide>
-              <swiper-slide><img src="/imgs/detail/phone-3.jpg" alt=""></swiper-slide>
-              <swiper-slide><img src="/imgs/detail/phone-4.jpg" alt=""></swiper-slide>
+              <swiper-slide v-if="product.detailImg1"><img :src="product.detailImg1" alt=""></swiper-slide>
+              <swiper-slide v-if="product.detailImg2"><img :src="product.detailImg2" alt=""></swiper-slide>
+              <swiper-slide v-if="product.detailImg3"><img :src="product.detailImg3" alt=""></swiper-slide>
+              <swiper-slide v-if="product.detailImg4"><img :src="product.detailImg4" alt=""></swiper-slide>
               <!-- Optional controls -->
               <div class="swiper-pagination"  slot="pagination"></div>
           </swiper>
         </div>
         <div class="content">
-          <h2 class="item-title">{{product.name}}</h2>
-          <p class="item-info">{{product.subtitle}}</p>
+          <h2 class="item-title">{{product.productName}}</h2>
+          <p class="item-info">{{product.productSubtitle}}</p>
           <div class="delivery">小米自营</div>
-          <div class="item-price">{{product.price}}元<span class="del">2999元</span></div>
+          <div class="item-price">{{product.productPrice}}元<span class="del">{{Number(product.productPrice) + 1000}}元</span></div>
           <div class="line"></div>
           <div class="item-addr">
             <i class="icon-loc"></i>
-            <div class="addr">北京 北京市 朝阳区 安定门街道</div>
+            <div class="addr">山东 烟台市 莱山区 滨海中路</div>
             <div class="stock">有现货</div>
           </div>
           <div class="item-version clearfix">
             <h2>选择版本</h2>
-            <div class="phone fl" :class="version==1?'checked':''" @click="version=1">6GB+64GB 全网通</div>
-            <div class="phone fr" :class="version==2?'checked':''" @click="version=2">4GB+64GB 移动4G</div>
+            <div class="phone fl" :class="version==1?'checked':''" @click="version=1">6GB+128GB 全网通</div>
+            <div class="phone fr" :class="version==2?'checked':''" @click="version=2">8GB+128GB 5G版</div>
           </div>
           <div class="item-color">
             <h2>选择颜色</h2>
@@ -38,10 +38,10 @@
           </div>
           <div class="item-total">
             <div class="phone-info clearfix">
-              <div class="fl">小米9 6GB+64GB 全网通 深灰色</div>
-              <div class="fr">2599元</div>
+              <div class="fl">小米11 8GB+128GB 全网通 深灰色</div>
+              <div class="fr">{{ product.productPrice }}元</div>
             </div>
-            <div class="phone-total">总计：2599元</div>
+            <div class="phone-total">总计：{{ product.productPrice }}元</div>
           </div>
           <div class="btn-group">
             <a href="javascript:;" class="btn btn-huge fl" @click="addCart">加入购物车</a>
@@ -100,7 +100,7 @@ export default{
       })
     },
     getProductInfo(){
-      this.axios.get(`/products/${this.id}`).then((res={})=>{
+      this.axios.get(`/product/detail/${this.id}`).then((res={})=>{
         this.product = res;
       })
     }

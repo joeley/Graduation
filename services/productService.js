@@ -77,9 +77,6 @@ exports.getProductInfoById = async function (id) {
     )
   }
 }
-
-
-
 exports.getDetailById = async function () {
   const query = await Product.findOne({
     where: {}
@@ -92,6 +89,7 @@ exports.getDetailById = async function () {
       query.dataValues,
       "id", 
       "productName", 
+      "productSubtitle",
       "productPrice", 
       "productFlag",
       "detailImg1",
