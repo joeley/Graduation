@@ -9,7 +9,7 @@
       <div class="container">
         <div class="cart-box">
           <ul class="cart-item-head">
-            <li class="col-1"><span class="checkbox" v-bind:class="{'checked':allChecked}" @click="toggleAll"></span>全选</li>
+            <li class="col-1"><span class="checkbox" v-bind:class="{'checked':selectedAll}" @click="toggleAll"></span>全选</li>
             <li class="col-3">商品名称</li>
             <li class="col-1">单价</li>
             <li class="col-2">数量</li>
@@ -17,9 +17,9 @@
             <li class="col-1">操作</li>
           </ul>
           <ul class="cart-item-list">
-            <li class="cart-item" v-for="(item,index) in list" v-bind:key="index">
+            <li class="cart-item" v-for="(item,index) in productList" v-bind:key="index">
               <div class="item-check">
-                <span class="checkbox" :class="{'checked':item.productSelected}"  @click="updateCart(item)"></span>
+                <span class="checkbox" :class="{'checked':item.selected}"  @click="updateCart(item)"></span>
               </div>
               <div class="item-name">
                 <img v-lazy="item.productMainImage" alt="">
@@ -29,11 +29,12 @@
               <div class="item-num">
                 <div class="num-box">
                   <a href="javascript:;" @click="updateCart(item,'-')">-</a>
-                  <span>{{item.quantity}}</span>
+                  <!--<span>{{item.quantity}}</span>-->
+                  <input type="number" v-model="item.quantity" :max="item.productStock" :min="1" @input="numChange(item)" onkeyup="value=value.replace(/[^\d^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.')">
                   <a href="javascript:;"  @click="updateCart(item,'+')">+</a>
                 </div>
               </div>
-              <div class="item-total">{{item.productTotalPrice}}</div>
+              <div class="item-total">{{item.totalPrice}}</div>
               <div class="item-del" @click="delProduct(item)"></div>
             </li>
           </ul>
@@ -41,10 +42,10 @@
         <div class="order-wrap clearfix">
           <div class="cart-tip fl">
             <a href="/index">继续购物</a>
-            共<span>{{list.length}}</span>件商品，已选择<span>{{checkedNum}}</span>件
+            共<span>{{productList.length}}</span>件商品，已选择<span>{{selectedNum}}</span>件
           </div>
           <div class="total fr">
-            合计：<span>{{cartTotalPrice}}</span>元
+            合计：<span>{{totalPrice}}</span>元
             <a href="javascript:;" class="btn" @click="order">去结算</a>
           </div>
         </div>
@@ -67,10 +68,13 @@
     },
     data(){
       return {
-        list:[],//商品列表
-        allChecked:false,//是否全选
-        cartTotalPrice:0,//商品总金额
-        checkedNum:0//选中商品数量
+        // list:[],//商品列表
+        productList : [],
+        selectedAll:false,//是否全选
+        totalPrice:0,//商品总金额
+        selectedNum:0,//选中商品数量
+        quantity:1,
+        timer:null,
       }
     },
     mounted(){
@@ -79,14 +83,14 @@
     methods:{
       // 获取购物车列表
       getCartList(){
-        this.axios.get('/carts').then((res)=>{
+        this.axios.get('/cart').then((res)=>{
           this.renderData(res);
         })
       },
       // 更新购物车数量和购物车单选状态
       updateCart(item,type){
         let quantity = item.quantity,
-            selected = item.productSelected;
+            selected = item.selected;
         if(type == '-'){
           if(quantity == 1){
             this.$message.warning({
@@ -97,7 +101,7 @@
           }
           --quantity;
         }else if(type == '+'){
-          if(quantity > item.productStock){
+          if(quantity >= item.productStock){
             this.$message.warning({
               message:'购买数量不能超过库存数量',
               center:true
@@ -106,9 +110,9 @@
           }
           ++quantity;
         }else{
-          selected = !item.productSelected;
+          selected = !item.selected;
         }
-        this.axios.put(`/carts/${item.productId}`,{
+        this.axios.put(`/cart/${item.id}`,{
           quantity,
           selected
         }).then((res)=>{
@@ -117,7 +121,7 @@
       },
       // 删除购物车商品
       delProduct(item){
-        this.axios.delete(`/carts/${item.productId}`).then((res)=>{
+        this.axios.delete(`/cart/${item.id}`).then((res)=>{
           this.$message.success({
             message:'删除成功',
             center:true
@@ -127,22 +131,47 @@
       },
       // 控制全选功能
       toggleAll(){
-        let url = this.allChecked?'/carts/unSelectAll':'/carts/selectAll';
-        this.axios.put(url).then((res)=>{
+        this.axios.put("/cart/selectAll").then((res)=>{
           this.renderData(res);
         })
       },
       // 公共赋值
       renderData(res){
-        this.list = res.cartProductVoList || [];
-        this.allChecked = res.selectedAll;
-        this.cartTotalPrice = res.cartTotalPrice;
-        this.checkedNum = this.list.filter(item=>item.productSelected).length;
+        this.productList =  res.productList || [];
+        this.selectedAll = res.selectedAll;
+        this.totalPrice = res.totalPrice;
+        this.selectedNum = res.selectedNum;        
+      },
+      numChange(item){ 
+        clearTimeout(this.timer);
+        item.quantity = item.quantity ? parseInt(item.quantity):1
+        let msg
+        if(item.quantity > item.productStock){
+          item.quantity = item.productStock
+          msg = "购买数量不能超过库存数量"
+        }else if(item.quantity< 1){
+          item.quantity = 1
+          msg = "商品至少保留一件"
+        }else{
+          this.timer = setTimeout(()=>{
+            this.axios.put("/cart/" + item.id,{
+              quantity:item.quantity,
+              selected:item.selected
+            }).then((res)=>{
+              return this.renderData(res)
+            })
+          },1000)
+          return 
+        }
+        this.$message.warning({
+          message:msg,
+          center:true
+        });
       },
       // 购物车下单
       order(){
-        //let isCheck = this.list.every(item=>!item.productSelected);
-        let isCheck = this.list.some(item=>item.productSelected);
+        //let isCheck = this.list.every(item=>!item.selected);
+        let isCheck = this.list.some(item=>item.selected);
         console.log(isCheck)
         if(isCheck){
           this.$router.push('/order/confirm');
@@ -244,6 +273,23 @@
                   width:50px;
                   color:#333333;
                 }
+                input{
+                  display:inline-block;
+                  width:50px;
+                  color:#333333;
+                  background:none;
+                  outline:none;  
+                  border:none;
+                  text-align: center;
+                  -moz-appearance:textfield;
+                }
+                input::-webkit-outer-spin-button,
+                input::-webkit-inner-spin-button {
+                  -webkit-appearance: none;
+                  appearance: none;
+                  margin: 0;
+                }
+                
               }
             }
             .item-total{

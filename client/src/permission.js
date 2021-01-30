@@ -1,9 +1,10 @@
 import axios from 'axios'
 import { Message } from 'element-ui'
-import jwt from 'jsonwebtoken';
+import router from '@/router'
+import store from '@/store'
 
 export default function(){
-  const token = localStorage.getItem("token");
+  const token = store.state.jwt;
   // axios.defaults.baseURL = '/api';  
   axios.defaults.timeout = 8000; 
 
@@ -11,38 +12,29 @@ export default function(){
     baseURL:"/api",
     timeout:8000,
     headers: {
-      authorization: "bearer " + token,
+      token: token?"bearer " + token:"",
     }
   })
 
-  // service.interceptors.request.use(config => {
-  //   if (getAccessToken()) {
-  //     config.headers['Authorization'] = 'Bearer ' + getAccessToken()
-  //   }
-  //   return config
-  // }, error => {
-  //   Promise.reject(error)
-  // })
-
-  service.interceptors.response.use(function(response){
-    const path = location.pathname; 
-    if (response.headers.authorization) {
-      localStorage.setItem("token", response.headers.authorization);
-      const str = jwt.decode(response.headers.authorization)
-      console.log(str)
+  service.interceptors.response.use((response)=>{
+    if (response.headers.token) {
+      store.dispatch("saveJWT", response.headers.token)
     }
-    let res = response.data;
+    const res = response.data;
+    const path = location.pathname; 
 
     if(res.code == 0){              // 成功
       return res.data;
-    }else if(res.code == 2){       // 没权限
+    }else if(res.code == 2){       //  没权限 403 放过来了 
       if(path =='/login') return;
       if(path !='/login'){
         Message.warning({
-          message:"此操作需要登录",
+          message:res.msg,
           center:true
         });
-        window.location.href = "/login?redirect=" + path;              
+        router.push("/login?redirect=" + path);
+        // 这玩意跳转太慢了，还要刷新界面
+        // window.location.href = "/login?redirect=" + path;             
       }
       return Promise.reject(res);
     }else{
@@ -52,10 +44,27 @@ export default function(){
       });
       return Promise.reject(res);
     }
-  },(error) => {
-    let res = error.response;
-    Message.error(res.data.message);
-    return Promise.reject(error);
+  },(err) => {
+    const res = err.response
+    if(res.status === 403){
+      // 这里用不上了
+      // const path = location.pathname; 
+      // if(path =='/login') return;
+      // if(path !='/login'){
+      //   Message.warning({
+      //     message:res.data.msg,
+      //     center:true
+      //   });
+      //   router.push("/login?redirect=" + path);
+      //   // 这玩意跳转太慢了，还要刷新界面
+      //   // window.location.href = "/login?redirect=" + path; 
+      //   return Promise.reject(res);             
+      // }     
+    }else{
+      let msg = res.data.msg||err.message;
+      Message.error(msg);
+      return Promise.reject(err);
+    }
   })
 
   return service

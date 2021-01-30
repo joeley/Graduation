@@ -1,40 +1,38 @@
-const secrect = "joeley";
-const cookieKey = "token";
 const jwt = require("jsonwebtoken");
+const settings = require("../settings")
 
 //颁发jwt
 exports.publish = function (res, maxAge = 3600 * 24, info = {}) {
-  const token = jwt.sign(info, secrect, {
+  const token = jwt.sign(info,settings.tokenSecrect, {
     expiresIn: maxAge,
   });
   //添加到cookie 只适用于浏览器  
-  res.cookie(cookieKey, token, {
-    // maxAge: maxAge * 1000,
-    expiresIn:"1d",
+  res.cookie(settings.authorizationKey, token, {
+    maxAge: maxAge * 1000,
     path: "/",
   });
   //添加其他传输 适用其他设备
-  res.header("authorization", token);
+  res.header(settings.authorizationKey, token);
 };
 
 exports.verify = function (req) {
   let token;
-  token = req.cookies[cookieKey]; //cookie中没有
+  token = req.cookies[settings.authorizationKey]; //cookie中没有
   if (!token) {
     //尝试中header中
-    token = req.headers.authorization;
-    if (!token) {
-      //没有token
-      return null;
-    }
+    token = req.headers[settings.authorizationKey];
+
     // authorization: bearer token
     token = token.split(" ");
     token = token.length === 1 ? token[0] : token[1];
+    if (!token||token=="null") {
+      return {msg:"无权限访问，请登录"};
+    }
   }
   try {
-    const result = jwt.verify(token, secrect);
+    const result = jwt.verify(token, settings.tokenSecrect);
     return result;
   } catch(err) {
-    return null;
+    return {msg:"登录失效，请重新登录"};
   }
 };

@@ -95,7 +95,7 @@ export default {
         this.navigationList = res
       })
     },
-    ...mapActions(['saveUserName','saveCartCount']),
+    ...mapActions(['saveJWT','saveCartCount']),
     goToCart(){
       this.$router.push("/cart");
     },
@@ -103,16 +103,19 @@ export default {
       this.$router.push("/login");
     },
     loginOut(){
-      this.axios.post('/user/logout').then(()=>{
+        // this.$store.dispatch("saveJWT","")
+        this.saveJWT("")
         this.$message.success({
           message:'退出成功',
           center:true
         });
-        this.$cookie.set("userId",'',{expires:'-1'});
-        //this.$store.dispatch('saveUserName',res.username);
-        this.saveUserName('');
-        this.saveCartCount('');
-      });
+      // this.axios.post('/user/logout').then(()=>{
+ 
+      //   this.$cookie.set("userId",'',{expires:'-1'});
+      //   //this.$store.dispatch('saveUserName',res.username);
+      //   this.saveUserName('');
+      //   this.saveCartCount('');
+      // });
     }
   },
   mounted(){

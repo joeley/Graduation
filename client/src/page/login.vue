@@ -42,9 +42,18 @@ export default {
   name: 'login',
   data(){
     return {
-      username:'',
-      password:'',
-      userId:''
+      username:'joe',
+      password:'123',
+      userId:'',
+      redirect:"",
+    }
+  },
+  watch: {
+    $route: {
+      handler: function(route) {
+        this.redirect = route.query && route.query.redirect;
+      },
+      immediate: true
     }
   },
   methods:{
@@ -53,20 +62,22 @@ export default {
       this.axios.post('/user/login',{
         username,
         password
-      }).then((res)=>{
-        this.$cookie.set('userId',res.id,{expires:'Session'});
-        this.saveUserName(res.username);
+      }).then(()=>{
+        // this.saveUserName(res.username);
 
         console.log("拉取product数量")
         // this.axios.get('/carts/products/sum').then((res)=>{
         //   this.$store.dispatch('saveCartCount', res)
         // });
-        this.$router.push({
-          name:'index',
-          params:{
-            from:'login'
-          }
-        });
+        // this.$router.push({
+        //   name:'index',
+        //   params:{
+        //     from:'login'
+        //   }
+        // });
+        this.$router.push({ path: this.redirect || "/" });
+        // console.log(window.location.search.replace("?redirect="))
+        // this.$router.push({ path: window.location.search.replace("?redirect=","") || "/" });
       })
     },
     ...mapActions(['saveUserName','saveCartCount']),

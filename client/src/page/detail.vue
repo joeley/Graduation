@@ -1,6 +1,6 @@
 <template>
   <div class="detail">
-    <product-param :title="product.name"></product-param>
+    <product-param :title="product.productName"></product-param>
     <div class="wrapper">
       <div class="container clearfix">
         <div class="swiper">
@@ -90,14 +90,13 @@ export default{
   },
   methods:{
     addCart(){
-      this.axios.post('/carts',{
-        productId:this.id,
+      this.axios.post('/cart',{
+        ProductId:this.id,
         selected:true
-      }).then((res={})=>{
-        console.log(res)
-        this.$store.dispatch('saveCartCount',res.cartTotalQuantity)
+      }).then((res)=>{
+        this.$store.dispatch('saveCartCount',res.totalNum)
         this.$router.push('/cart');
-      })
+      }).catch(()=>{})
     },
     getProductInfo(){
       this.axios.get(`/product/detail/${this.id}`).then((res={})=>{

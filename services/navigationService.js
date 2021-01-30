@@ -7,7 +7,6 @@ const validate = require("validate.js");
 const { pick } = require("../util/propertyHelper");
 const { unnest } = require("../util/unnestHelper");
 const { sortObj } = require("../util/sortHelper");
-const { query } = require("../models/db");
 
 
 exports.getNavigation = async function (username, password) {

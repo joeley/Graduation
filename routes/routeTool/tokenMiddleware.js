@@ -1,14 +1,10 @@
-const { getErr } = require("./getSendResult");
+const { getResult } = require("./getSendResult");
 const { pathToRegexp } = require("path-to-regexp");
 const jwt = require("../../util/jwt");
 const settings = require("../../settings");
-const needTokenApi = [
-  { method: "POST", path: "/api/student" },
-  { method: "PUT", path: "/api/student/:id" },
-  { method: "GET", path: "/api/admin/whoami" },
-];
 
-// 用于解析token
+
+
 module.exports = (req, res, next) => {
   // /api/student/:id 和  /api/student/1771
   const apis = settings.needTokenApi.filter((api) => {
@@ -19,20 +15,14 @@ module.exports = (req, res, next) => {
     next();
     return;
   }
+  
   const result = jwt.verify(req);
-  if (result) {
+  if (!result.msg) {
     //认证通过
     req.userId = result.id;
     next();
   } else {
     //认证失败
-    handleNonToken(req, res, next);
+    res.send(getResult(null,2,result.msg))
   }
 };
-
-//处理没有认证的情况
-function handleNonToken(req, res, next) {
-  res
-    .status(403)
-    .send(getErr("you dont have any token to access the api", 403));
-}

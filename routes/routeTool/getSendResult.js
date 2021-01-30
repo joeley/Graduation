@@ -1,21 +1,15 @@
 // 中间件报错捕捉
-exports.getErr = function (err = "server internal error", errCode = 500) {
-  return {
-    code: errCode,
-    msg: err,
-  };
-};
-
-// 暂时无用
-exports.getResult = function (data,msg = "成功") {
+// 报错时直接调用
+exports.getResult = function (data=null, code=1, msg = "服务器发生错误") {
   if(data === null){
     return {
-      code: 1,
+      code,
       msg
     }
   }
   return {
-    code: 0,
+    code,
+    msg,
     data
   };
 };

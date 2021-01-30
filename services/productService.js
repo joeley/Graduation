@@ -20,7 +20,6 @@ exports.getRecommend = async function () {
 }
 exports.getFlag = async function (id) {
   if (!id){
-    console.log("object1")
     return false
   }
   const query = await Product.findOne({
@@ -31,7 +30,6 @@ exports.getFlag = async function (id) {
   if (!query || !query.dataValues) {
     return null
   } else {
-    console.log("object")
     return query.dataValues.productFlag
   }
 }
@@ -77,11 +75,12 @@ exports.getProductInfoById = async function (id) {
     )
   }
 }
-exports.getDetailById = async function () {
+exports.getDetailById = async function (id) {
   const query = await Product.findOne({
-    where: {}
+    where: {
+      id
+    }
   })
-  console.log(query)
   if (query.dataValues === undefined) {
     return null
   } else {

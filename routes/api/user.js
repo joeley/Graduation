@@ -10,7 +10,7 @@ router.post(
   "/login",
   asyncHandler(async (req, res) => {
     const {username, password} = req.body
-    if(!username && !password){
+    if(username === undefined || password === undefined ){
       return null
     }
     
