@@ -3,7 +3,7 @@ import store from './store'
 import axios from './permission'
 import router from './router/index'
 import VueLazyLoad from 'vue-lazyload'
-import VueCookie from 'vue-cookie'
+
 
 import { Message } from 'element-ui'
 import 'element-ui/lib/theme-chalk/message.css'
@@ -19,7 +19,7 @@ Vue.prototype.axios  = axios()
 Vue.use(VueLazyLoad,{
   loading:'/imgs/loading-svg/loading-bars.svg'
 });
-Vue.use(VueCookie);
+
 
 // 挂载element的Message组件，可以直接调用
 Vue.prototype.$message = Message;

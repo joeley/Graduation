@@ -12,7 +12,7 @@ const Address = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    receiverMobile: {
+    receiverProvince: {
       type: DataTypes.STRING,
       allowNull: false,
     },

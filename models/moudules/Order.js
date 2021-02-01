@@ -4,25 +4,34 @@ const { DataTypes } = require("sequelize");
 const Order = sequelize.define(
   "Order",
   {
-    paymentType: {
+    id: {
+      type: DataTypes.STRING, 
+      primaryKey: true,
+      autoIncrement:false
+    },
+    payType: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    paymentTypeDesc: {
+    payTypeDesc: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    receiverName: {
+    payStatus:{
       type: DataTypes.STRING,
       allowNull: false,
     },
-    status:{
+    payStatusDesc:{
       type: DataTypes.STRING,
       allowNull: false,
     },
-    statusDesc:{
-      type: DataTypes.STRING,
-      allowNull: false,
+    closeAt:{             // 关闭订单时间
+      type: DataTypes.DATE,
+      allowNull:true
+    },
+    payAt:{              // 支付时间
+      type: DataTypes.DATE,
+      allowNull:true
     }
   },
   {

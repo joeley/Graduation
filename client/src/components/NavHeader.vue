@@ -15,7 +15,7 @@
           <a href="javascript:;" v-if="!userInfo.username" @click="login">登录</a>
           <a href="javascript:;" v-if="!userInfo.username">注册</a>
 
-          <a href="javascript:;" class="my-cart">
+          <a href="/cart" class="my-cart">
             <span class="icon-cart"></span>
             购物车{{cartCount?'('+cartCount+')':''}}
           </a>
@@ -97,13 +97,12 @@ export default {
     },
     ...mapActions(['saveJWT','saveCartCount']),
     goToCart(){
-      this.$router.push("/cart");
+      this.$router.push("/order/list");
     },
     login(){
       this.$router.push("/login");
     },
-    loginOut(){
-        // this.$store.dispatch("saveJWT","")
+    loginOut(){    
         this.saveJWT("")
         this.$message.success({
           message:'退出成功',

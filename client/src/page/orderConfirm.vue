@@ -30,7 +30,7 @@
           <div class="item-address">
             <h2 class="addr-title">收货地址</h2>
             <div class="addr-list clearfix">
-              <div class="addr-info" :class="{'checked':index == checkIndex}" @click="checkIndex=index" v-for="(item,index) in list" :key="index">
+              <div class="addr-info" :class="{'checked':index == checkIndex}" @click="checkIndex=index" v-for="(item,index) in addressList" :key="index">
                 <h2>{{item.receiverName}}</h2>
                 <div class="phone">{{item.receiverMobile}}</div>
                 <div class="street">{{item.receiverProvince + ' ' + item.receiverCity + ' ' + item.receiverDistrict + ' ' + item.receiverAddress}}</div>
@@ -56,13 +56,13 @@
           <div class="item-good">
             <h2>商品</h2>
             <ul>
-              <li v-for="(item,index) in cartList" :key="index">
+              <li v-for="(item,index) in selectedProductList" :key="index">
                 <div class="good-name">
                   <img v-lazy="item.productMainImage" alt="">
-                  <span>{{item.productName + ' ' + item.productSubtitle}}</span>
+                  <span>{{item.productName + '  ' + item.productSubtitle}}</span>
                 </div>
-                <div class="good-price">{{item.productPrice}}元x{{item.quantity}}</div>
-                <div class="good-total">{{item.productTotalPrice}}元</div>
+                <div class="good-price">{{item.productPrice}}元 x {{item.quantity}}</div>
+                <div class="good-total">{{item.totalPrice}}元</div>
               </li>
             </ul>
           </div>
@@ -82,7 +82,7 @@
             </div>
             <div class="item">
               <span class="item-name">商品总价：</span>
-              <span class="item-val">{{cartTotalPrice}}元</span>
+              <span class="item-val">{{totalPrice}}元</span>
             </div>
             <div class="item">
               <span class="item-name">优惠活动：</span>
@@ -94,7 +94,7 @@
             </div>
             <div class="item-total">
               <span class="item-name">应付总额：</span>
-              <span class="item-val">{{cartTotalPrice}}元</span>
+              <span class="item-val">{{totalPrice}}元</span>
             </div>
           </div>
           <div class="btn-group">
@@ -119,19 +119,19 @@
           </div>
           <div class="item">
             <select name="province" v-model="checkedItem.receiverProvince">
+              <option value="山东">山东</option>
               <option value="北京">北京</option>
-              <option value="天津">天津</option>
               <option value="河北">河北</option>
             </select>
             <select name="city" v-model="checkedItem.receiverCity">
-              <option value="北京">北京</option>
-              <option value="天津">天津</option>
-              <option value="河北">石家庄</option>
+              <option value="北京市">烟台市</option>
+              <option value="烟台市">泰安市</option>
+              <option value="济南市">济南市</option>
             </select>
             <select name="district" v-model="checkedItem.receiverDistrict">
-              <option value="北京">昌平区</option>
-              <option value="天津">海淀区</option>
-              <option value="河北">东城区</option>
+              <option value="莱山区">莱山区</option>
+              <option value="岱岳区">岱岳区</option>
+              <option value="平阴区">平阴区</option>
               <option value="天津">西城区</option>
               <option value="河北">顺义区</option>
               <option value="天津">房山区</option>
@@ -166,9 +166,9 @@ export default{
   name:'order-confirm',
   data(){
     return {
-      list:[],//收货地址列表
-      cartList:[],//购物车中需要结算的商品列表
-      cartTotalPrice:0,//商品总金额
+      addressList:[],//收货地址列表
+      selectedProductList:[],//购物车中需要结算的商品列表
+      totalPrice:0,//商品总金额
       count:0,//商品结算数量
       checkedItem:{},//选中的商品对象
       userAction:'',//用户行为 0：新增 1：编辑 2：删除
@@ -187,8 +187,8 @@ export default{
   },
   methods:{
     getAddressList(){
-      this.axios.get('/shippings').then((res)=>{
-        this.list = res.list;
+      this.axios.get('/address').then((res)=>{
+        this.addressList = res;
       })
     },
     // 打开新增地址弹框
@@ -212,14 +212,14 @@ export default{
     submitAddress(){
       let {checkedItem,userAction} = this;
       let method,url,params={};
-      if(userAction == 0){
-        method = 'post',url = '/shippings';
-      }else if(userAction == 1){
-        method = 'put',url = `/shippings/${checkedItem.id}`;
+      if(userAction == 0){ // 增加
+        method = 'post',url = '/address';
+      }else if(userAction == 1){ // 修改
+        method = 'put',url = `/address/${checkedItem.id}`;
       }else {
-        method = 'delete',url = `/shippings/${checkedItem.id}`;
+        method = 'delete',url = `/address/${checkedItem.id}`;
       }
-      if(userAction == 0 || userAction ==1){
+      if(userAction == 0 || userAction ==1){ // 删除
         let { receiverName, receiverMobile, receiverProvince, receiverCity, receiverDistrict, receiverAddress, receiverZip} = checkedItem;
         let errMsg='';
         if(!receiverName){
@@ -265,18 +265,19 @@ export default{
       this.showEditModal = false;
     },
     getCartList(){
-      this.axios.get('/carts').then((res)=>{
-        let list = res.cartProductVoList;        //获取购物车中所有商品数据
-        this.cartTotalPrice = res.cartTotalPrice;//商品总金额
-        this.cartList = list.filter(item=>item.productSelected);
-        this.cartList.map((item)=>{
+      this.axios.get('/cart').then((res)=>{
+        let productList = res.productList;        //获取购物车中所有商品数据
+        this.totalPrice = res.totalPrice;//商品总金额
+        this.selectedProductList = productList.filter(item=>item.selected);
+        this.selectedProductList.map((item)=>{
           this.count += item.quantity;
         })
       })
     },
     // 订单提交
     orderSubmit(){
-      let item = this.list[this.checkIndex];
+      let item = this.addressList[this.checkIndex];
+
       if(!item){
         this.$message.error({
             message:'请选择一个收货地址',
@@ -284,13 +285,13 @@ export default{
         });
         return;
       }
-      this.axios.post('/orders',{
-        shippingId:item.id
+      this.axios.post('/order',{
+        AddressId:item.id
       }).then((res)=>{
         this.$router.push({
           path:'/order/pay',
           query:{
-            orderNo:res.orderNo
+            id:res.id
           }
         })
       })

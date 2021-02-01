@@ -171,8 +171,7 @@
       // 购物车下单
       order(){
         //let isCheck = this.list.every(item=>!item.selected);
-        let isCheck = this.list.some(item=>item.selected);
-        console.log(isCheck)
+        let isCheck = this.productList.some(item=>item.selected);
         if(isCheck){
           this.$router.push('/order/confirm');
         }else{

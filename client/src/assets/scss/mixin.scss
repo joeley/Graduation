@@ -12,3 +12,11 @@
     background: url($img) no-repeat center;
     background-size: $size;
 }
+
+@mixin border($bw:1px,$bc:$colorF,$bs:solid) {
+    border: $bw $bs $bc; 
+}
+@mixin height($h:0,$lh:$h) {
+    height: $h;
+    line-height: $lh;
+}

@@ -1,3 +1,4 @@
+const settings = require("../settings")
 const express = require("express");
 const app = express();
 
@@ -32,13 +33,16 @@ app.use("/api/product", require("./api/product"))
 app.use("/api/category", require("./api/category"))
 app.use("/api/display", require("./api/display"))
 app.use("/api/navigation", require("./api/navigation"))
-app.use("/api/cart",require("./api/cart"))
+app.use("/api/cart", require("./api/cart"))
+app.use("/api/address", require("./api/address"))
+app.use("/api/order", require("./api/order"))
+app.use("/api/pay", require("./api/pay"))
 
 
 // 处理错误的中间件
 app.use(require("./routeTool/errorMiddleware"));
 
-const port = 5009;
-app.listen(port, () => {
-  console.log(`服务器启动\n开始监听 ${port}`);
+
+app.listen(settings.port, () => {
+  console.log(`服务器启动\n开始监听 ${settings.port}`);
 });

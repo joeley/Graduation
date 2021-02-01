@@ -1,6 +1,6 @@
 <template>
   <div class="ali-pay">
-    <loading></loading>
+    <loading v-if="loading"></loading>
     <div class="form" v-html="content"></div>
   </div>
 </template>
@@ -13,8 +13,9 @@
     },
     data(){
       return {
-        orderId:this.$route.query.orderId,
+        orderId:this.$route.query.id,
         content:'',
+        loading:true
       }
     },
     mounted(){
@@ -22,15 +23,17 @@
     },
     methods:{
       paySubmit(){
-        this.axios.post('/pay',{
-          orderId:this.orderId,
-          orderName:'这里是可以扫码下单的',
-          amount:0.01,  //单位元
-          payType:1     //1支付宝，2微信
-        }).then((res)=>{
-          this.content = res.content;
-          setTimeout(()=>{    // 等待元素加载到html中再触发
-            document.forms[0].submit();
+        this.axios.post("/pay/alipay",{
+          orderId: this.orderId
+        }).then((res) => {
+          // const div = document.createElement('div');
+          // div.innerHTML = res; 
+          // document.body.appendChild(div);
+          this.content = res
+          const submitName = /(?<=name=")\w*/.exec(res)[0]
+          // document.forms[submitName].setAttribute('target', '_blank');
+          setTimeout(()=>{
+            document.forms[submitName].submit();
           },100)
         })
       }

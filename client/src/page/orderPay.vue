@@ -16,7 +16,7 @@
               <p>收货信息：{{addressInfo}}</p>
             </div>
             <div class="order-total">
-              <p>应付总额：<span>{{payment}}</span>元</p>
+              <p>应付总额：<span>{{totalPrice}}</span>元</p>
               <p>订单详情<em class="icon-down" :class="{'up':showDetail}" @click="showDetail=!showDetail"></em></p>
             </div>
           </div>
@@ -33,8 +33,8 @@
               <div class="detail-title">商品名称：</div>
               <div class="detail-info">
                 <ul>
-                  <li v-for="(item,index) in orderDetail" :key="index">
-                    <img v-lazy="item.productImage"/>{{item.productName}}
+                  <li v-for="(item,index) in productList" :key="index">
+                    <img v-lazy="item.productMainImage"/>{{item.productName}}
                   </li>
                 </ul>
               </div>
@@ -81,15 +81,15 @@ export default{
   name:'order-pay',
   data(){
     return {
-      orderId:this.$route.query.orderNo,
+      orderId:this.$route.query.id,
       addressInfo:'',//收货人地址
-      orderDetail:[],//订单详情，包含商品列表
+      productList:[],//订单详情，包含商品列表
       showDetail:false,//是否显示订单详情
       payType:'',//支付类型
       showPay:false,//是否显示微信支付弹框
       payImg:'',//微信支付的二维码地址
       showPayModal:false,//是否显示二次支付确认弹框
-      payment:0,//订单总金额
+      totalPrice:0,//订单总金额
       T:''//定时器ID
     }
   },
@@ -103,16 +103,27 @@ export default{
   },
   methods:{
     getOrderDetail(){
-      this.axios.get(`/orders/${this.orderId}`).then((res)=>{
-        let item = res.shippingVo;
-        this.addressInfo = `${item.receiverName} ${item.receiverMobile} ${item.receiverProvince} ${item.receiverCity} ${item.receiverDistrict} ${item.receiverAddress}`;
-        this.orderDetail = res.orderItemVoList;
-        this.payment = res.payment;
+      this.axios.get(`/order/${this.orderId}`).then((res)=>{
+        console.log(res)
+        this.addressInfo = `${res.receiverName} ${res.receiverMobile} ${res.receiverProvince} ${res.receiverCity} ${res.receiverDistrict} ${res.receiverAddress}`;
+        this.productList = res.productList;
+        this.totalPrice = res.totalPrice;
       })
     },
     paySubmit(payType){
       if(payType == 1){
-        window.open('/order/alipay?orderId='+this.orderId,'_blank');
+        
+        // this.axios.post("/pay/alipay",{
+        //   orderId: this.orderId
+        // }).then((res) => {
+        //   const div = document.createElement('div');
+        //   div.innerHTML = res; 
+        //   document.body.appendChild(div);
+        //   const submitName = /(?<=name=")\w*/.exec(res)[0]
+        //   document.forms[submitName].setAttribute('target', '_blank');
+        //   document.forms[submitName].submit();
+        // })
+        window.open('/order/alipay?id='+this.orderId,'_blank');
       }else{
         this.axios.post('/pay',{
           orderId:this.orderId,
