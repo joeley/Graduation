@@ -4,6 +4,11 @@ const { DataTypes } = require("sequelize");
 const Address = sequelize.define(
   "Address",
   {
+    // id:{
+    //   type: DataTypes.INTEGER, 
+    //   primaryKey: true,
+    //   autoIncrement:true
+    // },
     receiverName: {
       type: DataTypes.STRING,
       allowNull: false,

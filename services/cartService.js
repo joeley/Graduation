@@ -137,16 +137,16 @@ exports.selectedAll = async function(UserId){
     }
   })
   return sequelize.transaction(t => {
-      const promiseArr = [];
-      for (const ele of res) {  
-        promiseArr.push(ele.update({ 
-          selected:selected
-        },{
-          transaction: t
-        }))
-      }
-      return Promise.all(promiseArr);
-    }).then(() => exports.getCart(UserId)).catch(() => null)
+    const promiseArr = [];
+    for (const ele of res) {  
+      promiseArr.push(ele.update({ 
+        selected:selected
+      },{
+        transaction: t
+      }))
+    }
+    return Promise.all(promiseArr);
+  }).then(() => exports.getCart(UserId)).catch(() => null)
 }
 
 exports.updateNum = async function(UserId,ProductId,quantity, selected=true) {

@@ -105,7 +105,7 @@
       </div>
     </div>
     <modal
-      title="新增确认"
+      :title="title"
       btnType="1"
       :showModal="showEditModal"
       @closeModal="showEditModal=false"
@@ -174,7 +174,8 @@ export default{
       userAction:'',//用户行为 0：新增 1：编辑 2：删除
       showDelModal:false,//是否显示删除弹框
       showEditModal:false,//是否显示新增或者编辑弹框
-      checkIndex:0//当前收货地址选中索引
+      checkIndex:0,//当前收货地址选中索引
+      title:"新增确认"
     }
   },
   components:{
@@ -194,12 +195,14 @@ export default{
     // 打开新增地址弹框
     openAddressModal(){
       this.userAction = 0;
+      this.title = "新增地址"
       this.checkedItem = {};
       this.showEditModal = true;
     },
     // 打开新增地址弹框
     editAddressModal(item){
       this.userAction = 1;
+      this.title = "修改地址"
       this.checkedItem = item;
       this.showEditModal = true;
     },

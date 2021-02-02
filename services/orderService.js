@@ -71,13 +71,15 @@ exports.getOrder = async (OrderId, UserId, page=1, limit=10) => {
         UserId,
         id: OrderId
       },
-      include: [{ model: Product }]
+      include: [{ model: Product, paranoid: false }],
+      paranoid: false
     }) 
   ]  : await Order.findAll({
     where: { 
       UserId
     }, 
-    include: [{ model: Product }],
+    include: [{ model: Product, paranoid: false}],
+    paranoid: false,
     offset: limit * (page - 1),
     limit,
   })

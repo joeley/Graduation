@@ -25,7 +25,8 @@ exports.getFlag = async function (id) {
   const query = await Product.findOne({
     where: {
       id: id
-    }
+    },
+    paranoid: false
   })
   if (!query || !query.dataValues) {
     return null
@@ -38,7 +39,8 @@ exports.getProductInfoById = async function (id) {
   const query = await Product.findOne({
     where: {
       id:id
-    }
+    },
+    paranoid: false
   })
   if (!query || !query.dataValues) {
     return null
@@ -79,7 +81,8 @@ exports.getDetailById = async function (id) {
   const query = await Product.findOne({
     where: {
       id
-    }
+    },
+    paranoid: false
   })
   if (query.dataValues === undefined) {
     return null

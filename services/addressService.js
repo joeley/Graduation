@@ -10,11 +10,14 @@ const { sortObj } = require("../util/sortHelper");
 
 
 exports.getAddress = async (UserId)=>{
-  const list = await Address.findAll({
+  let list = await Address.findAll({
     where: {
       UserId
     },
     raw: true
+  })
+  list = list.sort((crr,next)=>{
+    return (+moment(crr.createdAt)) - (+moment(next.createdAt))
   })
   return list.map((address)=>{
     return pick(address,
@@ -65,6 +68,8 @@ exports.updateAddress = async (UserId, AddressId, {
   receiverAddress,
   receiverZip
 }) => {
+  // 软删除 此处不可用update
+
   let up = {}
   if(!AddressId){
     return null
@@ -93,14 +98,33 @@ exports.updateAddress = async (UserId, AddressId, {
   if(receiverZip){
     up = {...up,receiverZip}
   }
-
-  return Address.update(up,{
-    where: {
-      id: AddressId
+  return sequelize.transaction(async t => {
+    const oldAddressEntity =  await Address.findOne({
+      where: {
+        UserId:UserId,
+        id:AddressId
+      }
+    })
+    if(addressEntity = null){
+      return Promise.reject(null)
     }
-  }).then(() => {
-    return exports.getAddress(UserId)
-  })
+    const oldAddressJson =  oldAddressEntity.toJSON()
+    delete oldAddressJson.id
+    const newAddressEntity = await Address.create({
+      ...oldAddressJson,
+      ...up
+    },{ transaction: t })
+    await oldAddressEntity.destroy({});
+    return newAddressEntity.get()
+  }).then(() => exports.getAddress(UserId) )
+  
+  // return Address.update(up,{
+  //   where: {
+  //     id: AddressId
+  //   }
+  // }).then(() => {
+  //   return exports.getAddress(UserId)
+  // })
 }
 
 exports.deleteAddress = async (UserId, AddressId) => {

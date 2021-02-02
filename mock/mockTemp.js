@@ -670,6 +670,7 @@ address.push(
     receiverDistrict:"莱山区",
     receiverAddress:"滨海中路山东工商学院26号楼335宿舍",
     receiverZip:"264003",
+    createdAt:1612262420000,
     UserId:1
   },
   {
@@ -681,6 +682,7 @@ address.push(
     receiverDistrict:"岱岳区",
     receiverAddress:"良庄镇",
     receiverZip:"264003",
+    createdAt:1612272420000,
     UserId:1
   }
 )
