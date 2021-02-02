@@ -1,8 +1,11 @@
 module.exports = {
+  domain:"http://localhost:8080",
   port:5009,
   authorizationKey:"token",
   tokenSecrect:"joeley",
-  domain:"http://localhost:8080",
+  mysqlDatabaseName:"xiaomi",
+  mysqlDatabaseUser:"root",
+  mysqlDatabasePassword:"root",
   needTokenApi:[
     { method: "POST", path: "/api/student" },
     { method: "PUT", path: "/api/student/:id" },

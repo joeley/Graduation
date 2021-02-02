@@ -1,11 +1,5 @@
-// 同步所有模型
-require("./moudules/Admin");
-require("./moudules/Book");
-require("./moudules/Class");
-
 
 module.exports = function(callback=()=>{}){
-  require("./moudules/Student");
   require("./moudules/User")
   require("./moudules/Product");
   require("./moudules/Category");

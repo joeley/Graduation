@@ -14,7 +14,7 @@ const Navigation = sequelize.define(
     }
   },
   {
-    paranoid: true
+    paranoid: false
   }
 );
 

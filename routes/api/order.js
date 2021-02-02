@@ -32,11 +32,4 @@ router.get(
   },"查到订单","查询订单失败")
 )
 
-// router.xxx(
-//   "/",
-//   asyncHandler(async (req, res) => {
-//     return await orderService.xxx()
-//   },"xxx","xxx")
-// )
-
 module.exports = router;

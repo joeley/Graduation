@@ -26,7 +26,7 @@ const User = sequelize.define(
     },
   },
   {
-    paranoid: true //从此以后，该表的数据不会真正的删除，而是增加一列deletedAt，记录删除的时间
+    paranoid: true
   }
 );
 

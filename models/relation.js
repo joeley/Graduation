@@ -1,6 +1,5 @@
 // 设置模型关系
-const Class = require("./moudules/Class");
-const Student = require("./moudules/Student");
+
 const User = require("./moudules/User");
 const Product = require("./moudules/Product");
 const RCart = require("./moudules/RCart");
@@ -13,9 +12,6 @@ const RMenu = require("./moudules/RMenu");
 const Display = require("./moudules/Display");
 
 
-
-Class.hasMany(Student);
-Student.belongsTo(Class);
 
 Category.hasMany(Product);
 Product.belongsTo(Category);

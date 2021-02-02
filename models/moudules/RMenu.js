@@ -26,7 +26,7 @@ const RMenu = sequelize.define(
     }
   },
   {
-    paranoid: true 
+    paranoid: false 
   }
 );
 
