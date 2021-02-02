@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from '@/page/home'
 import Index from "@/page/index"
 import axios from '@/permission'
+import store from "@/store"
 
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
@@ -104,6 +105,11 @@ NProgress.configure({
 
 router.beforeEach((to,from,next)=>{
     NProgress.start()
+    if(store.state.cartCount === ""){
+        axios().get("/cart/cartNum").then((res)=>{
+            store.dispatch("saveCartCount", res)
+        })
+    }
     next()
 })
 router.afterEach(() => {

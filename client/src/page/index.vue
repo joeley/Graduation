@@ -54,8 +54,8 @@
             </a>
           </div>
           <div class="list-box">
-            <div class="list" v-for="(arr,i) in recommendList" :key="i">
-              <div class="item" v-for="(item,j) in arr" v-bind:key="j">
+            <div class="list" v-for="(arr,i) in recommendList" :key="i" >
+              <div class="item" v-for="(item,j) in arr" v-bind:key="j" @click="goProduct(item.id)">
                 <span  :style="{
                   backgroundColor:item.tagColor
                 }">{{ item.tag }}</span>
@@ -65,7 +65,7 @@
                 <div class="item-info">
                   <h3>{{item.productName}}</h3>
                   <p>{{item.productSubtitle}}</p>
-                  <p class="price" @click="addCart(item.id)">{{item.productPrice}}元</p>
+                  <p class="price" @click.stop="addCart(item.id)">{{item.productPrice}}元</p>
                 </div>
               </div>
             </div>
@@ -187,13 +187,13 @@ export default {
       // this.showModal = true;
       // this.$store.dispatch("saveCartCount", ++this.$store.state.cartCount)
       this.axios
-        .post("/carts", {
-          productId: 40, 
+        .post("/cart", {
+          ProductId: id, 
           selected: true
         })
         .then((res) => {
           this.showModal = true;
-          this.$store.dispatch("saveCartCount", res.cartTotalQuantity)
+          this.$store.dispatch("saveCartCount", res.totalNum)
           
         })
         .catch((res) => {
@@ -202,6 +202,9 @@ export default {
           console.log(id)
         });
     },
+    goProduct(id){
+      this.$router.push('/product/' + id)
+    }
   },
 };
 </script>

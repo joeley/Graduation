@@ -148,6 +148,7 @@ exports.selectedAll = async function(UserId){
       return Promise.all(promiseArr);
     }).then(() => exports.getCart(UserId)).catch(() => null)
 }
+
 exports.updateNum = async function(UserId,ProductId,quantity, selected=true) {
   return RCart.findOne({
     where: {
@@ -160,4 +161,12 @@ exports.updateNum = async function(UserId,ProductId,quantity, selected=true) {
       selected
     })
   }).then(() => exports.getCart(UserId)).catch(() => null);
+}
+
+exports.getCartNum = async (UserId)=>{
+  return RCart.count({
+    where:{
+      UserId,
+    }
+  });
 }

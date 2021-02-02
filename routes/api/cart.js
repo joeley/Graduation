@@ -49,5 +49,11 @@ router.put(
   },"修改购物车商品数量成功","至少保留一件商品")
 ) 
 
+router.get(
+  '/cartNum',
+  asyncHandler(async (req, res) => {
+    return await cartService.getCartNum(req.userId)
+  }, "查询购物车商品数量成功", "查询购物车商品数量失败")
+)
 
 module.exports = router;

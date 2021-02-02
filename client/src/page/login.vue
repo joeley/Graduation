@@ -65,22 +65,19 @@ export default {
       }).then(()=>{
         // this.saveUserName(res.username);
 
-        console.log("拉取product数量")
+        // console.log("拉取product数量")
+        this.axios.get('/cart/cartNum').then((res)=>{
+          this.$store.dispatch('saveCartCount', res)
+        });
         // this.axios.get('/carts/products/sum').then((res)=>{
         //   this.$store.dispatch('saveCartCount', res)
-        // });
-        // this.$router.push({
-        //   name:'index',
-        //   params:{
-        //     from:'login'
-        //   }
         // });
         this.$router.push({ path: this.redirect || "/" });
         // console.log(window.location.search.replace("?redirect="))
         // this.$router.push({ path: window.location.search.replace("?redirect=","") || "/" });
       })
     },
-    ...mapActions(['saveUserName','saveCartCount']),
+    ...mapActions(['saveCartCount']),
     register(){
       this.axios.post('/user/register',{
         username:'admin1',

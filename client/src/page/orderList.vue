@@ -78,7 +78,7 @@
   import Loading from './../components/Loading'
   import NoData from './../components/NoData'
   import { Pagination,Button } from 'element-ui'
-  import infiniteScroll from 'vue-infinite-scroll'
+  // import infiniteScroll from 'vue-infinite-scroll'
   export default{
     name:'order-list',
     components:{
@@ -88,9 +88,9 @@
       [Pagination.name]:Pagination,
       [Button.name]:Button
     },
-    directives: {
-      infiniteScroll
-    },
+    // directives: {
+    //   infiniteScroll
+    // },
     data(){
       return {
         loading:true,
@@ -142,18 +142,18 @@
         this.getOrderList();
       },
       // 第二种方法：加载更多按钮
-      loadMore(){
-        this.pageNum++;
-        this.getOrderList();
-      },
-      // 第三种方法：滚动加载，通过npm插件实现
-      scrollMore(){
-        this.busy = true;
-        setTimeout(()=>{
-          this.pageNum++;
-          this.getList();
-        },500);
-      },
+      // loadMore(){
+      //   this.pageNum++;
+      //   this.getOrderList();
+      // },
+      // // 第三种方法：滚动加载，通过npm插件实现
+      // scrollMore(){
+      //   this.busy = true;
+      //   setTimeout(()=>{
+      //     this.pageNum++;
+      //     this.getList();
+      //   },500);
+      // },
       // 专门给scrollMore使用
       getList(){
         this.loading = true;

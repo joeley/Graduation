@@ -122,6 +122,8 @@
       // 删除购物车商品
       delProduct(item){
         this.axios.delete(`/cart/${item.id}`).then((res)=>{
+          console.log(res)
+          this.$store.dispatch("saveCartCount", res.totalNum)
           this.$message.success({
             message:'删除成功',
             center:true

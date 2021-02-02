@@ -12,6 +12,7 @@ module.exports = {
     { method: "DELETE", path: "/api/cart/:id"}, 
     { method: "PUT", path: "/api/cart/selectAll"},
     { method: "PUT", path: "/api/cart/:id"},  
+    { method: "GET", path: "/api/cart/cartNum"},      
     { method: "POST", path: "/api/address"}, 
     { method: "GET", path: "/api/address"},  
     { method: "PUT", path: "/api/address/:id"},

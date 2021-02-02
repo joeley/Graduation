@@ -9,7 +9,7 @@ Vue.use(Vuex)
 
 const state = {
   jwt:localStorage.getItem('token')||'',
-  cartCount: 0, 
+  cartCount: "", 
 }
 
 export default new Vuex.Store({

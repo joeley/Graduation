@@ -99,17 +99,22 @@ export default {
     goToCart(){
       this.$router.push("/order/list");
     },
+    getCartNum(){
+      this.axios.get("/cart/cartNum").then((res)=>{
+        this.saveCartCount(res)
+      })
+    },
     login(){
       this.$router.push("/login");
     },
     loginOut(){    
         this.saveJWT("")
+        this.saveCartCount(0)
         this.$message.success({
           message:'退出成功',
           center:true
         });
       // this.axios.post('/user/logout').then(()=>{
- 
       //   this.$cookie.set("userId",'',{expires:'-1'});
       //   //this.$store.dispatch('saveUserName',res.username);
       //   this.saveUserName('');
