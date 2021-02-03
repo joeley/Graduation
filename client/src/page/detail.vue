@@ -107,6 +107,7 @@ export default{
   },
   mounted(){
     this.getProductInfo();
+    window.scrollTo(0, 0);
   }
   
 }

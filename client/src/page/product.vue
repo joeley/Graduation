@@ -10,6 +10,7 @@
         :style="{
           backgroundImage:'url('+ product.productBg1 +')'
         }"
+        v-if="!!product.productBg1"
       >
         <h2>{{product.productName}}</h2>
         <h3>{{product.productSubtitle}}</h3>
@@ -106,6 +107,7 @@
     },
     mounted(){
       this.getProductInfo();
+      window.scrollTo(0, 0);
     },
     methods:{
       // gotoDetail(flag,id){   //  此函数已经通过路由守卫实现
@@ -175,19 +177,19 @@
       .item-bg-2{
         background-repeat:no-repeat;
         background-position:center;
-        height:480px;
-        background-size:1226px 397px;
+        height:718px;
+        background-size:cover;
       }
       .item-bg-3{
         background-repeat:no-repeat;
         background-position:center;
-        height:638px;
+        height:718px;
         background-size:cover;
       }
       .item-bg-4{
         background-repeat:no-repeat;
         background-position:center;
-        height:638px;
+        height:718px;
         background-size:cover;
       }
       .item-swiper{
@@ -199,6 +201,8 @@
         }
         img{
           width:100%;
+          height:250px;
+          background-size:cover;
         }
       }
       .item-video{

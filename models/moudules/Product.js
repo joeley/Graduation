@@ -36,27 +36,25 @@ const Product = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false
     },
-    
-
     productFlag: {       
       type: DataTypes.BOOLEAN,
       allowNull: false
     },
     productDescribe1:{
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
     productDescribe2:{
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
     productDescribe3:{
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
     productDescribe4:{
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
     productBg1: {         
       type: DataTypes.STRING,
@@ -76,7 +74,7 @@ const Product = sequelize.define(
     },
     galleryFlag:{
       type: DataTypes.BOOLEAN,
-      allowNull: false
+      allowNull: true
     },
     galleryText: {
       type: DataTypes.STRING,
@@ -104,7 +102,7 @@ const Product = sequelize.define(
     },
     videoFlag: {         
       type: DataTypes.BOOLEAN,
-      allowNull: false
+      allowNull: true
     },
     videoSrc: {         
       type: DataTypes.STRING,
@@ -136,15 +134,15 @@ const Product = sequelize.define(
     },
     detailImg2:{ 
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
     detailImg3:{ 
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
     detailImg4:{ 
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
     order: {                 // 在分类的排序
       type: DataTypes.INTEGER,
