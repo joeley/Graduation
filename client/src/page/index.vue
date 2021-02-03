@@ -8,22 +8,22 @@
               <a href="javascript:;">{{item.describe}}</a>
               <div class="children">
                 <div v-for="(ele,j) in item.productList" :key="j">
-                  <a :href="'/product/'+ele.id">
+                  <router-link :to="'/product/'+ele.id">
                     <img v-lazy="ele.productMainImage" alt />
                     {{ele.productName}}
-                  </a>
+                  </router-link>
                 </div>
               </div>
             </li>
           </ul>
         </div>
-        <swiper v-bind:options="swiperOption" v-if="swiperList[0]!=undefined">
+        <swiper v-bind:options="swiperOption">
           <swiper-slide v-for="(item, index) in swiperList" :key="index">
-            <a :href="'/product/'+item.ProductId">
+            <router-link :to="'/product/'+item.ProductId">
               <!-- 边界图处理 -->
               <img :src="item.displaySrc"  v-show="index == 0 || index == swiperList.length-1"/>  
               <img v-lazy="item.displaySrc" alt="" v-show="index !== 0 && index !== swiperList.length-1">
-            </a>
+            </router-link>
           </swiper-slide>
           <!-- Optional controls -->
           <div class="swiper-pagination" slot="pagination"></div>
@@ -33,15 +33,15 @@
       </div>
 
       <div class="ads-box">
-        <a :href="'/product/'+item.ProductId" v-for="(item,index) in adsList" :key="index">
+        <router-link :to="'/product/'+item.ProductId" v-for="(item,index) in adsList" :key="index">
           <img v-lazy="item.displaySrc" alt />
-        </a>
+        </router-link>
       </div>
 
       <div class="banner">
-        <a :href="'/product/' + newRecommend[0].ProductId"  v-if="!!newRecommend[0] && !! newRecommend[0].ProductId">
+        <router-link :to="'/product/' + newRecommend[0].ProductId"  v-if="!!newRecommend[0] && !! newRecommend[0].ProductId">
           <img v-lazy="newRecommend[0].displaySrc" alt />
-        </a>
+        </router-link>
       </div>
     </div>
     <div class="product-box">
@@ -49,9 +49,9 @@
         <h2>推荐</h2>
         <div class="wrapper">
           <div class="banner-left">
-            <a :href="'/product/' + mainRecommend[0].ProductId" v-if="!!mainRecommend[0] && mainRecommend[0].ProductId">
+            <router-link :to="'/product/' + mainRecommend[0].ProductId" v-if="!!mainRecommend[0] && mainRecommend[0].ProductId">
               <img v-lazy="mainRecommend[0].displaySrc" alt />
-            </a>
+            </router-link>
           </div>
           <div class="list-box">
             <div class="list" v-for="(arr,i) in recommendList" :key="i" >
@@ -76,16 +76,16 @@
 
     <modal 
       :showModal="showModal" 
-      title="测试" 
-      sureText="查看购物车" 
+      :title="title" 
+      :sureText="sureText" 
       btnType="3" 
       modalType="middle"
-      @modalSubmit="goToCart"
+      @modalSubmit="goTo"
       @cancelModalSubmit="closeModal"
       @closeModal="closeModal"
      >
       <template v-slot:body>
-        <p>商品添加成功！</p>
+        <p>{{modalContent}}</p>
       </template>
     </modal>
 
@@ -118,7 +118,7 @@ export default {
         navigation: {
           nextEl: ".swiper-button-next",
           prevEl: ".swiper-button-prev",
-        },
+        }
       },
       categoryList:[],
       swiperList:[],
@@ -127,6 +127,10 @@ export default {
       mainRecommend:[],
       newRecommend:[],
       showModal: false,
+      title:"成功",
+      sureText:"查看购物车",
+      modalContent:"商品添加成功！",
+      modalAction:1, //  1 去购物车 2 去登录
     };
   },
   components: {
@@ -177,30 +181,41 @@ export default {
         this.categoryList = res
       })
     },
-    goToCart() {
-      this.$router.push("/cart");
+    goTo(){
+      if(this.modelAction === 1){
+        this.$router.push("/cart");
+      }else{
+        this.$router.push("/login")
+      }
     },
     closeModal(){
       this.showModal=false;
     },
     addCart(id) {
-      // this.showModal = true;
-      // this.$store.dispatch("saveCartCount", ++this.$store.state.cartCount)
-      this.axios
-        .post("/cart", {
+      if(this.$store.state.cartCount === ""||this.$store.state.jwt !==''){
+        this.sureText = "去登陆"
+        this.title = "权限不够"
+        this.modalContent = "是否前去登录？"
+        this.modalAction = 2
+        this.showModal = true;
+      }else{
+        this.axios.post("/cart", {
           ProductId: id, 
           selected: true
-        })
-        .then((res) => {
-          this.showModal = true;
+        }).then((res) => {
           this.$store.dispatch("saveCartCount", res.totalNum)
-          
-        })
-        .catch((res) => {
+          this.sureText = "查看购物车"
+          this.title = "成功"
+          this.modalContent = "商品添加成功！"
+          this.modalAction = 1
+          this.showModal = true;
+        }).catch((res) => {
           // this.showModal = true;
           console.log(res);
           console.log(id)
         });
+      }
+
     },
     goProduct(id){
       this.$router.push('/product/' + id)

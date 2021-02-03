@@ -15,13 +15,13 @@
         <h2>{{product.productName}}</h2>
         <h3>{{product.productSubtitle}}</h3>
         <p>
-          <a href="" id="">{{ product.productDescribe1 }}</a>
+          <a href="javascript:;" id="">{{ product.productDescribe1 }}</a>
           <span>|</span>
-          <a href="" id="">{{ product.productDescribe2 }}</a>
+          <a href="javascript:;" id="">{{ product.productDescribe2 }}</a>
           <span>|</span>
-          <a href="" id="">{{ product.productDescribe3 }}</a>
+          <a href="javascript:;" id="">{{ product.productDescribe3 }}</a>
           <span>|</span>
-          <a href="" id="">{{ product.productDescribe4 }}</a>
+          <a href="javascript:;" id="">{{ product.productDescribe4 }}</a>
         </p>
         <div class="price">
           <span>￥<em>{{product.productPrice}}</em></span>
@@ -78,6 +78,7 @@
       </div>
     </div>
   </div>
+  <div class="product" v-else></div>
 </template>
 <script>
   import { swiper, swiperSlide } from 'vue-awesome-swiper'
@@ -110,18 +111,16 @@
       window.scrollTo(0, 0);
     },
     methods:{
-      // gotoDetail(flag,id){   //  此函数已经通过路由守卫实现
-      //   console.log(flag)
-      //   if(!flag){
-      //     this.$router.replace("/detail/"+id)
-      //   }
-      // },
+      gotoDetail(flag,id){   //  此函数已经通过路由守卫实现
+        if(!flag){
+          this.$router.replace("/detail/"+id)
+        }
+      },
       getProductInfo(){
         let id = this.$route.params.id;
         this.axios.get(`/product/${id}`).then((res)=>{
           this.product = res;
-          
-          // this.gotoDetail(res.productFlag,id)
+          this.gotoDetail(res.productFlag,id)
         })
       },
       buy(){
@@ -140,6 +139,7 @@
 <style lang="scss">
 @import '../assets/scss/mixin.scss';
   .product{
+    min-height: 718px;
     .content{
       .item-bg{
         background-repeat:no-repeat;

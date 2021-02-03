@@ -22,20 +22,22 @@ export default function(){
     }
     const res = response.data;
     const path = location.pathname; 
-
+    // const whiteList =  ["/login","/index","/product","/detail", "/"]
     if(res.code == 0){              // 成功
       return res.data;
-    }else if(res.code == 2){       //  没权限 403 放过来了 
-      if(path =='/login') return;
-      if(path !='/login'){
-        Message.warning({
-          message:res.msg,
-          center:true
-        });
-        router.push("/login?redirect=" + path);
-        // 这玩意跳转太慢了，还要刷新界面
-        // window.location.href = "/login?redirect=" + path;             
-      }
+    }else if(res.code == 2){  
+      // const flag = whiteList.some((ele)=>{
+      //   return path.startsWith(ele)
+      // })
+      // if(flag) return Promise.reject(2);     //  没权限 403 放过来了 
+      Message.warning({
+        message:res.msg,
+        center:true
+      });
+      router.push("/login?redirect=" + path);
+      // 这玩意跳转太慢了，还要刷新界面
+      // window.location.href = "/login?redirect=" + path;             
+      
       return Promise.reject(res);
     }else{
       Message.warning({

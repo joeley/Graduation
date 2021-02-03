@@ -15,17 +15,17 @@
           <a href="javascript:;" v-if="!userInfo.username" @click="login">登录</a>
           <a href="javascript:;" v-if="!userInfo.username">注册</a>
 
-          <a href="/cart" class="my-cart">
+          <router-link to="/cart" class="my-cart">
             <span class="icon-cart"></span>
             购物车{{cartCount?'('+cartCount+')':''}}
-          </a>
+          </router-link>
         </div>
       </div>
     </div>
     <div class="nav-header">
       <div class="container">
         <div class="header-logo">
-          <a href="/index"></a>
+          <router-link to="/index"></router-link>
         </div>
         <div class="header-menu">
           <div class="item-menu" v-for="(item) of navigationList" :key="item.id">
@@ -36,7 +36,7 @@
                   class="product" 
                   v-for="(ele,i) of item.productList" :key="i"
                 >
-                  <a :href="'/product/'+ele.id" target="_blank">
+                  <router-link :to="'/product/'+ele.id" target="_blank">
                     <div class="pro-img">
                       <img
                         v-lazy="ele.productMainImage"
@@ -46,7 +46,7 @@
                     </div>
                     <div class="pro-name">{{ele.productName}}</div>
                     <div class="pro-price">{{ele.productPrice|currency}}</div>
-                  </a>
+                  </router-link>
                 </li>
               </ul>
             </div>

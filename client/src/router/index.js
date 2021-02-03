@@ -40,15 +40,17 @@ const router = new Router({
                     path:'product/:id',
                     name:'product',
                     component:Product,
-                    beforeEnter:(to,from,next)=>{
-                        axios().get("/product/flag/" + to.params.id).then(res=>{
-                            if(res){
-                                next()
-                            }else{
-                                next("/detail/" + to.params.id)
-                            }
-                        })
-                    }
+                    // beforeEnter:(to,from,next)=>{
+                    //     axios().get("/product/flag/" + to.params.id).then(res=>{
+                    //         if(res){
+                    //             next()
+                    //         }else{
+                    //             next({
+                    //                 path:"/detail/" +to.params.id
+                    //             })
+                    //         }
+                    //     })
+                    // }
                 },
                 {
                     path:'detail/:id',
@@ -102,12 +104,21 @@ const router = new Router({
 NProgress.configure({
     showSpinner: false
 })
+const whiteList =  ["/login","/index","/product","/detail"]
+
 
 router.beforeEach((to,from,next)=>{
     NProgress.start()
-    if(store.state.cartCount === ""){
+    const flag = whiteList.some((ele)=>{
+        return to.fullPath.startsWith(ele)
+    })
+    if(store.state.jwt === "" && !flag){     // 没登录就想去权限页面拦截
+        next('/login?redirect=' + location.pathname)
+    }else if(store.state.cartCount !== "" && store.state.jwt !==''){
         axios().get("/cart/cartNum").then((res)=>{
             store.dispatch("saveCartCount", res)
+        }).catch((res)=>{
+            return res
         })
     }
     next()

@@ -2,9 +2,9 @@
   <div class="login">
     <div class="login-header">
       <div class="container">
-        <a href="/index">
+        <router-link to="/index">
           <img src="/imgs/login-logo.png" alt="">
-        </a>
+        </router-link>
       </div>
     </div>
     <div class="login-body">
