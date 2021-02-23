@@ -39,10 +39,10 @@
                 </div>
               </div>
               <div class="good-state fr" v-if="order.payStatus == 1">
-                <a href="javascript:;">{{order.payStatusDesc}}</a>
+                <a href="javascript:;" @click="goPay(order.id)">{{order.payStatusDesc}}</a>
               </div>
               <div class="good-state fr" v-else>
-                <a href="javascript:;" @click="goPay(order.id)">{{order.payStatusDesc}}</a>
+                <a href="javascript:;">{{order.payStatusDesc}}</a>
               </div>
             </div>
           </div>

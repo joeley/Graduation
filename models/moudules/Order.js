@@ -9,7 +9,7 @@ const Order = sequelize.define(
       primaryKey: true,
       autoIncrement:false
     },
-    payType: {
+    payType: {              // 支付类型 0 在线支付 1 线下支付
       type: DataTypes.INTEGER,
       allowNull: false,
     },
@@ -17,7 +17,7 @@ const Order = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    payStatus:{
+    payStatus:{            // 支付状态 0 未支付 1 已支付 2 交易关闭
       type: DataTypes.STRING,
       allowNull: false,
     },

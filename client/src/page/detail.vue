@@ -94,7 +94,6 @@ export default{
         ProductId:this.id,
         selected:true
       }).then((res)=>{
-        console.log(res);
         this.$store.dispatch('saveCartCount',res.totalNum)
         this.$router.push('/cart');
       }).catch(()=>{})

@@ -20,9 +20,19 @@ router.post(
 
 router.post(
   "/alipay/notify",
-  asyncHandler(async (req, res)=>{
-    console.log("我收到通知了")
-  })
+  async (req, res) => {
+    const verify = await await payService.alipayNotify(req.body)
+    res.send(verify)
+  }
+  // asyncHandler(async (req, res)=>{
+  //   return await payService.alipayNotify(req.body)
+  // })
+)
+
+router.post(
+  "/test", async (req, res) =>{
+    res.send(await payService.alipayQuery())
+  }
 )
 // router.get(
 //   "/",

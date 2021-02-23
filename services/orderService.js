@@ -28,11 +28,11 @@ exports.generateOrder = async (UserId, AddressId)=>{
     }
 
     const order =  await Order.create({       // 创建订单
-      id:moment.utc()+Math.random().toString().slice(-5),  // 18位订单号
+      id:+moment.utc() + Math.random().toString().slice(-5),  // 18位订单号
       UserId,
       AddressId,
       payType: 0,
-      payTypeDesc:"未支付",
+      payTypeDesc:"在线支付",
       payStatus:0,
       payStatusDesc:"未支付",
     },{ transaction: t })
@@ -91,7 +91,6 @@ exports.getOrder = async (OrderId, UserId, page=1, limit=10) => {
 
   ret.orderList = [];
   const promiseArr = [];
- 
 
   for (const orderEntity of orderEntityArr) {
     if(orderEntity === null){  return null  }
@@ -103,9 +102,9 @@ exports.getOrder = async (OrderId, UserId, page=1, limit=10) => {
     orderReturn.payTypeDesc =  orderJson.payTypeDesc
     orderReturn.payStatus =  orderJson.payStatus
     orderReturn.payStatusDesc =  orderJson.payStatusDesc
-    orderReturn.payAt =   orderJson.payAt ? moment( orderJson.payAt).utc() :  orderJson.payAt
-    orderReturn.createdAt =  orderJson.createdAt ? moment( orderJson.createdAt).utc() :  orderJson.createdAt
-    orderReturn.closeAt =  orderJson.closeAt ? moment(orderJson.closeAt).utc() : orderJson.closeAt
+    orderReturn.payAt =   orderJson.payAt ? moment( orderJson.payAt).utc().format("YYYY.MM.DD HH:mm:ss") :  orderJson.payAt
+    orderReturn.createdAt =  orderJson.createdAt ? moment( orderJson.createdAt).utc().format("YYYY.MM.DD HH:mm:ss") :  orderJson.createdAt
+    orderReturn.closeAt =  orderJson.closeAt ? moment(orderJson.closeAt).utc().format("YYYY.MM.DD HH:mm:ss") : orderJson.closeAt
     
     const addressPromise = Address.findOne({
       where: {

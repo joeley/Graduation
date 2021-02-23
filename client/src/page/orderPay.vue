@@ -73,7 +73,7 @@
   </div>
 </template>
 <script>
-import QRCode from 'qrcode'
+// import QRCode from 'qrcode'
 import OrderHeader from './../components/OrderHeader'
 import ScanPayCode from './../components/ScanPayCode'
 import Modal from './../components/Modal'
@@ -104,7 +104,6 @@ export default{
   methods:{
     getOrderDetail(){
       this.axios.get(`/order/${this.orderId}`).then((res)=>{
-        console.log(res)
         this.addressInfo = `${res.receiverName} ${res.receiverMobile} ${res.receiverProvince} ${res.receiverCity} ${res.receiverDistrict} ${res.receiverAddress}`;
         this.productList = res.productList;
         this.totalPrice = res.totalPrice;
@@ -125,22 +124,23 @@ export default{
         // })
         window.open('/order/alipay?id='+this.orderId,'_blank');
       }else{
-        this.axios.post('/pay',{
-          orderId:this.orderId,
-          orderName:'Vue高仿小米商城',
-          amount:0.01,//单位元
-          payType:2 //1支付宝，2微信
-        }).then((res)=>{
-          QRCode.toDataURL(res.content)
-          .then(url => {
-            this.showPay = true;
-            this.payImg = url;
-            this.loopOrderState();
-          })
-          .catch(() => {
-            this.$message.error('微信二维码生成失败，请稍后重试');
-          })
-        })
+        // this.axios.post('/pay',{
+        //   orderId:this.orderId,
+        //   orderName:'Vue高仿小米商城',
+        //   amount:0.01,//单位元
+        //   payType:2 //1支付宝，2微信
+        // }).then((res)=>{
+        //   QRCode.toDataURL(res.content)
+        //   .then(url => {
+        //     this.showPay = true;
+        //     this.payImg = url;
+        //     this.loopOrderState();
+        //   })
+        //   .catch(() => {
+        //     this.$message.error('微信二维码生成失败，请稍后重试');
+        //   })
+        // })
+        this.$message.error('暂时不支持微信支付，请使用支付宝付款。');
       }
     },
     // 关闭微信弹框
