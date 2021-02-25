@@ -22,6 +22,8 @@ const menus: {
     menus: [
         // 菜单相关路由
         { key: '/app/dashboard/index', title: '首页', icon: 'mobile', component: 'Dashboard' },
+        { key: '/app/user', title: '用户管理', icon: 'mobile', component: 'User' },
+
         {
             key: '/app/ui',
             title: 'UI',

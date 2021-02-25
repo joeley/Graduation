@@ -1,6 +1,6 @@
 /**
  * 路由组件出口文件
- * yezi 2018年6月24日
+ * joeley
  */
 import Loadable from 'react-loadable';
 import Loading from './widget/Loading';
@@ -31,6 +31,7 @@ import MultipleMenu from './extension/MultipleMenu';
 import Sub1 from './smenu/Sub1';
 import Sub2 from './smenu/Sub2';
 import Env from './env';
+import User from './user/User';
 
 const WysiwygBundle = Loadable({
     // 按需加载富文本配置
@@ -67,4 +68,5 @@ export default {
     Sub1,
     Sub2,
     Env,
+    User,
 } as any;
