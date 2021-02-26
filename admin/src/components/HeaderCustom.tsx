@@ -67,7 +67,8 @@ const HeaderCustom = (props: HeaderCustomProps) => {
         e.key === 'logout' && logout();
     };
     const logout = () => {
-        umbrella.removeLocalStorage('user');
+        umbrella.removeSessionStorage('user');
+        umbrella.removeSessionStorage('jwt');
         history.push('/login');
     };
     return (
@@ -115,9 +116,9 @@ const HeaderCustom = (props: HeaderCustomProps) => {
                 </Menu.Item>
                 <Menu.Item>
                     <span className="avatar">
-                            <img src={avater} alt="头像" />
-                            <i className="on bottom b-white" />
-                        </span>
+                        <img src={avater} alt="头像" />
+                        <i className="on bottom b-white" />
+                    </span>
                 </Menu.Item>
                 {/* <SubMenu
                     title={
@@ -143,7 +144,6 @@ const HeaderCustom = (props: HeaderCustomProps) => {
                         <Menu.Item key="setting:4">系统设置</Menu.Item>
                     </MenuItemGroup>
                 </SubMenu> */}
-
             </Menu>
         </Header>
     );

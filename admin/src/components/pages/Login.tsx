@@ -3,7 +3,7 @@
  */
 import React, { useEffect } from 'react';
 import { Button, Form, Input } from 'antd';
-import { PwaInstaller } from '../widget';
+import { PwaInstaller, Notify } from '../widget';
 import { useAlita } from 'redux-alita';
 import { RouteComponentProps } from 'react-router';
 import { FormProps } from 'antd/lib/form';
@@ -34,22 +34,42 @@ const Login = (props: LoginProps) => {
     }, [history, auth]);
 
     const handleSubmit = (values: any) => {
-        if (checkUser(values)) {
-            setAlita({ funcName: values.userName, stateName: 'auth' }).then(() =>{
-                console.log("object");
+        setAlita({
+            funcName: 'postAxios',
+            params: {
+                api: '/user/login',
+                data: {
+                    username: values.username,
+                    password: values.password,
+                },
+            },
+        })
+            .then((res: any) => {
+                res = res.data;
+                const data = {
+                    id: res.id,
+                    permissions: [
+                        'auth',
+                        'auth/testPage',
+                        'auth/authPage',
+                        'auth/authPage/edit',
+                        'auth/authPage/visit',
+                    ],
+                    role: res.role,
+                    roleType: 1,
+                    userName: res.username,
+                };
+                setAlita({ stateName: 'auth', data });
+                umbrella.setSessionStorage('user', data);
                 history.push('/');
             })
-            
-        }
+            .catch((res: any) => {
+                console.log(res);
+                umbrella.removeSessionStorage('jwt');
+                umbrella.removeSessionStorage('user');
+                Notify('error', '登录失败', res);
+            });
     };
-    const checkUser = (values: any) => {
-        const users = [
-            ['admin', 'admin'],
-            ['guest', 'guest'],
-        ];
-        return users.some((user) => user[0] === values.userName && user[1] === values.password);
-    };
-
 
     return (
         <div className="login">
@@ -60,7 +80,7 @@ const Login = (props: LoginProps) => {
                 </div>
                 <Form onFinish={handleSubmit} style={{ maxWidth: '300px' }}>
                     <FormItem
-                        name="userName"
+                        name="username"
                         rules={[{ required: true, message: '请输入用户名!' }]}
                     >
                         <Input

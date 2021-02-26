@@ -1,36 +1,35 @@
 // 中间件报错捕捉
 // 报错时直接调用
-exports.getResult = function (data=null, code=1, msg = "服务器发生错误") {
-  if(data === null){
+exports.getResult = function (data = null, code = 1, msg = "服务器发生错误") {
+  if (data === null) {
     return {
       code,
-      msg
-    }
+      msg,
+    };
   }
   return {
     code,
     msg,
-    data
+    data,
   };
 };
 
-exports.asyncHandler = (handler,succeedMsg,failMsg) => {
+exports.asyncHandler = (handler, succeedMsg, failMsg) => {
   return async (req, res, next) => {
     try {
       const result = await handler(req, res, next);
-      if(result === null){
+      if (result === null) {
         res.send({
           code: 1,
-          msg:failMsg
-        })
-      }else{
+          msg: failMsg,
+        });
+      } else {
         res.send({
           code: 0,
-          msg:succeedMsg,
-          data:result
-        })
+          msg: succeedMsg,
+          data: result,
+        });
       }
-
     } catch (err) {
       next(err);
     }

@@ -45,6 +45,7 @@ class AsynchronousTable extends React.Component {
     }
     start = () => {
         this.setState({ loading: true });
+
         // getBbcNews().then(({ articles }: { articles: any }) => {
         //     this.setState({
         //         data: articles,

@@ -12,7 +12,7 @@ exports.publish = function (res, maxAge = 3600 * 24, info = {}) {
     path: "/",
   });
   //添加其他传输 适用其他设备
-  res.header(settings.authorizationKey, token);
+  res.setHeader(settings.authorizationKey, token);
 };
 
 exports.verify = function (req) {
@@ -32,8 +32,6 @@ exports.verify = function (req) {
   }
   try {
     const result = jwt.verify(token, settings.tokenSecrect);
-
-    console.log(result);
     return result;
   } catch (err) {
     return { msg: "登录失效，请重新登录" };

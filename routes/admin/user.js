@@ -4,7 +4,6 @@ const stuServ = require("../../services/userService");
 const { asyncHandler } = require("../routeTool/getSendResult");
 const jwt = require("../../util/jwt");
 
-// localhost:5008/api/student?page=2&sex=1
 router.post(
   "/login",
   asyncHandler(
@@ -13,7 +12,11 @@ router.post(
       if (username === undefined || password === undefined) {
         return null;
       }
-      const stu = await stuServ.userLogin(req.body.username, req.body.password);
+      const stu = await stuServ.adminLogin(
+        req.body.username,
+        req.body.password
+      );
+
       if (stu === null) {
         return null;
       }
@@ -27,7 +30,7 @@ router.post(
       return stu;
     },
     "登录成功",
-    "登录失败,请确定有此账号"
+    "无该账号，或者账号权限不够"
   )
 );
 
@@ -35,11 +38,21 @@ router.get(
   "/query",
   asyncHandler(
     async (req, res) => {
-      console.log(req.userId);
-      return req.userId;
+      return await stuServ.query(1000000, 1);
     },
     "成功",
-    "失败"
+    "查询成功"
+  )
+);
+
+router.delete(
+  "/:id",
+  asyncHandler(
+    async (req, res) => {
+      return await stuServ.delete(req.params.id);
+    },
+    "成功",
+    "不能删除admin权限用户，或者检查自己是否是admin用户"
   )
 );
 

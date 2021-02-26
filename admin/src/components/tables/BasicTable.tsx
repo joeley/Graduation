@@ -10,6 +10,7 @@ const columns = [
         title: 'Name',
         dataIndex: 'name',
         key: 'name',
+
         render: (text: any) => <span>{text}</span>,
     },
     {

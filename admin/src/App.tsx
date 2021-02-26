@@ -81,7 +81,6 @@ function fetchSmenu(handler: any) {
 }
 
 const App = (props: AppProps) => {
-
     const [collapsed, setCollapsed] = useState<boolean>(false);
     let [auth, responsive, setAlita] = useAlita(
         { auth: { permissions: null } },
@@ -89,20 +88,19 @@ const App = (props: AppProps) => {
         { light: true }
     );
 
-    let user = umbrella.getLocalStorage('user');
-    if(!(auth?.uid) && !!(user?.uid)){
-        auth = user
+    let user = umbrella.getSessionStorage('user');
+    if (!auth?.id && !!user?.id) {
+        auth = user;
     }
     openFNotification();
 
     useEffect(() => {
-        user && setAlita('auth', user);  // 设置redux的auth
+        user && setAlita('auth', user); // 设置redux的auth
         setAlita('responsive', { isMobile: checkIsMobile() });
         handleResize((isMobile: boolean) => setAlita('responsive', { isMobile }));
         openFNotification();
         fetchSmenu((smenus: any[]) => setAlita('smenus', smenus));
     }, [setAlita]);
-
 
     function toggle() {
         setCollapsed(!collapsed);

@@ -114,12 +114,12 @@
             "path": "node_modules/cz-conventional-changelog"
         }
     },
-    "husky": {
-        "hooks": {
-            "commit-msg": "commitlint -e $GIT_PARAMS",
-            "pre-commit": "pretty-quick --staged"
-        }
-    },
+    // "husky": {
+    //     "hooks": {
+    //         "commit-msg": "commitlint -e $GIT_PARAMS",
+    //         "pre-commit": "pretty-quick --staged"
+    //     }
+    // },
     "eslintConfig": {
         "extends": "react-app"
     },
