@@ -25,7 +25,10 @@ app.use(require("./routeTool/tokenMiddleware"));
 // 把上面的路由抽离出来
 app.use("/api/user", require("./api/user"));
 app.use("/admin/user", require("./admin/user"));
+
 app.use("/api/product", require("./api/product"));
+app.use("/admin/product", require("./admin/product"));
+
 app.use("/api/category", require("./api/category"));
 app.use("/api/display", require("./api/display"));
 app.use("/api/navigation", require("./api/navigation"));

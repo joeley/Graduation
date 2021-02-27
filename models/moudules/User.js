@@ -26,7 +26,7 @@ const User = sequelize.define(
     },
   },
   {
-    paranoid: false
+    paranoid: true 
   }
 );
 

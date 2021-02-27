@@ -1,5 +1,5 @@
 /**
- * Created by hao.cheng on 2017/4/15.
+ * Created by joeley on 2020/2/26.
  */
 import React, { useEffect, useRef, useState } from 'react';
 import { Table, Button } from 'antd';
@@ -14,7 +14,7 @@ import { Notify } from '../widget';
 //     vip:number
 // }
 
-const BasicTable = () => {
+const User = () => {
     const [, setAlita] = useAlita('getAxios');
     const [data, setData] = useState([]);
 
@@ -123,4 +123,4 @@ const BasicTable = () => {
     );
 };
 
-export default BasicTable;
+export default User;

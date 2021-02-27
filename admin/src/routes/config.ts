@@ -23,6 +23,23 @@ const menus: {
         // 菜单相关路由
         { key: '/app/dashboard/index', title: '首页', icon: 'mobile', component: 'Dashboard' },
         { key: '/app/user', title: '用户管理', icon: 'mobile', component: 'User' },
+        {
+            key: '/app/product',
+            title: '商品管理',
+            icon: 'rocket',
+            subs: [
+                {
+                    key: '/app/product/add',
+                    title: '增加商品',
+                    component: 'ProductAdd',
+                },
+                {
+                    key: '/app/product/delete',
+                    title: '删除商品',
+                    component: 'ProductDelete',
+                },
+            ],
+        },
 
         {
             key: '/app/ui',

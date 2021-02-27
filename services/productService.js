@@ -101,3 +101,87 @@ exports.getDetailById = async function (id) {
     )
   }
 }
+
+exports.getProductAllById = async function (){
+  const productArr = await Product.findAll({
+    where:{},
+    raw: true,
+    order: [["createdAt", "ASC"]],
+    paranoid: false
+  })
+  return productArr.map((ele)=>{
+    const {
+      productDescribe1,
+      productDescribe2,
+      productDescribe3,
+      productDescribe4,
+      productBg1,
+      productBg2,
+      productBg3,
+      productBg4,
+      galleryFlag,
+      galleryText,
+      galleryImg1,
+      galleryImg2,
+      galleryImg3,
+      galleryImg4,
+      galleryImg5,
+      videoFlag,
+      videoSrc,
+      videoCover,
+      videoMainTitleText1,
+      videoMainTitleText2,
+      videoSubheadText1,
+      videoSubheadText2,
+      deletedAt,
+      createdAt, updatedAt, CategoryId, ...newEle
+    } = ele
+    newEle.productPage=[
+      {
+        productDescribe1,
+        productDescribe2,
+        productDescribe3,
+        productDescribe4,
+        productBg1,
+        productBg2,
+        productBg3,
+        productBg4,
+        galleryFlag,
+        galleryText,
+        galleryImg1,
+        galleryImg2,
+        galleryImg3,
+        galleryImg4,
+        galleryImg5,
+        videoFlag,
+        videoSrc,
+        videoCover,
+        videoMainTitleText1,
+        videoMainTitleText2,
+        videoSubheadText1,
+        videoSubheadText2,
+      }
+    ].map((ele)=>{
+      propArr = Object.keys(ele)
+      ele.key = propArr[0]
+      return ele
+    })
+    newEle.status = !deletedAt   // true 在售 false 下架
+    return newEle
+  })
+  
+}
+
+exports.deleteProcuct =async function (id){
+  const productEntity = await Product.findOne({
+    where: {
+      id: id
+    }
+  });
+  if (productEntity !== null) {
+    const res = await productEntity.destroy();
+    return res.get();
+  } else {
+    return null;
+  }
+}

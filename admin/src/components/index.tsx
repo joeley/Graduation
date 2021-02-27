@@ -32,6 +32,8 @@ import Sub1 from './smenu/Sub1';
 import Sub2 from './smenu/Sub2';
 import Env from './env';
 import User from './user/User';
+import ProductAdd from './product/ProudctAdd';
+import ProductDelete from './product/ProductDelete';
 
 const WysiwygBundle = Loadable({
     // 按需加载富文本配置
@@ -69,4 +71,6 @@ export default {
     Sub2,
     Env,
     User,
+    ProductAdd,
+    ProductDelete
 } as any;
