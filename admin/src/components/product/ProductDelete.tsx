@@ -2,11 +2,12 @@
  * Created by joeley on 2020/2/26.
  */
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { Table, Button } from 'antd';
+import { Table, Button,Image} from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 
 import { useAlita } from 'redux-alita';
 import { Notify } from '../widget';
+import BreadcrumbCustom from '../widget/BreadcrumbCustom';
 
 const ProductAdd = () => {
     const [, setAlita] = useAlita('getAxios');
@@ -43,7 +44,6 @@ const ProductAdd = () => {
                 Notify('success', '成功', '成功删除该用户');
             })
             .catch((err: string) => {
-                console.log(err);
                 Notify('error', '失败', err);
             });
     }, [deleteID]);
@@ -70,7 +70,7 @@ const ProductAdd = () => {
             key: 'productMainImage',
             render: (src: any) => (
                 <span>
-                    <img src={src} style={{ width: '50px', height: '50px' }} alt="" />
+                    <Image src={src}  width={"50px"} height={"50px"} alt="" />
                 </span>
             ),
         },
@@ -116,7 +116,7 @@ const ProductAdd = () => {
             render: (src: any) =>
                 !!src ? (
                     <span>
-                        <img src={src} style={{ width: '60px', height: '50px' }} alt="" />
+                        <Image src={src} height={"60px"} width={"50px"}  alt="" />
                     </span>
                 ) : null,
         },
@@ -127,7 +127,7 @@ const ProductAdd = () => {
             render: (src: any) =>
                 !!src ? (
                     <span>
-                        <img src={src} style={{ width: '60px', height: '50px' }} alt="" />
+                        <Image src={src} height={"60px"} width={"50px"}  alt="" />
                     </span>
                 ) : null,
         },
@@ -138,7 +138,7 @@ const ProductAdd = () => {
             render: (src: any) =>
                 !!src ? (
                     <span>
-                        <img src={src} style={{ width: '60px', height: '50px' }} alt="" />
+                        <Image src={src} height={"60px"} width={"50px"}  alt="" />
                     </span>
                 ) : null,
         },
@@ -149,7 +149,7 @@ const ProductAdd = () => {
             render: (src: any) =>
                 !!src ? (
                     <span>
-                        <img src={src} style={{ width: '60px', height: '50px' }} alt="" />
+                        <Image src={src} height={"60px"} width={"50px"}  alt="" />
                     </span>
                 ) : null,
         },
@@ -212,7 +212,7 @@ const ProductAdd = () => {
             render: (src: any) =>
                 !!src === true ? (
                     <span>
-                        <img src={src} style={{ width: '100px', height: '70px' }} alt="" />
+                        <Image src={src} width={'100px'} height={'70px'} alt="" />
                     </span>
                 ) : null,
         },
@@ -223,7 +223,7 @@ const ProductAdd = () => {
             render: (src: any) =>
                 !!src === true ? (
                     <span>
-                        <img src={src} style={{ width: '100px', height: '70px' }} alt="" />
+                        <Image src={src} width={'100px'} height={'70px'} alt="" />
                     </span>
                 ) : null,
         },
@@ -234,7 +234,7 @@ const ProductAdd = () => {
             render: (src: any) =>
                 !!src === true ? (
                     <span>
-                        <img src={src} style={{ width: '100px', height: '70px' }} alt="" />
+                        <Image src={src} width={'100px'} height={'70px'} alt="" />
                     </span>
                 ) : null,
         },
@@ -245,7 +245,7 @@ const ProductAdd = () => {
             render: (src: any) =>
                 !!src === true ? (
                     <span>
-                        <img src={src} style={{ width: '100px', height: '70px' }} alt="" />
+                        <Image src={src} width={'100px'} height={'70px'} alt="" />
                     </span>
                 ) : null,
         },
@@ -267,7 +267,7 @@ const ProductAdd = () => {
             render: (src: any) =>
                 !!src === true ? (
                     <span>
-                        <img src={src} style={{ width: '100px', height: '70px' }} alt="" />
+                        <Image src={src} width={'100px'} height={'70px'} alt="" />
                     </span>
                 ) : null,
         },
@@ -278,7 +278,7 @@ const ProductAdd = () => {
             render: (src: any) =>
                 !!src === true ? (
                     <span>
-                        <img src={src} style={{ width: '100px', height: '70px' }} alt="" />
+                        <Image src={src} width={'100px'} height={'70px'} alt="" />
                     </span>
                 ) : null,
         },
@@ -289,7 +289,7 @@ const ProductAdd = () => {
             render: (src: any) =>
                 !!src === true ? (
                     <span>
-                        <img src={src} style={{ width: '100px', height: '70px' }} alt="" />
+                        <Image src={src} width={'100px'} height={'70px'} alt="" />
                     </span>
                 ) : null,
         },
@@ -300,7 +300,7 @@ const ProductAdd = () => {
             render: (src: any) =>
                 !!src === true ? (
                     <span>
-                        <img src={src} style={{ width: '100px', height: '70px' }} alt="" />
+                        <Image src={src} width={'100px'} height={'70px'} alt="" />
                     </span>
                 ) : null,
         },
@@ -311,7 +311,7 @@ const ProductAdd = () => {
             render: (src: any) =>
                 !!src === true ? (
                     <span>
-                        <img src={src} style={{ width: '100px', height: '70px' }} alt="" />
+                        <Image src={src} width={'100px'} height={'70px'} alt="" />
                     </span>
                 ) : null,
         },
@@ -338,7 +338,7 @@ const ProductAdd = () => {
             render: (src: any) =>
                 !!src === true ? (
                     <span>
-                        <img src={src} style={{ width: '100px', height: '70px' }} alt="" />
+                        <Image src={src} width={'100px'} height={'70px'} alt="" />
                     </span>
                 ) : null,
         },
@@ -381,6 +381,7 @@ const ProductAdd = () => {
 
     return data.length == 0 ? null : (
         <>
+          <BreadcrumbCustom breads={['商品管理', '删除商品']} />
             <Table
                 pagination={{
                     defaultPageSize: 5,

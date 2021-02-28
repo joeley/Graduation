@@ -185,3 +185,7 @@ exports.deleteProcuct =async function (id){
     return null;
   }
 }
+exports.addProcuct = async function(productInfo){
+  const product = await Product.create(productInfo);
+  return product
+}

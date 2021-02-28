@@ -40,7 +40,7 @@ const menus: {
                 },
             ],
         },
-
+        { key: '/app/test', title: '测试页', icon: 'mobile', component: 'Test' },
         {
             key: '/app/ui',
             title: 'UI',

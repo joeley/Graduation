@@ -6,6 +6,7 @@ import { Table, Button } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import { useAlita } from 'redux-alita';
 import { Notify } from '../widget';
+import BreadcrumbCustom from '../widget/BreadcrumbCustom';
 
 // type user = {
 //     id:number
@@ -98,6 +99,8 @@ const User = () => {
 
     return data.length == 0 ? null : (
         <>
+          <BreadcrumbCustom breads={['用户管理']} />
+
             <Table
                 columns={columns.current}
                 dataSource={data}

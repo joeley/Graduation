@@ -28,6 +28,17 @@ router.delete(
     "删除商品失败"
   )
 );
+router.post(
+  "/",
+  asyncHandler(
+    async (req, res) => {
+      return await proServ.addProcuct(req.body);
+    },
+    "恭喜你，商品已经上架",
+    "添加商品失败，请检查字段是否填写完整"
+  )
+);
+
 
 module.exports = router;
 

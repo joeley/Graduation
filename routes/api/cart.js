@@ -8,6 +8,7 @@ const { asyncHandler } = require("../routeTool/getSendResult");
 router.get(
   "/",
   asyncHandler(async (req, res) => {
+    console.log(111);
     return await cartService.getCart(req.userId);
   },"成功获取购物车", "获取购物车失败")
 );

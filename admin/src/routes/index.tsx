@@ -59,11 +59,11 @@ const CRouter = (props: CRouterProps) => {
         return r.component ? route(r) : subRoute(r);
     };
     const createRoute = (key: string) => routesConfig[key].map(createMenu);
-    const getAsyncMenus = () => smenus || umbrella.getLocalStorage('smenus') || [];
+    // const getAsyncMenus = () => smenus || umbrella.getLocalStorage('smenus') || [];
     return (
         <Switch>
             {Object.keys(routesConfig).map((key) => createRoute(key))}
-            {getAsyncMenus().map(createMenu)}
+            {/* {getAsyncMenus().map(createMenu)} */}
             <Route render={() => <Redirect to="/404" />} />
         </Switch>
     );

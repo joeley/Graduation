@@ -40,3 +40,14 @@ exports.getCategory = async function () {
 
   }
 } 
+
+exports.getCategoryOnly = async () =>{
+  const categoryJson = await Category.findAll({
+    where: {},
+    raw: true
+  })
+  return categoryJson.map(category=>{
+    const {order, createdAt, updatedAt, ...newCategory } = category
+    return newCategory
+  })
+}

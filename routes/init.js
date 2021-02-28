@@ -7,13 +7,16 @@ const app = express();
 // const staticRoot = path.resolve(__dirname, "../public");
 // app.use(express.static(staticRoot));
 
+
+
 // 解析 application/x-www-form-urlencoded 格式的请求体
-app.use(express.urlencoded({ extended: true }));
+// app.use(express.urlencoded({ extended: true }));
 
 // 解析 application/json 格式的请求体
 app.use(express.json());
 app.use(function (req, res, next) {
   console.log("请求进来了");
+  console.count();
   next();
 });
 
@@ -30,12 +33,17 @@ app.use("/api/product", require("./api/product"));
 app.use("/admin/product", require("./admin/product"));
 
 app.use("/api/category", require("./api/category"));
+app.use("/admin/category", require("./admin/category"));
+
 app.use("/api/display", require("./api/display"));
 app.use("/api/navigation", require("./api/navigation"));
+
 app.use("/api/cart", require("./api/cart"));
 app.use("/api/address", require("./api/address"));
 app.use("/api/order", require("./api/order"));
 app.use("/api/pay", require("./api/pay"));
+
+app.use("/admin/upload", require("./admin/upload"))
 
 // 处理错误的中间件
 // app.use(require("./routeTool/errorMiddleware"));

@@ -18,7 +18,7 @@ const Product = sequelize.define(
     },
     productStock: {     // 货物总存量     
       type: DataTypes.INTEGER,
-      allowNull: true   
+      allowNull: false   
     },
     productStatus: {    // 0 在售，1 下架
       type: DataTypes.INTEGER,

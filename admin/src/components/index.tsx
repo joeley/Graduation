@@ -34,6 +34,8 @@ import Env from './env';
 import User from './user/User';
 import ProductAdd from './product/ProudctAdd';
 import ProductDelete from './product/ProductDelete';
+import Test from './Test'
+
 
 const WysiwygBundle = Loadable({
     // 按需加载富文本配置
@@ -72,5 +74,7 @@ export default {
     Env,
     User,
     ProductAdd,
-    ProductDelete
+    ProductDelete,
+    Test
+
 } as any;
