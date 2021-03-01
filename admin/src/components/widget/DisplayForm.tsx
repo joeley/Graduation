@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Collapse, Form, Input, Button, Checkbox, Card, Layout, Select, Spin} from 'antd';
-import { MultipleImgUp } from "./widget"
-import { getAxios, postAxios, putAxios } from "./../service"
-import { Notify } from './widget';
+import { MultipleImgUp } from "../widget"
+import { getAxios, postAxios, putAxios } from "../../service"
+import { Notify } from '../widget';
 
 
 const { Meta } = Card;
@@ -10,8 +10,6 @@ const { Header, Footer, Sider, Content } = Layout;
 const { Option } = Select
 
 const { Panel } = Collapse;
-
-
 
 const layout = {
   labelCol: {
@@ -27,20 +25,6 @@ const tailLayout = {
     span: 12,
   },
 };
-
-const text = `
-  A dog is a type of domesticated animal.
-  Known for its loyalty and faithfulness,
-  it can be found as a welcome guest in many households across the world.
-`;
-
-
-
-function callback(key: any) {
-  console.log(key);
-}
-
-
 
 type displayFormProp = {
   type: "ads" | "new" | "swiper" | "main"
@@ -179,9 +163,9 @@ const DisplayForm = (props: displayFormProp)=> {
         <Card
           hoverable
           style={{ width: "100%", height: "300px" }}
-          cover={<img alt="example" height="250px" src={productObj.displaySrc} />}
+          cover={productObj?.displaySrc ? <img alt="example" height="250px" src={productObj.displaySrc} /> : <div><div style={{textAlign: "center"}}>此展示位没有启用</div><div style={{textAlign: "center"}}>你可以上传启用该展示位</div></div> }
         >
-          <Meta title={productObj.productName} style={{ height: "50px" }} />
+          <Meta title={productObj?.displaySrc ? productObj.productName : null} style={{ height: "50px" }} />
         </Card>
       </Sider>
     </Layout>
@@ -189,23 +173,4 @@ const DisplayForm = (props: displayFormProp)=> {
 
 }
 
-
-const Test = () => {
-  return <>
-    <Collapse defaultActiveKey={['1']} onChange={callback}>
-      <Panel header="中部广告位1" key="1">
-        <DisplayForm type="ads" order={1} />
-      </Panel>
-      <Panel header="中部广告位1" key="2">
-        <DisplayForm type="ads" order={2} />
-      </Panel>
-      <Panel header="中部广告位3" key="3">
-        <DisplayForm type="ads" order={3} />
-      </Panel>
-      <Panel header="中部广告位4" key="4">
-        <DisplayForm type="ads" order={4} />
-      </Panel>
-    </Collapse>
-  </>
-}
-export default Test
+export default DisplayForm

@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import umbrella from 'umbrella-storage';
 import { notification } from 'antd';
 import { IconType, ConfigProps } from 'antd/lib/notification';
@@ -10,11 +10,11 @@ const openNotificationWithIcon = (type: IconType) => {
     });
 };
 
-export default function () {
+export default function ():AxiosInstance {
     const token = umbrella.getSessionStorage('jwt');
     axios.defaults.timeout = 8000;
 
-    const service = axios.create({
+    const service:AxiosInstance = axios.create({
         baseURL: '/admin',
         timeout: 8000,
         headers: {
@@ -23,7 +23,7 @@ export default function () {
     });
 
     service.interceptors.response.use(
-        (response) => {
+        (response:AxiosResponse) => {
             if (response.headers.token) {
                 umbrella.setSessionStorage('jwt', response.headers.token);
             }
@@ -58,26 +58,6 @@ export default function () {
             }
         },
         (err) => {
-            // const res = err.response
-            // if(res.status === 403){
-            //   // 这里用不上了
-            //   // const path = location.pathname;
-            //   // if(path =='/login') return;
-            //   // if(path !='/login'){
-            //   //   Message.warning({
-            //   //     message:res.data.msg,
-            //   //     center:true
-            //   //   });
-            //   //   router.push("/login?redirect=" + path);
-            //   //   // 这玩意跳转太慢了，还要刷新界面
-            //   //   // window.location.href = "/login?redirect=" + path;
-            //   //   return Promise.reject(res);
-            //   // }
-            // }else{
-            //   let msg = res.data.msg||err.message;
-            //   // Message.error(msg);
-            //   return Promise.reject(err);
-            // }
         }
     );
 

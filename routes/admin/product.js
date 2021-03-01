@@ -11,12 +11,12 @@ const { asyncHandler } = require("../routeTool/getSendResult");
 //   },"获取商品详情成功", "获取商品详情失败")
 // )
 
-
+// 查询全部 将产品页折叠起来
 router.get(
   "/query",
   asyncHandler(async (req, res) => {
-    return await proServ.getProductAllById()
-  })
+    return await proServ.getProductAll()
+  },"查询全部商品详细参数成功","查询全部商品详细参数失败")
 )
 router.delete(
   "/:id",
@@ -38,6 +38,14 @@ router.post(
     "添加商品失败，请检查字段是否填写完整"
   )
 );
+
+// 简略查询 只要id和商品名
+router.get(
+  "/query/simple",
+  asyncHandler(async (req, res) => {
+    return await proServ.getProductSimple()
+  },"查询全部商品简略参数成功","查询全部商品简略参数失败")
+)
 
 
 module.exports = router;

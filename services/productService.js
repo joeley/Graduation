@@ -102,7 +102,7 @@ exports.getDetailById = async function (id) {
   }
 }
 
-exports.getProductAllById = async function (){
+exports.getProductAll = async function (){
   const productArr = await Product.findAll({
     where:{},
     raw: true,
@@ -188,4 +188,14 @@ exports.deleteProcuct =async function (id){
 exports.addProcuct = async function(productInfo){
   const product = await Product.create(productInfo);
   return product
+}
+exports.getProductSimple = async () => {
+  const productArr = await Product.findAll({
+    where:{},
+    raw:true,
+    order: [["createdAt", "ASC"]]
+  })
+  return productArr.map(ele=>{
+    return pick(ele,"id", "productName")
+  })
 }

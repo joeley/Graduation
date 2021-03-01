@@ -63,3 +63,7 @@ export const postAxios = (params: resParam) => {
 export const deleteAxios = (params: resParam) => {
     return service().delete(params.api, params?.data);
 };
+
+export const putAxios = (params: resParam) => {
+  return service().put(params.api, params?.data);
+};

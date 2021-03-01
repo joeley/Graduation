@@ -35,6 +35,10 @@ import User from './user/User';
 import ProductAdd from './product/ProudctAdd';
 import ProductDelete from './product/ProductDelete';
 import Test from './Test'
+import AdsDisplay from './display/AdsDisplay'
+import MainDisplay from './display/MainDisplay'
+import NewDisplay from './display/NewDisplay'
+import SwiperDisplay from './display/SwiperDisplay'
 
 
 const WysiwygBundle = Loadable({
@@ -75,6 +79,10 @@ export default {
     User,
     ProductAdd,
     ProductDelete,
-    Test
+    Test,
+    AdsDisplay,
+    SwiperDisplay,
+    MainDisplay,
+    NewDisplay
 
 } as any;

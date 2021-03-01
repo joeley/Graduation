@@ -36,6 +36,8 @@ app.use("/api/category", require("./api/category"));
 app.use("/admin/category", require("./admin/category"));
 
 app.use("/api/display", require("./api/display"));
+app.use("/admin/display", require("./admin/display"));
+
 app.use("/api/navigation", require("./api/navigation"));
 
 app.use("/api/cart", require("./api/cart"));
