@@ -1,10 +1,15 @@
 /**
- * Created by hao.cheng on 2017/5/5.
+ * Created by joeley on 2021/3/3.
  */
 import React from 'react';
 import ReactEcharts from 'echarts-for-react';
 import echarts from 'echarts';
-
+import moment from 'moment';
+const dateList = []
+for (let i = 0; i < 7; i++) {
+  // moment.utc().format("YYYY-MM-DD")
+  dateList.push(moment().subtract(i, 'days').format("YYYY-MM-DD")) 
+}
 const option = {
     title: {
         text: '最近7天用户访问量',
@@ -32,7 +37,7 @@ const option = {
     },
     xAxis: {
         type: 'category',
-        data: ['2017-05-01', '2017-05-02', '2017-05-03', '2017-05-04', '2017-05-05', '2017-05-06','2017-05-07'],
+        data: dateList,
         boundaryGap: false,
         splitLine: {
             show: true,
@@ -79,13 +84,13 @@ const option = {
         }
     },
     series: [{
-        name: '昨日',
+        name: '单日访问量',
         type: 'line',
         smooth: true,
         showSymbol: false,
         symbol: 'circle',
         symbolSize: 6,
-        data: ['1200', '1400', '808', '811', '626', '488', '1600'],
+        data: ['12', '5', '1', '6', '3', '5', '7'],
         areaStyle: {
             normal: {
                 color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
@@ -110,12 +115,15 @@ const option = {
     }]
 };
 
-const EchartsViews = () => (
+const EchartsViews = () => {
+  console.log(moment)
+  return (
     <ReactEcharts
         option={option}
         style={{height: '350px', width: '100%'}}
         className={'react_for_echarts'}
     />
 );
+}
 
 export default EchartsViews;

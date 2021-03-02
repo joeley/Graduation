@@ -4,7 +4,6 @@ const User = require("../models/moudules/User");
 const Order = require("../models/moudules/Order");
 const RList = require("../models/moudules/RList");
 const Address = require("../models/moudules/Address");
-
 const sequelize = require("../models/db");
 const moment = require("moment");
 const { pick } = require("../util/propertyHelper");
@@ -143,6 +142,30 @@ exports.getOrder = async (OrderId, UserId, page=1, limit=10) => {
     },0).toFixed(2)
     ret.orderList.push(orderReturn)
   }
-
+  ret.orderList.sort((pre,next)=>((+moment(next.createdAt)) - (+moment(pre.createdAt))))
   return Promise.all(promiseArr).then(() => OrderId ? ret.orderList[0] : ret )
+}
+
+// 订单量
+exports.getAllCount = async()=>{
+  return await Order.count()
+}
+// 成交量
+exports.getPayedCount = async()=>{
+  return await Order.count({
+    where: {
+      payStatus:1
+    }
+  })
+}
+// 成交额
+exports.getTurnover = async()=>{
+  const [results, metadata] = await sequelize.query(`
+    select sum(quantity * productPrice) as turnover
+    from rlists as r
+    join products as p on r.ProductId = p.id
+    join orders as o on o.id = r.OrderId
+    where o.payStatus = 1
+  `);
+  return metadata[0].turnover
 }

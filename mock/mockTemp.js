@@ -764,15 +764,26 @@ rCart.push(
 );
 
 const order = [];
-order.push({
-  id: "161207355272980048",
-  UserId: 1,
-  AddressId: 1,
-  payType: 0,
-  payTypeDesc: "在线支付",
-  payStatus: 0,
-  payStatusDesc: "未支付",
-});
+order.push(
+  {
+    id: "161207355272980048",
+    UserId: 1,
+    AddressId: 1,
+    payType: 0,
+    payTypeDesc: "在线支付",
+    payStatus: 0,
+    payStatusDesc: "未支付",
+  },
+  {
+    id: "161207355232980099",
+    UserId: 1,
+    AddressId: 1,
+    payType: 0,
+    payTypeDesc: "在线支付",
+    payStatus: 1,
+    payStatusDesc: "已支付",
+  }
+);
 
 const rList = [];
 rList.push(
@@ -788,6 +799,11 @@ rList.push(
   },
   {
     OrderId: "161207355272980048",
+    ProductId: 4,
+    quantity: 4,
+  },
+  {
+    OrderId: "161207355232980099",
     ProductId: 4,
     quantity: 4,
   }

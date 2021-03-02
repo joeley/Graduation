@@ -2,6 +2,7 @@ import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import umbrella from 'umbrella-storage';
 import { notification } from 'antd';
 import { IconType, ConfigProps } from 'antd/lib/notification';
+import { Notify } from '../components/widget';
 
 const openNotificationWithIcon = (type: IconType) => {
     notification[type]({
@@ -54,10 +55,13 @@ export default function ():AxiosInstance {
                 //   message:res.msg,
                 //   center:true
                 // });
+                Notify('warning',"网络出错",res.msg);
                 return Promise.reject(res.msg);
             }
         },
         (err) => {
+          Notify('warning',"网络出错","请检查网络是否通畅，或者联系管理员joeley@qq.com");
+          return Promise.reject(err);
         }
     );
 

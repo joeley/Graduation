@@ -1,5 +1,5 @@
 /**
- * Created by hao.cheng on 2017/4/16.
+ * Created by hao.cheng on 2021/3/2.
  */
 import React, { useEffect } from 'react';
 import { Button, Form, Input } from 'antd';
@@ -61,6 +61,7 @@ const Login = (props: LoginProps) => {
                 };
                 setAlita({ stateName: 'auth', data });
                 umbrella.setSessionStorage('user', data);
+            
                 history.push('/');
             })
             .catch((res: any) => {
@@ -107,6 +108,8 @@ const Login = (props: LoginProps) => {
                         >
                             登录
                         </Button>
+                        <div style={{textAlign: 'center'}}>管理员joe密码123</div>
+                        <div style={{textAlign: 'center'}}>游客guest密码123</div>
                     </FormItem>
                 </Form>
             </div>

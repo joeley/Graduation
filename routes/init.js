@@ -59,6 +59,7 @@ app.use("/api/order", require("./api/order"));
 app.use("/api/pay", require("./api/pay"));
 
 app.use("/admin/upload", require("./admin/upload"))
+app.use("/admin/dashboard", require("./admin/dashboard"))
 
 // 处理错误的中间件
 // app.use(require("./routeTool/errorMiddleware"));

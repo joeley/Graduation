@@ -38,8 +38,8 @@
                   </div>
                 </div>
               </div>
-              <div class="good-state fr" v-if="order.payStatus == 1">
-                <a href="javascript:;" @click="goPay(order.id)">{{order.payStatusDesc}}</a>
+              <div class="good-state fr" v-if="order.payStatus == 0">
+                <a href="javascript:;" @click="goPay(order.id)">{{order.payStatusDesc +"， 去付款"}}</a>
               </div>
               <div class="good-state fr" v-else>
                 <a href="javascript:;">{{order.payStatusDesc}}</a>
