@@ -176,7 +176,6 @@ exports.setNavigation = async({id,navName})=>{
     }
   }).then(([res]) =>{
     if(res>0){
-      console.log(res)
       return "success"
     }
     return null
@@ -184,7 +183,6 @@ exports.setNavigation = async({id,navName})=>{
 }
 
 exports.addNavigation = async({navName})=>{
-  console.log(11111111111);
   return Navigation.create({
     navName
   }).then((res) =>{

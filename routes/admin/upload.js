@@ -37,7 +37,7 @@ const upload = multer({
 
 
 router.post("/", upload.single("img"), (req, res) => {    // 放入路由
-  const url = `/upload/${req.file.filename}`;
+  const url = `/img/upload/${req.file.filename}`;
   res.send({
     code: 0,
     msg: "",

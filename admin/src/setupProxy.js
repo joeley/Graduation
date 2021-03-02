@@ -20,4 +20,11 @@ module.exports = function (app) {
             changeOrigin: 'true',
         })
     );
+    app.use(
+      '/img', // 指定需要转发的请求
+      createProxyMiddleware({
+          target: 'http://localhost:5009',
+          changeOrigin: 'true',
+      })
+  );
 };

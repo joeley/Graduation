@@ -13,6 +13,13 @@ module.exports = {
           // pathRewrite:{
           //   '/api':''
           // }
+        },
+        '/img':{
+          target:'http://localhost:5009',
+          changeOrigin:true,
+          // pathRewrite:{
+          //   '/api':''
+          // }
         }
       }
     }

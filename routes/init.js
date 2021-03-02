@@ -3,9 +3,9 @@ const express = require("express");
 const app = express();
 
 // 映射public目录中的静态资源
-// const path = require("path");
-// const staticRoot = path.resolve(__dirname, "../public");
-// app.use(express.static(staticRoot));
+const path = require("path");
+const staticRoot = path.resolve(__dirname, "../public");
+app.use("/img",express.static(staticRoot));
 
 
 
