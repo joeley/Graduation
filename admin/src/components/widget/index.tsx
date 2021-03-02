@@ -6,3 +6,4 @@ export { default as Notify } from './Notify';
 export { default as SingleImgUp } from './SingleImgUp';
 export { default as MultipleImgUp } from './MultipleImgUp';
 export { default as DisplayForm } from './DisplayForm';
+export { default as NavigationTransfer } from './NavigationTransfer';

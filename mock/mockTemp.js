@@ -644,12 +644,12 @@ navigation.push(
   {
     id: 4,
     navName: "电视",
-    order: 3,
+    order: 4,
   },
   {
     id: 5,
     navName: "友商HUAWEI",
-    order: 4,
+    order: 5,
   }
 );
 
@@ -658,72 +658,58 @@ rMenu.push(
   {
     NavigationId: 1,
     ProductId: 1,
-    order: 1,
   },
   {
     NavigationId: 1,
     ProductId: 2,
-    order: 2,
   },
   {
     NavigationId: 1,
     ProductId: 3,
-    order: 3,
   },
   {
     NavigationId: 1,
     ProductId: 4,
-    order: 4,
   },
   {
     NavigationId: 1,
     ProductId: 5,
-    order: 5,
   },
   {
     NavigationId: 1,
     ProductId: 6,
-    order: 6,
   },
   {
     NavigationId: 2,
     ProductId: 7,
-    order: 1,
   },
   {
     NavigationId: 2,
     ProductId: 8,
-    order: 2,
   },
   {
     NavigationId: 3,
     ProductId: 31,
-    order: 1,
   },
   {
     NavigationId: 3,
     ProductId: 32,
-    order: 2,
   },
   {
     NavigationId: 4,
     ProductId: 21,
-    order: 1,
   },
   {
     NavigationId: 4,
     ProductId: 22,
-    order: 2,
   },
   {
     NavigationId: 4,
     ProductId: 23,
-    order: 3,
   },
   {
     NavigationId: 5,
     ProductId: 9,
-    order: 1,
   }
 );
 

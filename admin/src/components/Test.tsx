@@ -1,211 +1,129 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Collapse, Form, Input, Button, Checkbox, Card, Layout, Select, Spin} from 'antd';
-import { MultipleImgUp } from "./widget"
-import { getAxios, postAxios, putAxios } from "./../service"
-import { Notify } from './widget';
+import { NavigationTransfer } from './widget'
+import { getAxios, postAxios, putAxios} from "./../service"
 
 
-const { Meta } = Card;
-const { Header, Footer, Sider, Content } = Layout;
-const { Option } = Select
+import { Form, Input, Button } from 'antd';
+import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import { FormListFieldData, FormListOperation } from 'antd/lib/form/FormList';
 
-const { Panel } = Collapse;
-
-
-
-const layout = {
+const formItemLayout = {
   labelCol: {
-    span: 10,
+    xs: { span: 24 },
+    sm: { span: 4 },
   },
   wrapperCol: {
-    span: 12,
+    xs: { span: 24 },
+    sm: { span: 20 },
   },
 };
-const tailLayout = {
+const formItemLayoutWithOutLabel = {
   wrapperCol: {
-    offset: 10,
-    span: 12,
+    xs: { span: 24, offset: 0 },
+    sm: { span: 20, offset: 4 },
   },
 };
 
-const text = `
-  A dog is a type of domesticated animal.
-  Known for its loyalty and faithfulness,
-  it can be found as a welcome guest in many households across the world.
-`;
-
-
-
-function callback(key: any) {
-  console.log(key);
-}
-
-
-
-type displayFormProp = {
-  type: "ads" | "new" | "swiper" | "main"
-  order: number
-}
-const DisplayForm = (props: displayFormProp)=> {
-  const [productList, setProductList] = useState([])
-  const [productObj, setProductObj] = useState({
-    displaySrc: "",
-    productName: ""
-  })
-  const [fetching, setFetching] = useState(false);
-
-  useEffect(() => {
-    getAxios({
-      api:"/display/?type=" + props.type + "&order=" + props.order
-    }).then((ele: any) => {
-      setProductObj(ele)
-    })
-      .catch((err: string) => {
-        Notify('error', '失败', err);
-      });
-  }, [])
-
-  const formRef: { current: any } = useRef();
-  const onFinish = (values: any) => {
-    putAxios({
-      api:"/display",
-      data:{
-        type:props.type,
-        order: props.order,
-        ...values
-      }
-    }).then((ele: any) => {
-      const tem:any = productList.find((ele:any)=>ele.id === values.ProductId)
-      setProductObj({
-        productName: tem.productName, 
-        displaySrc:values.displaySrc
-      })
-      Notify("success", '成功', "该展示位修改成功");
-    })
-      .catch((err: string) => {
-        Notify('error', '失败', err);
-      });
+const DynamicFieldSet = () => {
+  const formRef: any=  useRef();
+  const onFinish = (values:any) => {
+    console.log('Received values of form:', values);
   };
-  const onSetImgSrc = (fieldName: string, imgLength: number = 1) => (ele: string[]) => {
-    if (imgLength === 1) {
-      formRef.current.setFieldsValue({ [fieldName]: "" });
-      formRef.current.setFieldsValue({ [fieldName]: ele[0] });
-      return
-    }
-    for (let i = 1; i <= imgLength; i++) {
-      formRef.current.setFieldsValue({ [fieldName + i]: "" });
-    }
-    const prop = Object.keys(ele)
-    prop.map((name: any) => {
-      const numName = Number(name) + 1;
-      formRef.current.setFieldsValue({ [fieldName + numName]: ele[name] });
-    });
-  }
-
-  const onCategoryIdFocus = () => {
-    if (productList.length === 0) {
-      setFetching(true);
-      getAxios({
-        api: "/product/query/simple"
-      }).then((ele: any) => {
-        setProductList(ele)
-        setFetching(false)
-      })
-        .catch((err: string) => {
-          Notify('error', '加载商品列表失败', err);
-          setFetching(false)
-        });
-    }
-  }
-  return (<>
-    <Layout>
-      <Content>
-        <Form
-          ref={formRef}
-          {...layout}
-          name="basic"
-          onFinish={onFinish}
-        >
-          <Form.Item>
-
-          </Form.Item>
-          <Form.Item
-            label=" "
-            required={true}
-          >
-            <Form.Item name="displaySrc" noStyle rules={[{
-              required: true,
-              message: 'Send at least one ProductBackroundImg',
-            }]}>
-              <Input hidden />
-            </Form.Item>
-            <MultipleImgUp sendURLs={onSetImgSrc("displaySrc", 1)} num={1} />
-          </Form.Item>
-
-          <Form.Item
-            name="ProductId"
-            label="关联商品"
-            rules={[
-              {
-                required: true,
-              },
-            ]}
-          >
-            <Select
-              placeholder="Select the Category Display TAB"
-              notFoundContent={fetching ? <Spin size="default" /> : null}
-              showSearch
-              filterOption={(input, option: any) =>
-                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+  // @ts-ignore
+  return (
+    <Form name="dynamic_form_item" {...formItemLayoutWithOutLabel} onFinish={onFinish}
+      ref={formRef}
+      initialValues={{"name": [1]}}
+    >
+      
+      <Form.List
+        name="name"
+        // @ts-ignore
+        rules={[
+          {
+            validator: async (_: any, names:any) => {
+              if (!names || names.length < 2) {
+                return Promise.reject(new Error('At least 2 passengers'));
               }
-              allowClear
-              onFocus={onCategoryIdFocus}
+            },
+          }
+        ]}
+      >
+        {(fields:FormListFieldData[], { add, remove }:FormListOperation) => {
+          console.log(fields)
+         return(
+          <>   
+            {fields.map((field, index) => (
+              <Form.Item
+                {...(index === 0 ? formItemLayout : formItemLayoutWithOutLabel)}
+                label={index === 0 ? 'Passengers' : ''}
+                required={false}
+                key={field.key}
+              >
+                <Form.Item
+                  {...field}
+                  validateTrigger={['onChange', 'onBlur']}
+                  rules={[
+                    {
+                      required: true,
+                      whitespace: true,
+                      message: "Please input passenger's name or delete this field.",
+                    },
+                  ]}
+                  noStyle
+                >
+                  <Input placeholder="passenger name" style={{ width: '60%' }} />
+                </Form.Item>
+                {fields.length > 1 ? (
+                  <MinusCircleOutlined
+                    className="dynamic-delete-button"
+                    onClick={() => {
+                      remove(field.name)
+                      formRef.current.setFields([{name: "joe", key: 0, isListField: true, fieldKey: 0}])
+                      console.log(formRef);
+                      console.log(fields);
+                    }}
+                  />
+                ) : null}
+              </Form.Item>
+            ))}
+            <Form.Item>
+            {fields.length < 7 ? (
+              <Button
+              type="dashed"
+              onClick={() => add()}
+              style={{ width: '60%' }}
+              icon={<PlusOutlined />}
             >
-              {
-                productList.map((item: { id: number, productName: string }) => <Option value={item.id} key={item.id}>{item.productName}</Option>)
-              }
-            </Select>
-          </Form.Item>
-          
-          <Form.Item {...tailLayout}>
-            <Button type="primary" htmlType="submit" style={{ width: "102px" }}>
-              Submit
+              Add field
             </Button>
-          </Form.Item>
-        </Form>
+                ) : null}
+              {/* <Button
+                type="dashed"
+                onClick={() => {
+                  add('The head item', 0);
+                }}
+                style={{ width: '60%', marginTop: '20px' }}
+                icon={<PlusOutlined />}
+              >
+                Add field at head
+              </Button> */}
+            </Form.Item>
+          </>
+        )
+      }
+      }
+      </Form.List>
+      <Form.Item>
+        <Button type="primary" htmlType="submit">
+          Submit
+        </Button>
+      </Form.Item>
+    </Form>
+  );
+};
 
-      </Content>
-      <Sider width="30%" >
-        <Card
-          hoverable
-          style={{ width: "100%", height: "300px" }}
-          cover={<img alt="example" height="250px" src={productObj.displaySrc} />}
-        >
-          <Meta title={productObj.productName} style={{ height: "50px" }} />
-        </Card>
-      </Sider>
-    </Layout>
-  </>)
-
-}
+// ReactDOM.render(<DynamicFieldSet />, mountNode);
 
 
-const Test = () => {
-  return <>
-    <Collapse defaultActiveKey={['1']} onChange={callback}>
-      <Panel header="中部广告位1" key="1">
-        <DisplayForm type="ads" order={1} />
-      </Panel>
-      <Panel header="中部广告位1" key="2">
-        <DisplayForm type="ads" order={2} />
-      </Panel>
-      <Panel header="中部广告位3" key="3">
-        <DisplayForm type="ads" order={3} />
-      </Panel>
-      <Panel header="中部广告位4" key="4">
-        <DisplayForm type="ads" order={4} />
-      </Panel>
-    </Collapse>
-  </>
-}
-export default Test
+export default DynamicFieldSet

@@ -39,6 +39,7 @@ app.use("/api/display", require("./api/display"));
 app.use("/admin/display", require("./admin/display"));
 
 app.use("/api/navigation", require("./api/navigation"));
+app.use("/admin/navigation", require("./admin/navigation"));
 
 app.use("/api/cart", require("./api/cart"));
 app.use("/api/address", require("./api/address"));

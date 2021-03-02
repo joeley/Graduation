@@ -39,6 +39,9 @@ import AdsDisplay from './display/AdsDisplay'
 import MainDisplay from './display/MainDisplay'
 import NewDisplay from './display/NewDisplay'
 import SwiperDisplay from './display/SwiperDisplay'
+import SetProduct from './navigation/SetProduct'
+import SetNavigation from './navigation/SetNavigation'
+
 
 
 const WysiwygBundle = Loadable({
@@ -83,6 +86,8 @@ export default {
     AdsDisplay,
     SwiperDisplay,
     MainDisplay,
-    NewDisplay
+    NewDisplay,
+    SetProduct,
+    SetNavigation
 
 } as any;

@@ -19,11 +19,11 @@ const RMenu = sequelize.define(
         model: Product, 
         key: 'id'
       }      
-    },
-    order:{
-      type: DataTypes.INTEGER,
-      allowNull: false,
     }
+    // order:{
+    //   type: DataTypes.INTEGER,
+    //   allowNull: false,
+    // }
   },
   {
     paranoid: false 

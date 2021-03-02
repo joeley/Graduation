@@ -8,10 +8,10 @@ const Navigation = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    order: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    }
+    // order: {
+    //   type: DataTypes.INTEGER,
+    //   allowNull: false,
+    // }
   },
   {
     paranoid: false

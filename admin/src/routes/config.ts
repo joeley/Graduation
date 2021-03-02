@@ -67,6 +67,23 @@ const menus: {
         },
       ],
     },
+    {
+      key: '/app/navigation',
+      title: '导航管理',
+      icon: 'rocket',
+      subs: [
+        {
+          key: '/app/navigation/set',
+          title: '设置导航',
+          component: 'SetNavigation',
+        },
+        {
+          key: '/app/navigation/setproduct',
+          title: '编辑导航商品',
+          component: 'SetProduct',
+        }
+      ],
+    },
     { key: '/app/test', title: '测试页', icon: 'mobile', component: 'Test' },
     {
       key: '/app/ui',
