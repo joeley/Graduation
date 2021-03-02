@@ -57,10 +57,7 @@ router.put(
 router.post(
   "/",
   asyncHandler(async (req, res) => {
-    console.log(111);
-    console.log(req.body)
     if (!req.body.navName){
-      console.log(222)
       return null
     }
     return await navServ.addNavigation(req.body);

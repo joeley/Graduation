@@ -2,10 +2,22 @@ const settings = require("../settings");
 const express = require("express");
 const app = express();
 
-// 映射public目录中的静态资源
 const path = require("path");
+
+// 图片防盗
+app.use("/img", require("./routeTool/imgProtectMid"))
+
+// 映射public目录中的静态资源
 const staticRoot = path.resolve(__dirname, "../public");
-app.use("/img",express.static(staticRoot));
+app.use(
+  express.static(staticRoot, {
+    setHeaders(res, path) {
+      if (!path.endsWith(".html")) {
+        res.header("Cache-Control", `max-age=${3600*24*365}`);
+      }
+    },
+  })
+);
 
 
 
