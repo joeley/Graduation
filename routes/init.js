@@ -62,7 +62,7 @@ app.use("/admin/upload", require("./admin/upload"))
 app.use("/admin/dashboard", require("./admin/dashboard"))
 
 // 处理错误的中间件
-// app.use(require("./routeTool/errorMiddleware"));
+app.use(require("./routeTool/errorMiddleware"));
 
 app.listen(settings.port, () => {
   console.log(`服务器启动\n开始监听 ${settings.port}`);

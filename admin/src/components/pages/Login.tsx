@@ -108,8 +108,8 @@ const Login = (props: LoginProps) => {
                         >
                             登录
                         </Button>
-                        <div style={{textAlign: 'center'}}>管理员joe密码123</div>
-                        <div style={{textAlign: 'center'}}>游客guest密码123</div>
+                        <div style={{textAlign: 'center'}}>管理员:joe 密码:123</div>
+                        <div style={{textAlign: 'center'}}>游客:guest 密码:123</div>
                     </FormItem>
                 </Form>
             </div>
