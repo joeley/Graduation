@@ -11,7 +11,7 @@
       <div class="container">
         <div class="login-form">
           <h3>
-            <span class="checked">帐号登录</span><span class="sep-line">|</span><span>扫码登录</span>
+            <span :class="{checked:type}" @click="toggleLogin">帐号登录</span><span class="sep-line">|</span><span :class="{checked:!type}" @click="toggleRegister">快捷注册</span>
           </h3>
           <div class="input">
             <input type="text" placeholder="请输入帐号" v-model="username">
@@ -19,12 +19,19 @@
           <div class="input">
             <input type="password" placeholder="请输入密码" v-model="password">
           </div>
+          <div class="input" v-show="!type">
+            <input type="text" placeholder="请输入手机号" v-model="phone">
+          </div>
           <div class="btn-box">
-            <a href="javascript:;" class="btn" @click="login">登录</a>
+            <a href="javascript:;" class="btn" @click="submit">{{type ? "登录" : "注册"}}</a>
           </div>
           <div class="tips">
-            <div class="sms" @click="register">手机短信登录/注册</div>
-            <div class="reg">立即注册<span>|</span>忘记密码？</div>
+            <div class="sms" @click="noDone">手机短信登录/注册</div>
+            <div class="reg"><span @click="noDone">扫码登录</span><span>|</span><span @click="noDone">忘记密码？</span></div>
+          </div>
+          <div class="info">
+            <div>账号可自行注册</div>
+            <div class="account">测试账号:guest 密码:123</div>
           </div>
         </div>
       </div>
@@ -42,10 +49,12 @@ export default {
   name: 'login',
   data(){
     return {
-      username:'joe',
-      password:'123',
+      username:'',
+      password:'',
+      phone:'',
       userId:'',
       redirect:"",
+      type:true, // true:login false register
     }
   },
   watch: {
@@ -57,6 +66,9 @@ export default {
     }
   },
   methods:{
+    submit(){
+      this.type ? this.login() : this.register()
+    },
     login(){
       let { username,password } = this;
       this.axios.post('/user/login',{
@@ -79,14 +91,36 @@ export default {
     },
     ...mapActions(['saveCartCount']),
     register(){
+      let { username,password, phone } = this;
       this.axios.post('/user/register',{
-        username:'admin1',
-        password:'admin1',
-        email:'admin1@163.com'
+        username,
+        password,
+        phone
       }).then(()=>{
-        this.$message.success('注册成功');
+        // this.saveUserName(res.username);
+        this.$message.success("注册成功，已为你登录")
+        // console.log("拉取product数量")
+        this.axios.get('/cart/cartNum').then((res)=>{
+          this.$store.dispatch('saveCartCount', res)
+        });
+        // this.axios.get('/carts/products/sum').then((res)=>{
+        //   this.$store.dispatch('saveCartCount', res)
+        // });
+        this.$router.push({ path: this.redirect || "/" });
+        // console.log(window.location.search.replace("?redirect="))
+        // this.$router.push({ path: window.location.search.replace("?redirect=","") || "/" });
       })
+    },
+    noDone(){
+      this.$message.error('这个功能没做，以后有空再说吧，你可以注册登录')
+    },
+    toggleRegister(){
+      this.type = false
+    },
+    toggleLogin(){
+      this.type = true
     }
+
   },
   components: {
     LoginFooter
@@ -175,6 +209,16 @@ export default {
             span{
               margin:0 7px;
             }
+          }
+        }
+        .info{
+          text-align: center; 
+          position:absolute;
+          bottom:0px;
+          left:0px;
+          right: 0px;
+          .account{
+            color:darkslateblue
           }
         }
       }

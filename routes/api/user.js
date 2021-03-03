@@ -31,11 +31,36 @@ router.post(
   )
 );
 
+router.post(
+  "/register",
+  asyncHandler(
+    async (req, res) => {
+      const { username, password, phone} = req.body;
+      if (username === undefined || password === undefined) {
+        return null;
+      }
+      const stu = await stuServ.userRegister(username, password, phone||"");
+      if (stu === null) {
+        return null;
+      }
+      jwt.publish(res, undefined, {
+        id: stu.id,
+        username: stu.username,
+        phone: stu.phone,
+        role: stu.role,
+        vip: stu.vip,
+      });
+      return stu;
+    },
+    "注册成功",
+    "注册失败,请填写完整信息，也可能用户名已被占用"
+  )
+);
+
 router.get(
   "/query",
   asyncHandler(
     async (req, res) => {
-      console.log(req.userId);
       return req.userId;
     },
     "成功",

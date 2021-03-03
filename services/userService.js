@@ -19,6 +19,26 @@ exports.userLogin = async function (username, password) {
   }
 };
 
+exports.userRegister = async function (username, password, phone="") {
+  const query = await User.findOne({
+    where: {
+      username
+    },
+  });
+  if (query !== null) {
+    return null;
+  } 
+  const user = await User.create({
+    username, 
+    password,
+    phone,
+    vip:1,
+    role:"user"
+  })
+  return pick(user.get(), "id", "username", "phone", "role", "vip");
+  
+};
+
 exports.adminLogin = async function (username, password) {
   const query = await User.findOne({
     where: {
