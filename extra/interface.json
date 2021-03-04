@@ -1,0 +1,1069 @@
+{
+	"info": {
+		"_postman_id": "bd822d32-c1f0-4651-8d4c-dfd421a60d9e",
+		"name": "Graduation",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "C端",
+			"item": [
+				{
+					"name": "用户登录",
+					"request": {
+						"auth": {
+							"type": "apikey"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"joe\",\r\n    \"password\":123\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5009/api/user/login",
+							"host": [
+								"localhost"
+							],
+							"port": "5009",
+							"path": [
+								"api",
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "拉取推荐",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5009/api/product/recommend",
+							"host": [
+								"localhost"
+							],
+							"port": "5009",
+							"path": [
+								"api",
+								"product",
+								"recommend"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "拉取分类",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5009/api/category/",
+							"host": [
+								"localhost"
+							],
+							"port": "5009",
+							"path": [
+								"api",
+								"category",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "拉取导航",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5009/api/navigation/",
+							"host": [
+								"localhost"
+							],
+							"port": "5009",
+							"path": [
+								"api",
+								"navigation",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "拉取产品页",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5009/api/product/10",
+							"host": [
+								"localhost"
+							],
+							"port": "5009",
+							"path": [
+								"api",
+								"product",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "拉取详情页",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5009/api/product/detail/1",
+							"host": [
+								"localhost"
+							],
+							"port": "5009",
+							"path": [
+								"api",
+								"product",
+								"detail",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "拉取购物车商品",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5009/api/cart",
+							"host": [
+								"localhost"
+							],
+							"port": "5009",
+							"path": [
+								"api",
+								"cart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "添加购物车商品",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ProductId\":1,\r\n    \"selected\":true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5009/api/cart",
+							"host": [
+								"localhost"
+							],
+							"port": "5009",
+							"path": [
+								"api",
+								"cart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "删除购物车商品",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:5009/api/cart/1",
+							"host": [
+								"localhost"
+							],
+							"port": "5009",
+							"path": [
+								"api",
+								"cart",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "购物车全选/全不全",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "localhost:5009/api/cart/selectAll",
+							"host": [
+								"localhost"
+							],
+							"port": "5009",
+							"path": [
+								"api",
+								"cart",
+								"selectAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "修改购物车商品数量",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"selected\":true,\r\n    \"quantity\":5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5009/api/cart/1",
+							"host": [
+								"localhost"
+							],
+							"port": "5009",
+							"path": [
+								"api",
+								"cart",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询购物车里商品数量",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5009/api/cart/cartNum",
+							"host": [
+								"localhost"
+							],
+							"port": "5009",
+							"path": [
+								"api",
+								"cart",
+								"cartNum"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "添加地址",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"receiverName\":\"joeley\",\r\n    \"receiverMobile\":\"15318118513\",\r\n    \"receiverProvince\":\"山东\",\r\n    \"receiverCity\":\"烟台市\",\r\n    \"receiverDistrict\":\"莱山区\",\r\n    \"receiverAddress\":\"滨海中路山东工商学院26号楼335宿舍\",\r\n    \"receiverZip\":\"264003\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5009/api/address",
+							"host": [
+								"localhost"
+							],
+							"port": "5009",
+							"path": [
+								"api",
+								"address"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询地址",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5009/api/address",
+							"host": [
+								"localhost"
+							],
+							"port": "5009",
+							"path": [
+								"api",
+								"address"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "修改地址",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"receiverName\":\"李哈哈\",\r\n    \"receiverMobile\":\"15318118513\",\r\n    \"receiverProvince\":\"山东\",\r\n    \"receiverCity\":\"泰安市\",\r\n    \"receiverDistrict\":\"岱岳区\",\r\n    \"receiverAddress\":\"良庄镇\",\r\n    \"receiverZip\":\"271028\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5009/api/address/1",
+							"host": [
+								"localhost"
+							],
+							"port": "5009",
+							"path": [
+								"api",
+								"address",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "删除地址",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:5009/api/address/2",
+							"host": [
+								"localhost"
+							],
+							"port": "5009",
+							"path": [
+								"api",
+								"address",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "生成订单",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:5009/api/order",
+							"host": [
+								"localhost"
+							],
+							"port": "5009",
+							"path": [
+								"api",
+								"order"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "分页查询全部订单",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5009/api/order?page=1&limit=10",
+							"host": [
+								"localhost"
+							],
+							"port": "5009",
+							"path": [
+								"api",
+								"order"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "订单号单个查询订单",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5009/api/order/161207355272980048",
+							"host": [
+								"localhost"
+							],
+							"port": "5009",
+							"path": [
+								"api",
+								"order",
+								"161207355272980048"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "阿里支付调取",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"orderId\":161207355272980048\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5009/api/pay/alipay",
+							"host": [
+								"localhost"
+							],
+							"port": "5009",
+							"path": [
+								"api",
+								"pay",
+								"alipay"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "模拟支付宝的支付回调",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"gmt_create\": \"2021-02-23 12:47:51\",\r\n  \"charset\": \"utf-8\",\r\n  \"gmt_payment\": \"2021-02-23 12:47:59\",\r\n  \"notify_time\": \"2021-02-23 12:48:00\",\r\n  \"subject\": \"小米伪订单\",\r\n  \"sign\": \"Cq9BoE6B7FwPCitl8HcXps92Q0bV/Fu/G6hTLutx6sYMsKw2qIIb4pLbTIcU5Xz8eLN8NsPd9T6Vc+NiCUXVwJylaGMUXYCFp7ZPEikhtUL7nfVv+Qpv3HYYWGN+8E5dhfqwJCTq8r2tAaA5z3DQqKTECSLXr7hNCVIeE25gbdRulFqD7wyZXkbq+tlTA8hQ5msCV4/GoBGybbKcBsqzO80Y2vgCyoWwewCM/6ht6YhCZw5eq8PHyolorkOEHlLloccTqGWakebFbqxQrXVw+WzfrdYEVnCcyBX1tGH6JCxzrHvedrV2mVu+/PiSlhUQEuX8BjzgbyiWcp+lhHKQVw==\",\r\n  \"buyer_id\": \"2088622955420155\",\r\n  \"invoice_amount\": \"9594.00\",\r\n  \"version\": \"1.0\",\r\n  \"notify_id\": \"2021022300222124759020150509957810\",\r\n  \"fund_bill_list\": \"\",\r\n  \"notify_type\": \"trade_status_sync\",\r\n  \"out_trade_no\": \"161207355272980048\",\r\n  \"total_amount\": \"9594.00\",\r\n  \"trade_status\": \"TRADE_SUCCESS\",\r\n  \"trade_no\": \"2021022322001420150501673845\",\r\n  \"auth_app_id\": \"2021000117607776\",\r\n  \"receipt_amount\": \"9594.00\",\r\n  \"point_amount\": \"0.00\",\r\n  \"app_id\": \"2021000117607776\",\r\n  \"buyer_pay_amount\": \"9594.00\",\r\n  \"sign_type\": \"RSA2\",\r\n  \"seller_id\": \"2088621955263955\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5009/api/pay/alipay/notify",
+							"host": [
+								"localhost"
+							],
+							"port": "5009",
+							"path": [
+								"api",
+								"pay",
+								"alipay",
+								"notify"
+							]
+						},
+						"description": "模拟支付宝回调"
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "B端",
+			"item": [
+				{
+					"name": "查询用户列表",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5009/admin/user/query",
+							"host": [
+								"localhost"
+							],
+							"port": "5009",
+							"path": [
+								"admin",
+								"user",
+								"query"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "删除用户",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:5009/admin/user/3",
+							"host": [
+								"localhost"
+							],
+							"port": "5009",
+							"path": [
+								"admin",
+								"user",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "用户登录",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"joe\",\r\n    \"password\":123\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5009/admin/user/login",
+							"host": [
+								"localhost"
+							],
+							"port": "5009",
+							"path": [
+								"admin",
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询全部商品信息",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5009/admin/product/query",
+							"host": [
+								"localhost"
+							],
+							"port": "5009",
+							"path": [
+								"admin",
+								"product",
+								"query"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "上传图片",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "img",
+									"type": "file",
+									"src": "/C:/Users/first/Pictures/test.gif"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:5009/admin/upload",
+							"host": [
+								"localhost"
+							],
+							"port": "5009",
+							"path": [
+								"admin",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "上架商品",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productStatus\": 0,\r\n    \"productFlag\": 0,\r\n    \"productName\": \"1\",\r\n    \"productMainImage\": \"/upload/1614496154022-kk2men.jpg\",\r\n    \"productPrice\": 1,\r\n    \"productStock\": 2,\r\n    \"order\": 2,\r\n    \"productSubtitle\": \"3\",\r\n    \"tag\": \"11\",\r\n    \"tagColor\": \"red\",\r\n    \"detailImg1\": \"/upload/1614496172570-qqptfq.png\",\r\n    \"detailImg2\": \"\",\r\n    \"detailImg3\": \"\",\r\n    \"detailImg4\": \"\",\r\n    \"CategoryId\": 6,\r\n    \"galleryFlag\": 0,\r\n    \"videoFlag\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5009/admin/product",
+							"host": [
+								"localhost"
+							],
+							"port": "5009",
+							"path": [
+								"admin",
+								"product"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "拉取展示",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5009/admin/display/?type=main&order=1",
+							"host": [
+								"localhost"
+							],
+							"port": "5009",
+							"path": [
+								"admin",
+								"display",
+								""
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "main"
+								},
+								{
+									"key": "order",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "修改展示",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\":\"main\",\r\n    \"order\":1,\r\n    \"displaySrc\":\"1\",\r\n    \"ProductId\":1\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5009/admin/display/",
+							"host": [
+								"localhost"
+							],
+							"port": "5009",
+							"path": [
+								"admin",
+								"display",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "简单商品查询",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5009/admin/product/query/simple",
+							"host": [
+								"localhost"
+							],
+							"port": "5009",
+							"path": [
+								"admin",
+								"product",
+								"query",
+								"simple"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "按导航查询商品",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5009/admin/navigation/1",
+							"host": [
+								"localhost"
+							],
+							"port": "5009",
+							"path": [
+								"admin",
+								"navigation",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "localhost:5009/admin/navigation/",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:5009/admin/navigation/1",
+									"host": [
+										"localhost"
+									],
+									"port": "5009",
+									"path": [
+										"admin",
+										"navigation",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "2265"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"8d9-BQR+7SQxDsOdaBm2/j7TMMD2TlE\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 01 Mar 2021 09:26:47 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 0,\n    \"msg\": \"获取导航下的商品成功\",\n    \"data\": {\n        \"id\": 1,\n        \"navName\": \"小米手机\",\n        \"order\": 1,\n        \"createdAt\": \"2021-03-01T09:26:37.000Z\",\n        \"updatedAt\": \"2021-03-01T09:26:37.000Z\",\n        \"UserId\": null,\n        \"Products.id\": 1,\n        \"Products.productMainImage\": \"/upload/productMainImage/mi11.webp\",\n        \"Products.productName\": \"小米11\",\n        \"Products.productPrice\": \"3999.01\",\n        \"Products.productStock\": 10000,\n        \"Products.productStatus\": 0,\n        \"Products.productSubtitle\": \"骁龙888 2K曲面屏\",\n        \"Products.tag\": \"新品\",\n        \"Products.tagColor\": \"#7ecf68\",\n        \"Products.productFlag\": 1,\n        \"Products.productDescribe1\": \"小米11\",\n        \"Products.productDescribe2\": \"轻装上阵\",\n        \"Products.productDescribe3\": \"2k超晰曲面\",\n        \"Products.productDescribe4\": \"超薄超轻\",\n        \"Products.productBg1\": \"/upload/product/bg/mi11bg.png\",\n        \"Products.productBg2\": \"/upload/product/bg/mi11.jpg\",\n        \"Products.productBg3\": \"/upload/product/bg/product-bg-3.png\",\n        \"Products.productBg4\": \"\",\n        \"Products.galleryFlag\": 1,\n        \"Products.galleryText\": \"小米11 AI变焦双摄拍摄\",\n        \"Products.galleryImg1\": \"/upload/product/gallery/mi111.jpg\",\n        \"Products.galleryImg2\": \"/upload/product/gallery/mi112.jpg\",\n        \"Products.galleryImg3\": \"/upload/product/gallery/mi113.jpg\",\n        \"Products.galleryImg4\": \"/upload/product/gallery/gallery-4.png\",\n        \"Products.galleryImg5\": \"/upload/product/gallery/gallery-3.png\",\n        \"Products.videoFlag\": 1,\n        \"Products.videoSrc\": \"/upload/product/video/mi11.mp4\",\n        \"Products.videoCover\": \"/upload/product/video/videoCover.png\",\n        \"Products.videoMainTitleText1\": \"60帧超慢动作摄影\",\n        \"Products.videoMainTitleText2\": \"慢慢回味每一瞬间的精彩\",\n        \"Products.videoSubheadText1\": \"后置960帧电影般超慢动作视频，将眨眼间的美妙展现得淋漓尽致！\",\n        \"Products.videoSubheadText2\": \"更能AI 精准分析视频内容，15个场景智能匹配背景音效。\",\n        \"Products.detailImg1\": \"/upload/detail/mi111.jpg\",\n        \"Products.detailImg2\": \"/upload/detail/mi112.jpg\",\n        \"Products.detailImg3\": \"\",\n        \"Products.detailImg4\": \"\",\n        \"Products.order\": 1,\n        \"Products.createdAt\": \"2021-03-01T09:26:37.000Z\",\n        \"Products.updatedAt\": \"2021-03-01T09:26:37.000Z\",\n        \"Products.deletedAt\": null,\n        \"Products.CategoryId\": 1,\n        \"Products.RMenu.NavigationId\": 1,\n        \"Products.RMenu.ProductId\": 1,\n        \"Products.RMenu.order\": 1,\n        \"Products.RMenu.createdAt\": \"2021-03-01T09:26:37.000Z\",\n        \"Products.RMenu.updatedAt\": \"2021-03-01T09:26:37.000Z\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "导航里增加删除商品",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\":\"decrease\",\r\n    \"list\":[4,3,1,7]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5009/admin/navigation/2",
+							"host": [
+								"localhost"
+							],
+							"port": "5009",
+							"path": [
+								"admin",
+								"navigation",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "简单导航查询",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5009/admin/navigation/query/simple",
+							"host": [
+								"localhost"
+							],
+							"port": "5009",
+							"path": [
+								"admin",
+								"navigation",
+								"query",
+								"simple"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "删除导航",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:5009/admin/navigation/1",
+							"host": [
+								"localhost"
+							],
+							"port": "5009",
+							"path": [
+								"admin",
+								"navigation",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "设置导航",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":1,\r\n    \"navName\":11\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5009/admin/navigation/set",
+							"host": [
+								"localhost"
+							],
+							"port": "5009",
+							"path": [
+								"admin",
+								"navigation",
+								"set"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "添加导航",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"navName\":\"hah\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5009/admin/navigation",
+							"host": [
+								"localhost"
+							],
+							"port": "5009",
+							"path": [
+								"admin",
+								"navigation"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "订单总量",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5009/admin/dashboard/allcount",
+							"host": [
+								"localhost"
+							],
+							"port": "5009",
+							"path": [
+								"admin",
+								"dashboard",
+								"allcount"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "总成交量",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5009/admin/dashboard/payedcount",
+							"host": [
+								"localhost"
+							],
+							"port": "5009",
+							"path": [
+								"admin",
+								"dashboard",
+								"payedcount"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "总成交额",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5009/admin/dashboard/turnover",
+							"host": [
+								"localhost"
+							],
+							"port": "5009",
+							"path": [
+								"admin",
+								"dashboard",
+								"turnover"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询建站天数",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5009/admin/dashboard/establish",
+							"host": [
+								"localhost"
+							],
+							"port": "5009",
+							"path": [
+								"admin",
+								"dashboard",
+								"establish"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "图片服务器",
+			"item": [
+				{
+					"name": "加载图片",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5009/img/404/404.jpg",
+							"host": [
+								"localhost"
+							],
+							"port": "5009",
+							"path": [
+								"img",
+								"404",
+								"404.jpg"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
