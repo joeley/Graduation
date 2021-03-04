@@ -17,7 +17,7 @@
             </li>
           </ul>
         </div>
-        <swiper v-bind:options="swiperOption">
+        <swiper v-bind:options="swiperOption" v-if="swiperList.length !== 0">
           <swiper-slide v-for="(item, index) in swiperList" :key="index">
             <router-link :to="'/product/'+item.ProductId">
               <!-- 边界图处理 -->
@@ -104,6 +104,11 @@ export default {
   data() {
     return {
       swiperOption: {
+        // autoplay: {
+        //   delay:1000,
+        //   stopOnLastSlide:false,
+        //   disableOnInteraction:false
+        // },
         autoplay: true,
         loop: true,
         effect: "cube",
@@ -111,6 +116,8 @@ export default {
           shadowOffset: 100,
           shadowScale: 0.6,
         },
+        // observer:true,
+        // observeParents:true,
         pagination: {
           el: ".swiper-pagination",
           clickable: true,
@@ -122,6 +129,7 @@ export default {
       },
       categoryList:[],
       swiperList:[],
+      // [{"displaySrc":"/upload/display/swiper/mi10.webp","order":1,"ProductId":2},{"displaySrc":"/upload/display/swiper/note9.jpg","order":2,"ProductId":4},{"displaySrc":"/upload/display/swiper/max98.webp","order":3,"ProductId":23},{"displaySrc":"/upload/display/swiper/dashi82.webp","order":4,"ProductId":4},{"displaySrc":"/upload/display/swiper/max98.webp","order":99,"ProductId":4}],
       adsList: [],
       recommendList: [],
       mainRecommend:[],
@@ -159,6 +167,7 @@ export default {
     getSwiper(){
       this.axios.get("/display/swiper").then((res)=>{
         this.swiperList = res
+        console.log(JSON.stringify(res) );
       })
     },
     getMainRecommend(){
