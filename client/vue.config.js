@@ -14,7 +14,7 @@ module.exports = {
           //   '/api':''
           // }
         },
-        '/img':{
+        '/picture':{
           target:'http://localhost:5009',
           changeOrigin:true,
           // pathRewrite:{

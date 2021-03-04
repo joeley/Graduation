@@ -96,8 +96,8 @@
 import ServiceBar from "../components/ServiceBar";
 import Modal from "../components/Modal";
 
+import "swiper/swiper-bundle.min.css";
 import { swiper, swiperSlide } from "vue-awesome-swiper";
-import "swiper/swiper-bundle.css";
 
 export default {
   name: "index",
@@ -227,6 +227,7 @@ export default {
 @import "../assets/scss/base.scss";
 @import "../assets/scss/mixin.scss";
 @import "../assets/scss/config.scss";
+@import "./../../node_modules/swiper/swiper-bundle.min.css";
 .index {
   .swiper-box {
     height:451px;

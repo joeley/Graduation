@@ -5,11 +5,11 @@ const app = express();
 const path = require("path");
 
 // 图片防盗
-app.use("/img", require("./routeTool/imgProtectMid"))
+app.use("/picture", require("./routeTool/imgProtectMid"))
 
 // 映射public目录中的静态资源
 const staticRoot = path.resolve(__dirname, "../public");
-app.use(
+app.use("/picture",
   express.static(staticRoot, {
     setHeaders(res, path) {
       if (!path.endsWith(".html")) {
@@ -27,7 +27,6 @@ app.use(
 // 解析 application/json 格式的请求体
 app.use(express.json());
 app.use(function (req, res, next) {
-  console.log("请求进来了");
   console.count();
   next();
 });

@@ -162,9 +162,9 @@ exports.getPayedCount = async()=>{
 exports.getTurnover = async()=>{
   const [results, metadata] = await sequelize.query(`
     select sum(quantity * productPrice) as turnover
-    from rlists as r
-    join products as p on r.ProductId = p.id
-    join orders as o on o.id = r.OrderId
+    from RLists as r
+    join Products as p on r.ProductId = p.id
+    join Orders as o on o.id = r.OrderId
     where o.payStatus = 1
   `);
   return metadata[0].turnover

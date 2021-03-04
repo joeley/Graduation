@@ -29,7 +29,7 @@ module.exports = {
 
 // module.exports = {
 //   domain:"http://joeley.cn",
-//   port:5008,
+//   port:5009,
 //   authorizationKey:"token",
 //   tokenSecrect:"joeley",
 //   mysqlDatabaseName:"xiaomi",

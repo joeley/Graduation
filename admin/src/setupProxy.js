@@ -21,7 +21,7 @@ module.exports = function (app) {
         })
     );
     app.use(
-      '/img', // 指定需要转发的请求
+      '/picture', // 指定需要转发的请求
       createProxyMiddleware({
           target: 'http://localhost:5009',
           changeOrigin: 'true',
