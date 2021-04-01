@@ -172,6 +172,7 @@ export default {
         width: 55px;
         height: 55px;
         background-color: #ff6600;
+        border-radius:19px;
         a {
           display: inline-block;
           width: 110px;
