@@ -32,8 +32,8 @@ Order.belongsTo(Address);
 Order.belongsToMany(Product, { through: 'RList' });
 Product.belongsToMany(Order, { through: 'RList' });
 
-User.hasMany(Navigation);
-Navigation.belongsTo(User);
+// User.hasMany(Navigation);
+// Navigation.belongsTo(User);
 
 Navigation.belongsToMany(Product, { through: 'RMenu' });
 Product.belongsToMany(Navigation, { through: 'RMenu' });
