@@ -201,7 +201,7 @@ export default {
       this.showModal=false;
     },
     addCart(id) {
-      if(this.$store.state.cartCount === ""||this.$store.state.jwt !==''){
+      if(this.$store.state.cartCount === ""||this.$store.state.jwt ===''){
         this.sureText = "去登陆"
         this.title = "权限不够"
         this.modalContent = "是否前去登录？"
