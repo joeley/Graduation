@@ -78,6 +78,7 @@
       :showModal="showModal" 
       :title="title" 
       :sureText="sureText" 
+      :modalAction="modalAction"
       btnType="3" 
       modalType="middle"
       @modalSubmit="goTo"
@@ -167,7 +168,6 @@ export default {
     getSwiper(){
       this.axios.get("/display/swiper").then((res)=>{
         this.swiperList = res
-        console.log(JSON.stringify(res) );
       })
     },
     getMainRecommend(){
@@ -191,7 +191,7 @@ export default {
       })
     },
     goTo(){
-      if(this.modelAction === 1){
+      if(this.modalAction === 1){
         this.$router.push("/cart");
       }else{
         this.$router.push("/login")
@@ -212,6 +212,7 @@ export default {
           ProductId: id, 
           selected: true
         }).then((res) => {
+          console.log(res);
           this.$store.dispatch("saveCartCount", res.totalNum)
           this.sureText = "查看购物车"
           this.title = "成功"

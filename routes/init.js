@@ -54,6 +54,12 @@ app.use("/admin/navigation", require("./admin/navigation"));
 app.use("/api/cart", require("./api/cart"));
 app.use("/api/address", require("./api/address"));
 app.use("/api/order", require("./api/order"));
+// app.use(function (req, res, next){
+//   if (req.url === '/api/pay/alipay/notify') {
+//     req.headers['content-type'] = 'application/x-www-form-urlencoded';
+//   }
+//   next();
+// });
 app.use("/api/pay", require("./api/pay"));
 
 app.use("/admin/upload", require("./admin/upload"))

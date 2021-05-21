@@ -31,6 +31,7 @@
     padding:30px 0;
     border-bottom:2px solid #FF6600;
     .header-logo{
+      border-radius:19px;
       float:left;
     }
     .title,.username{

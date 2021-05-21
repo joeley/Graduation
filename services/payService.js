@@ -65,11 +65,15 @@ exports.alipay = async (UserId, OrderId) => {
 }
 
 exports.alipayNotify = async (params) => {
+
   const verify = alipaySdk.checkNotifySign(params);
+  // console.log(verify);
+  // console.log(params)
   if(verify !== true){
     return "fail"
   }
   let upInfo = {};
+  
   if(params.trade_status === "TRADE_SUCCESS"|| params.trade_status === "TRADE_FINISHED"){
     upInfo = {
       payStatus:1,
